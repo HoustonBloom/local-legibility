@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Local Intelligence Packet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Aldrich&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-retro: "Aldrich", monospace;
+  --font-mono: "JetBrains Mono", monospace;
+  --ink: #1f1d1a; --ink-soft: #44403c; --ink-faint: #6e6760;
+  --paper: #faf6ee; --paper-warm: #f5eede; --paper-deep: #ece1c7;
+  --sage: #6fa67f; --sage-deep: #1f5028; --sage-soft: #dcebd7;
+  --butter: #f5d88e; --butter-deep: #6b4613; --butter-soft: #fbefc8;
+  --rule: #e7dec9;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-sans); background: var(--paper); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; font-size: 17px; }
+a { color: var(--sage-deep); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+section { padding: 72px 0; }
+section + section { border-top: 1px solid var(--rule); }
+.kicker { font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 18px; }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+h2 { font-size: clamp(1.85rem, 3.6vw, 2.4rem); font-weight: 700; max-width: 24ch; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { color: var(--ink-soft); max-width: 60ch; }
+
+.hero { padding: 96px 0 48px; background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%); }
+.hero .stamp { display: inline-block; font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); background: var(--sage-soft); padding: 6px 12px; border-radius: 20px; margin-bottom: 24px; }
+.hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.2rem); font-weight: 800; margin-bottom: 22px; max-width: 22ch; }
+.hero h1 .ink-accent { color: var(--sage-deep); }
+.hero .sub { font-size: 1.15rem; color: var(--ink-soft); max-width: 56ch; }
+
+.subsystem-pair { display: grid; gap: 22px; margin-top: 36px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .subsystem-pair { grid-template-columns: 1fr 1fr; gap: 28px; } }
+.sys-card {
+  background: #fffdf6; border: 2px solid var(--ink); border-radius: 14px;
+  padding: 32px 28px; box-shadow: 4px 4px 0 var(--ink); display: flex; flex-direction: column;
+}
+.sys-card .badge { display: inline-block; font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage-deep); background: var(--sage-soft); padding: 5px 11px; border-radius: 14px; margin-bottom: 14px; align-self: flex-start; }
+.sys-card h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+.sys-card .tagline { font-size: 1rem; color: var(--ink-soft); margin-bottom: 18px; }
+.sys-card ul { list-style: none; padding: 0; margin: 0; }
+.sys-card li { font-size: 0.94rem; color: var(--ink-soft); padding: 5px 0 5px 22px; position: relative; }
+.sys-card li::before { content: '\2192'; position: absolute; left: 0; top: 5px; color: var(--sage); font-weight: 700; }
+
+.principle-grid { display: grid; gap: 18px; margin-top: 28px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .principle-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+.principle {
+  background: var(--paper-warm); border: 1.5px solid var(--rule); border-radius: 10px;
+  padding: 22px 20px;
+}
+.principle h3 { font-size: 1.05rem; margin-bottom: 6px; color: var(--sage-deep); }
+.principle p { font-size: 0.92rem; max-width: none; }
+
+.tree-section { background: var(--ink); color: var(--paper); padding: 80px 0; }
+.tree-section .kicker { color: var(--butter); }
+.tree-section h2 { color: var(--paper); margin-bottom: 28px; }
+.tree-box {
+  background: rgba(250, 246, 238, 0.06);
+  border: 1.5px solid rgba(245, 216, 142, 0.3);
+  border-radius: 12px;
+  padding: 28px;
+}
+.tree-box pre {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: rgba(250, 246, 238, 0.88);
+  white-space: pre-wrap;
+}
+.tree-box .comment { color: rgba(245, 216, 142, 0.7); }
+
+.needs-section { margin-top: 28px; }
+.needs-item { padding: 14px 0; border-bottom: 1px dashed var(--rule); }
+.needs-item:last-child { border-bottom: none; }
+.needs-item h3 { font-size: 1.02rem; margin-bottom: 4px; }
+.needs-item p { font-size: 0.92rem; }
+
+
+footer { padding: 28px 0; border-top: 1px solid var(--rule); font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="stamp">About</span>
+    <h1>A vault-agnostic <span class="ink-accent">publishing system.</span></h1>
+    <p class="sub">Turn any folder of markdown into curated HTML intelligence packets and a full local-first preview website. Bring your own folder structure. The packet adapts.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Two subsystems</div>
+    <h2>One design system, two ways to publish.</h2>
+    <div class="subsystem-pair">
+      <div class="sys-card">
+        <span class="badge">Pipeline</span>
+        <h3>Content Publishing Pipeline</h3>
+        <p class="tagline">Renders curated HTML frames from selected files, shaped by voice and audience.</p>
+        <ul>
+          <li><strong>Cut</strong> = config (selection + voice + output target)</li>
+          <li><strong>Frame</strong> = rendered HTML output of one cut</li>
+          <li><strong>Window</strong> = multiple frames with tabs in one file</li>
+          <li><strong>Narrative</strong> = reusable voice preset (8 ship with the packet)</li>
+          <li><strong>Lens</strong> = layout pattern (7 specs, 6 live examples)</li>
+          <li><strong>Content-tag</strong> = visibility array string sourcing a cut</li>
+        </ul>
+      </div>
+      <div class="sys-card">
+        <span class="badge">Roadmap</span>
+        <h3>Whole-folder Preview</h3>
+        <p class="tagline">An "everything-lens" that renders the full folder as a local-first website. Coming in a future release.</p>
+        <ul>
+          <li>Not bundled in v1.0</li>
+          <li>The publishing pipeline is the v1.0 surface</li>
+          <li>Whole-folder preview will arrive as a separate subsystem you can opt into</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tree-section">
+  <div class="wrap">
+    <div class="kicker">Folder structure</div>
+    <h2>What ships in the packet.</h2>
+    <div class="tree-box">
+      <pre>Local Brain/
+<span class="comment">  README.md                          ← packet orientation</span>
+<span class="comment">  LICENSE                            ← MIT</span>
+<span class="comment">  Getting Started.html               ← this file (bundled entry point)</span>
+<span class="comment">  00_inbox/                          ← placeholder for capture</span>
+<span class="comment">  01_tools/                          ← all the machinery</span>
+<span class="comment">    00_overview/                     ← specs and build scripts</span>
+<span class="comment">      ADAPTER-PROMPT.md              ← prompt for your AI</span>
+<span class="comment">      CUTS-SPEC.md                   ← full cut system spec</span>
+<span class="comment">      ADDING-COMPONENTS.md           ← shared workflow for lenses + atmospheres</span>
+<span class="comment">      Design Principles.md           ← four commitments + tagging vocabulary</span>
+<span class="comment">      lens-catalog.html              ← browseable lens catalog (Lenses tab source)</span>
+<span class="comment">      build-window-frames.mjs        ← rebuilds Getting Started.html</span>
+<span class="comment">      window-manifest-template.md    ← template for window manifests</span>
+<span class="comment">    01_lenses/                       ← lens specs + placeholder examples</span>
+<span class="comment">    02_atmospheres/                  ← ambient background layers</span>
+<span class="comment">    03_design-system/                ← shared style tokens (default-tokens.md)</span>
+<span class="comment">    04_workflows/                    ← cut-packet engine + sibling skills</span>
+<span class="comment">    05_contacts/                     ← profile per collaborator (overlay system)</span>
+<span class="comment">  02_activity/                       ← changelog of system-shape changes</span>
+<span class="comment">  03_cuts/                         ← your produced frames go here</span></pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Requirements</div>
+    <h2>What the packet needs from your folder.</h2>
+    <div class="needs-section">
+      <div class="needs-item">
+        <h3>Required: markdown files.</h3>
+        <p>Files with .md extension and optional YAML frontmatter. For the preview site, add a visibility field to any file you want published.</p>
+      </div>
+      <div class="needs-item">
+        <h3>Recommended: top-level folders that group content by kind.</h3>
+        <p>The reference uses Initiatives, Products, Research, Content/Published. A type field in frontmatter helps distinguish kinds of content.</p>
+      </div>
+      <div class="needs-item">
+        <h3>Optional: a daily changelog and session-carryover file.</h3>
+        <p>Powers the timeline activity view and current-work display. Not required for frames.</p>
+      </div>
+      <div class="needs-item">
+        <h3>Frontmatter is optional for the pipeline.</h3>
+        <p>Most lenses can work from filenames, headings, and content alone. The packet is forgiving by design.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Design principles</div>
+    <h2>What this system encodes.</h2>
+    <p>Four commitments that govern every decision in the packet. Every lens, atmosphere, skill, and convention is scored against these. They are also the tagging vocabulary for Activity Log entries (see the Workflow tab).</p>
+    <div class="principle-grid">
+      <div class="principle">
+        <h3>Make harm legible.</h3>
+        <p>You cannot organize against what you cannot see. Every frame is inspectable HTML. No black-box rendering. Restore the feedback loop.</p>
+      </div>
+      <div class="principle">
+        <h3>Provide an exit.</h3>
+        <p>Content stays as portable markdown. No lock-in to the packet, the AI, or the cloud. You can leave at any time with your folder intact.</p>
+      </div>
+      <div class="principle">
+        <h3>Design for sufficiency.</h3>
+        <p>The pipeline is one script. The design system is one stylesheet's worth of tokens. Nothing is optimized for scale it doesn't need.</p>
+      </div>
+      <div class="principle">
+        <h3>Scale out, not up.</h3>
+        <p>Federation over merger. Sovereign cells connecting laterally, sharing protocols not ownership. The packet installs anywhere, reports to no one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <span>Local Intelligence Packet · About</span>
+    <span>Frame · about</span>
+  </div>
+</footer>
+
+</body>
+</html>

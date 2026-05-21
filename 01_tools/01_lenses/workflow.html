@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workflow — Local Intelligence Packet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Aldrich&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-retro: "Aldrich", monospace;
+  --font-mono: "JetBrains Mono", monospace;
+  --ink: #1f1d1a; --ink-soft: #44403c; --ink-faint: #6e6760;
+  --paper: #faf6ee; --paper-warm: #f5eede; --paper-deep: #ece1c7;
+  --sage: #6fa67f; --sage-deep: #1f5028; --sage-soft: #dcebd7;
+  --butter: #f5d88e; --butter-deep: #6b4613; --butter-soft: #fbefc8;
+  --rule: #e7dec9;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-sans); background: var(--paper); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; font-size: 17px; }
+a { color: var(--sage-deep); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+section { padding: 72px 0; }
+section + section { border-top: 1px solid var(--rule); }
+.kicker { font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 18px; }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+h2 { font-size: clamp(1.85rem, 3.6vw, 2.4rem); font-weight: 700; max-width: 24ch; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { color: var(--ink-soft); max-width: 60ch; }
+
+.hero { padding: 96px 0 48px; background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%); }
+.hero .stamp { display: inline-block; font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); background: var(--sage-soft); padding: 6px 12px; border-radius: 20px; margin-bottom: 24px; }
+.hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.2rem); font-weight: 800; margin-bottom: 22px; max-width: 22ch; }
+.hero h1 .ink-accent { color: var(--sage-deep); }
+.hero .sub { font-size: 1.15rem; color: var(--ink-soft); max-width: 56ch; }
+
+.concept-grid { display: grid; gap: 22px; margin-top: 36px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .concept-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+@media (min-width: 1040px) { .concept-grid { grid-template-columns: repeat(3, 1fr); } }
+.concept-card {
+  background: #fffdf6; border: 2px solid var(--ink); border-radius: 14px;
+  padding: 28px 24px; box-shadow: 4px 4px 0 var(--ink);
+}
+.concept-card .badge { display: inline-block; font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage-deep); background: var(--sage-soft); padding: 5px 11px; border-radius: 14px; margin-bottom: 14px; }
+.concept-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 8px; }
+.concept-card p { font-size: 0.94rem; color: var(--ink-soft); }
+
+/* Prompt patterns section (dark) */
+.ai-prompts-section { background: var(--ink); color: var(--paper); padding: 80px 0; }
+.ai-prompts-section .kicker { color: var(--butter); }
+.ai-prompts-section h2 { color: var(--paper); margin-bottom: 14px; }
+.ai-prompts-section .lede {
+  font-size: 1.05rem;
+  color: rgba(250, 246, 238, 0.85);
+  max-width: 64ch;
+  margin-bottom: 36px;
+}
+.ai-prompts-section .lede strong { color: var(--paper); }
+.ai-prompts-section .lede code {
+  font-family: var(--font-mono); font-size: 0.85em;
+  background: rgba(245, 216, 142, 0.15);
+  color: var(--butter); padding: 2px 6px; border-radius: 4px;
+}
+
+/* Subsection labels inside the dark prompts section */
+.subsection-label {
+  font-family: var(--font-retro); font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--butter); margin: 36px 0 16px;
+}
+
+/* Session rituals · 3-up grid of slash command cards */
+.rituals-grid {
+  display: grid; gap: 14px;
+  grid-template-columns: 1fr;
+  margin-bottom: 12px;
+}
+@media (min-width: 720px) { .rituals-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+.ritual-card {
+  background: rgba(250, 246, 238, 0.04);
+  border: 1px solid rgba(245, 216, 142, 0.22);
+  border-radius: 10px;
+  padding: 22px 20px;
+}
+.ritual-card .cmd {
+  display: inline-block;
+  font-family: var(--font-mono); font-weight: 600; font-size: 0.95rem;
+  color: var(--butter);
+  background: rgba(31, 29, 26, 0.6);
+  border: 1px solid rgba(245, 216, 142, 0.4);
+  padding: 5px 11px; border-radius: 4px;
+  margin-bottom: 12px;
+}
+.ritual-card h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1rem; color: var(--paper); margin-bottom: 8px;
+}
+.ritual-card p {
+  font-size: 0.9rem;
+  color: rgba(250, 246, 238, 0.78);
+  max-width: none;
+}
+
+/* Hero prompt for cut-a-frame */
+.hero-prompt {
+  background: linear-gradient(180deg, rgba(245, 216, 142, 0.08) 0%, rgba(245, 216, 142, 0.02) 100%);
+  border: 2px solid var(--butter);
+  border-radius: 12px;
+  padding: 28px 28px 24px;
+  margin-top: 4px;
+}
+.hero-prompt h3 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.2rem; color: var(--paper); margin-bottom: 14px;
+}
+.hero-prompt .prompt-example {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  background: rgba(31, 29, 26, 0.6);
+  border-left: 3px solid var(--butter);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  color: var(--butter-soft);
+  border-radius: 4px;
+  display: block;
+  line-height: 1.5;
+}
+.hero-prompt .what-happens {
+  font-size: 0.95rem;
+  color: rgba(250, 246, 238, 0.85);
+  max-width: 64ch;
+}
+.hero-prompt .what-happens code {
+  font-family: var(--font-mono); font-size: 0.85em;
+  background: rgba(245, 216, 142, 0.15);
+  color: var(--butter-soft); padding: 1px 5px; border-radius: 3px;
+}
+.hero-prompt .pitch-note {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(245, 216, 142, 0.2);
+  font-size: 0.9rem;
+  color: rgba(250, 246, 238, 0.75);
+}
+
+/* Other prompts · compact list */
+.prompt-list { display: grid; gap: 12px; margin-top: 4px; }
+.prompt-item {
+  background: rgba(250, 246, 238, 0.025);
+  border: 1px solid rgba(245, 216, 142, 0.12);
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+.prompt-item h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 0.96rem; margin-bottom: 8px;
+  color: var(--paper);
+}
+.prompt-item .prompt-example {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  background: rgba(31, 29, 26, 0.55);
+  border-left: 2px solid rgba(245, 216, 142, 0.5);
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  color: var(--butter-soft);
+  border-radius: 4px;
+  display: block;
+  line-height: 1.5;
+}
+.prompt-item .what-happens {
+  font-size: 0.88rem;
+  color: rgba(250, 246, 238, 0.72);
+  max-width: 64ch;
+}
+.prompt-item .what-happens code {
+  font-family: var(--font-mono); font-size: 0.85em;
+  background: rgba(245, 216, 142, 0.1);
+  color: var(--butter-soft); padding: 1px 5px; border-radius: 3px;
+}
+.ai-prompts-section .footnote {
+  margin-top: 28px;
+  padding: 16px 20px;
+  background: rgba(245, 216, 142, 0.05);
+  border-left: 2px solid rgba(245, 216, 142, 0.4);
+  border-radius: 4px;
+  font-size: 0.92rem;
+  color: rgba(250, 246, 238, 0.85);
+  max-width: 64ch;
+}
+
+/* Contacts / overlay section */
+.contacts-section { background: var(--paper-deep); }
+.contacts-section .lede { font-size: 1.05rem; color: var(--ink); max-width: 64ch; margin-top: 14px; }
+.contacts-section .lede strong { font-weight: 700; }
+.overlay-stack {
+  margin-top: 36px;
+  display: grid; gap: 14px;
+  grid-template-columns: 1fr;
+}
+.overlay-layer {
+  background: #fffdf6; border: 2px solid var(--ink); border-radius: 12px;
+  padding: 22px 24px; box-shadow: 4px 4px 0 var(--ink);
+  position: relative;
+}
+.overlay-layer .priority {
+  position: absolute; top: 22px; right: 22px;
+  font-family: var(--font-retro); font-size: 0.62rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.overlay-layer .label {
+  display: inline-block; font-family: var(--font-retro); font-size: 0.62rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 14px; margin-bottom: 12px;
+}
+.overlay-layer.l-cut    .label { color: var(--sage-deep);   background: var(--sage-soft); }
+.overlay-layer.l-contact .label { color: var(--butter-deep); background: var(--butter-soft); }
+.overlay-layer.l-lens    .label { color: var(--ink-soft);    background: var(--paper-warm); }
+.overlay-layer h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; }
+.overlay-layer p { font-size: 0.96rem; max-width: 60ch; }
+.overlay-layer code { font-family: var(--font-mono); font-size: 0.85em; background: var(--paper-deep); padding: 1px 6px; border-radius: 3px; }
+.stack-arrow { text-align: center; font-size: 1.4rem; color: var(--ink-faint); padding: 2px 0; font-family: var(--font-mono); }
+
+.overlay-detail { margin-top: 36px; }
+.overlay-detail .kicker { color: var(--butter-deep); }
+.overlay-detail h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); max-width: 28ch; margin-bottom: 22px; }
+.overlay-fields { display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .overlay-fields { grid-template-columns: 1fr 1fr; gap: 16px; } }
+.overlay-field {
+  background: #fffdf6; border: 1px solid var(--rule); border-radius: 10px;
+  padding: 18px 20px;
+}
+.overlay-field h3 { font-size: 1rem; margin-bottom: 6px; }
+.overlay-field p { font-size: 0.92rem; max-width: none; }
+
+.contacts-when {
+  margin-top: 32px; padding: 22px 24px;
+  background: var(--paper-warm); border-left: 3px solid var(--sage-deep); border-radius: 4px;
+}
+.contacts-when .label {
+  font-family: var(--font-retro); font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage-deep); margin-bottom: 8px;
+}
+.contacts-when p { font-size: 0.94rem; max-width: 64ch; }
+.contacts-when p + p { margin-top: 8px; }
+.contacts-when code { font-family: var(--font-mono); font-size: 0.85em; background: var(--paper); padding: 1px 6px; border-radius: 3px; }
+
+.activity-section { background: var(--paper-warm); }
+.activity-section .lede { font-size: 1.05rem; color: var(--ink); max-width: 64ch; margin-top: 14px; }
+.activity-section .lede strong { color: var(--ink); font-weight: 700; }
+.activity-meta-grid { display: grid; gap: 18px; margin-top: 28px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .activity-meta-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+.activity-card { background: #fffdf6; border: 2px solid var(--ink); border-radius: 12px; padding: 22px 20px; box-shadow: 3px 3px 0 var(--ink); }
+.activity-card h3 { font-size: 1.02rem; margin-bottom: 6px; }
+.activity-card p { font-size: 0.93rem; max-width: none; }
+.activity-card code { font-family: var(--font-mono); font-size: 0.85em; background: var(--paper-deep); padding: 1px 5px; border-radius: 3px; }
+footer { padding: 28px 0; border-top: 1px solid var(--rule); font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="stamp">Workflow</span>
+    <h1>How the publishing pipeline <span class="ink-accent">actually works.</span></h1>
+    <p class="sub">Content goes in as tagged markdown files. Cuts shape it through lenses. Frames come out as self-contained HTML. Windows bundle frames into tabbed packages.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Core concepts</div>
+    <h2>Five pieces, one pipeline.</h2>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <span class="badge">Input</span>
+        <h3>Content</h3>
+        <p>Your markdown files. Tagged with a content-tag in their visibility array to mark them as source material for a specific cut. No tag, no inclusion.</p>
+      </div>
+      <div class="concept-card">
+        <span class="badge">Config</span>
+        <h3>Cut</h3>
+        <p>A config file that defines what goes in (content-tag), who it's for (audience), how it sounds (voice/narrative), and which lens renders it.</p>
+      </div>
+      <div class="concept-card">
+        <span class="badge">Layout</span>
+        <h3>Frame</h3>
+        <p>The rendered output. One cut produces one frame: a self-contained HTML file shaped by the lens, styled by the design system. Open it in any browser.</p>
+      </div>
+      <div class="concept-card">
+        <span class="badge">Bundle</span>
+        <h3>Window</h3>
+        <p>Multiple frames bundled into a single HTML file with tabbed navigation. One URL, many views. This file you are reading is a window.</p>
+      </div>
+      <div class="concept-card">
+        <span class="badge">Mood</span>
+        <h3>Atmosphere</h3>
+        <p>An optional ambient layer beneath the lens content. Particle field, gradient wash, grain texture. Sits at z-index 0; the lens content reads on top of it. Set in the cut config; lenses honor it without changing structure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contacts-section">
+  <div class="wrap">
+    <div class="kicker">Tuning for an audience</div>
+    <h2>Same content, different delivery.</h2>
+    <p class="lede">When a cut targets a specific person, the rendering tunes to <strong>them</strong>. The system keeps a small profile per contact in <code style="font-family: var(--font-mono); font-size: 0.85em; background: var(--paper-warm); padding: 1px 6px; border-radius: 3px;">01_tools/05_contacts/&lt;Name&gt;.md</code>. When that name appears in the cut config's <code style="font-family: var(--font-mono); font-size: 0.85em; background: var(--paper-warm); padding: 1px 6px; border-radius: 3px;">audience:</code> field, their preferences get layered on top of the lens defaults. Same project, same lens, two different audiences, two correctly-shaped frames.</p>
+
+    <div class="overlay-stack" aria-label="Composition stack">
+      <div class="overlay-layer l-cut">
+        <span class="priority">Priority 01 · highest</span>
+        <span class="label">Cut config body</span>
+        <h3>What this specific cut says.</h3>
+        <p>Anything written under Voice, Structure, Emphasis, De-emphasis, or Visual Direction in the cut config wins. Per-cut overrides live here.</p>
+      </div>
+      <div class="stack-arrow" aria-hidden="true">↓ falls through to ↓</div>
+      <div class="overlay-layer l-contact">
+        <span class="priority">Priority 02 · middle</span>
+        <span class="label">Contact overlay</span>
+        <h3>What this person prefers.</h3>
+        <p>If the cut config is silent on a section, the agent reads the contact's <code>Rendering Preferences</code> section and applies it. Activated by setting <code>rendering-profile: true</code> in the contact's frontmatter.</p>
+      </div>
+      <div class="stack-arrow" aria-hidden="true">↓ falls through to ↓</div>
+      <div class="overlay-layer l-lens">
+        <span class="priority">Priority 03 · lowest</span>
+        <span class="label">Lens defaults</span>
+        <h3>What the lens spec ships with.</h3>
+        <p>If neither the cut config nor the contact provides a section, the lens spec's defaults render. Every cut has a working baseline even with no overrides.</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 24px; font-size: 0.94rem; max-width: 64ch;">Sections resolve <strong>independently</strong>. A cut config can override Voice while leaving Emphasis to the contact overlay and Visual Direction to the lens defaults. Style-source tokens (color, typography) are baked in last and apply regardless of which layer supplied the voice direction.</p>
+
+    <div class="overlay-detail">
+      <div class="kicker">What gets overlaid</div>
+      <h2>Four sections inside Rendering Preferences.</h2>
+      <div class="overlay-fields">
+        <div class="overlay-field">
+          <h3>Visual Language</h3>
+          <p>Palette, typography, reference-implementation file, motifs they respond to.</p>
+        </div>
+        <div class="overlay-field">
+          <h3>Information Architecture</h3>
+          <p>How they scan vs. read. Density. Section ordering. Stats cards, file lists, collapsibles.</p>
+        </div>
+        <div class="overlay-field">
+          <h3>What to Emphasize</h3>
+          <p>What to lead with. The kind of evidence they actually weigh.</p>
+        </div>
+        <div class="overlay-field">
+          <h3>What to De-emphasize</h3>
+          <p>What to compact, hide, or move below the fold.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contacts-when">
+      <div class="label">When to fill this in</div>
+      <p>Copy <code>01_tools/05_contacts/_template.md</code> to <code>&lt;Full Name&gt;.md</code> when you start working with someone. Fill in <strong>Who They Are</strong>, <strong>Shared Work</strong>, and basic notes on <strong>How to Talk to Them</strong> immediately.</p>
+      <p>Leave <strong>Rendering Preferences</strong> blank at first. Fill it in only after the pattern is clear. Set <code>rendering-profile: true</code> in frontmatter once it's populated, so the cut-packet skill knows the section is load-bearing. Inventing a person's preferences from a single interaction tends to cost trust.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ai-prompts-section">
+  <div class="wrap">
+    <div class="kicker">Working with the packet</div>
+    <h2>What to ask your AI.</h2>
+    <p class="lede">The packet is built for <strong>human + AI</strong>. You don't run scripts or copy templates by hand. You tell your AI what you want, and it handles the implementation against the specs in <code>01_tools/</code>. The packet ships <strong>six skills</strong> your AI uses to do the work: three slash commands for session hygiene, plus <code>cut-packet</code>, <code>yaml-audit</code>, and <code>figma-mcp</code>.</p>
+
+    <div class="subsection-label">Session rituals · run these as you go</div>
+    <div class="rituals-grid">
+      <div class="ritual-card">
+        <span class="cmd">/scan</span>
+        <h3>At session start.</h3>
+        <p>Drop anything into <code style="font-family: var(--font-mono); font-size: 0.85em; background: rgba(245, 216, 142, 0.15); color: var(--butter); padding: 1px 5px; border-radius: 3px;">00_inbox/</code> as you work (voice memos, screenshots, half-formed ideas). <code style="font-family: var(--font-mono); font-size: 0.85em; background: rgba(245, 216, 142, 0.15); color: var(--butter); padding: 1px 5px; border-radius: 3px;">/scan</code> walks the inbox, surfaces pending flags, recent activity, and last session's handoff.</p>
+      </div>
+      <div class="ritual-card">
+        <span class="cmd">/changelog</span>
+        <h3>As you ship.</h3>
+        <p>When you finish something meaningful, ask your AI to log it. One line, project-tagged, written to <code style="font-family: var(--font-mono); font-size: 0.85em; background: rgba(245, 216, 142, 0.15); color: var(--butter); padding: 1px 5px; border-radius: 3px;">Daily/Changelog.md</code>. Builds an arc you can scan over weeks.</p>
+      </div>
+      <div class="ritual-card">
+        <span class="cmd">/complete</span>
+        <h3>At session end.</h3>
+        <p>Hand the next session a baton. One or two sentences naming what's next. The next <code style="font-family: var(--font-mono); font-size: 0.85em; background: rgba(245, 216, 142, 0.15); color: var(--butter); padding: 1px 5px; border-radius: 3px;">/scan</code> reads it back.</p>
+      </div>
+    </div>
+
+    <div class="subsection-label">Make a frame · the workhorse</div>
+    <div class="hero-prompt">
+      <h3>The cut-packet prompt.</h3>
+      <span class="prompt-example">Cut me a frame of [topic or content tag] using the [lens] lens for [audience].</span>
+      <p class="what-happens">Your AI reads the lens spec, finds the matching content in your folder, applies the contact overlay if you named a specific person, and writes a self-contained HTML frame to <code>03_cuts/</code>.</p>
+      <p class="pitch-note"><strong>Pitch competitions:</strong> the pitch lens has its own routing flow. Say <em>"I'm prepping a pitch for [audience]"</em> and your AI asks four questions (capital type, time budget, audience, stage) before generating an 11-slide deck.</p>
+    </div>
+
+    <div class="subsection-label">Other useful prompts</div>
+    <div class="prompt-list">
+      <div class="prompt-item">
+        <h3>Add a contact</h3>
+        <span class="prompt-example">Add a contact profile for [name].</span>
+        <p class="what-happens">Your AI copies <code>01_tools/05_contacts/_template.md</code>, fills the basics, leaves Rendering Preferences blank until you know the pattern.</p>
+      </div>
+      <div class="prompt-item">
+        <h3>Tune a contact's rendering preferences</h3>
+        <span class="prompt-example">Update [name]'s profile. They respond well to [pattern].</span>
+        <p class="what-happens">Your AI fills the Rendering Preferences section and flips <code>rendering-profile: true</code>. Next cut to that audience picks it up automatically.</p>
+      </div>
+      <div class="prompt-item">
+        <h3>Audit your folder's frontmatter</h3>
+        <span class="prompt-example">Run yaml-audit on my folder.</span>
+        <p class="what-happens">Your AI walks the vault, reports drift (missing required fields, inconsistent casing, typo'd field names), optionally fixes in place. Run before a packet rebuild.</p>
+      </div>
+      <div class="prompt-item">
+        <h3>Add a new lens</h3>
+        <span class="prompt-example">I want a new lens for [use case]. Walk me through it.</span>
+        <p class="what-happens">Your AI copies the lens template, drafts the spec with you, builds an example, validates against the conventions in <code>01_tools/01_lenses/ADDING-A-LENS.md</code>. Same pattern for atmospheres.</p>
+      </div>
+      <div class="prompt-item">
+        <h3>Log a system change</h3>
+        <span class="prompt-example">Log this to the activity log: [what changed and why].</span>
+        <p class="what-happens">Your AI writes a dated entry into <code>02_activity/</code> with the appropriate principle tags. See the next section for what the log captures.</p>
+      </div>
+    </div>
+
+    <div class="footnote">
+      If you don't know the right prompt, describe what you want in plain language. The AI reads the specs and asks for what it needs. The packet bends to you, not the other way around.
+    </div>
+  </div>
+</section>
+
+<section class="activity-section">
+  <div class="wrap">
+    <div class="kicker">Activity log</div>
+    <h2>A running journal of how your system changes.</h2>
+    <p class="lede"><strong>Logs the system itself, not the work inside it.</strong> When a new lens gets added, a folder restructures, a contact profile gets promoted from blank-rendering-prefs to populated, that's logged in <code>02_activity/</code>. Different from a project changelog, which tracks work inside projects. This tracks the shape of the system.</p>
+
+    <p class="lede" style="margin-top: 16px;">You don't write entries by hand. Tell your AI what changed and why; it writes the entry. Over time the log becomes onboarding context: a new AI instance opens your folder, reads recent activity, and understands why your setup looks the way it does today.</p>
+
+    <div class="activity-meta-grid">
+      <div class="activity-card">
+        <h3>Substrate, not lens.</h3>
+        <p>The log is data. Downstream lenses can read it to produce views: principle time-series, quarter reports, constellation activity. The log itself stays readable as markdown.</p>
+      </div>
+      <div class="activity-card">
+        <h3>Fresh-AI context.</h3>
+        <p>When a new agent instance opens your folder, it reads recent activity entries to understand why the system looks the way it does today. The log is onboarding context made durable.</p>
+      </div>
+      <div class="activity-card">
+        <h3>Tagged against principles.</h3>
+        <p>Each entry can carry <code>principles: [exit, sufficiency]</code> in its frontmatter. Over time you can ask "everything I've done in service of Provide an Exit this quarter," and the log answers.</p>
+      </div>
+      <div class="activity-card">
+        <h3>Deprecate, never delete.</h3>
+        <p>When an entry becomes obsolete, your AI marks it <code>status: deprecated</code> and adds a <code>superseded-by:</code> pointer. History stays traceable. Same rule applies to lenses, atmospheres, contacts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <span>Local Intelligence Packet · Workflow</span>
+    <span>Frame · workflow</span>
+  </div>
+</footer>
+
+</body>
+</html>

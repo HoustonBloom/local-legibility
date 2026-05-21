@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome — Local Intelligence Packet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Aldrich&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-retro: "Aldrich", monospace;
+  --font-mono: "JetBrains Mono", monospace;
+  --ink: #1f1d1a; --ink-soft: #44403c; --ink-faint: #6e6760;
+  --paper: #faf6ee; --paper-warm: #f5eede; --paper-deep: #ece1c7;
+  --sage: #6fa67f; --sage-deep: #1f5028; --sage-soft: #dcebd7;
+  --butter: #f5d88e; --butter-deep: #6b4613; --butter-soft: #fbefc8;
+  --rule: #e7dec9;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-sans); background: var(--paper); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; font-size: 17px; }
+a { color: var(--sage-deep); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+section { padding: 72px 0; }
+section + section { border-top: 1px solid var(--rule); }
+.kicker { font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 18px; }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+h2 { font-size: clamp(1.85rem, 3.6vw, 2.4rem); font-weight: 700; max-width: 22ch; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { color: var(--ink-soft); max-width: 60ch; }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; padding: 14px 22px; border-radius: 8px; border: 2px solid var(--ink); background: var(--sage); color: var(--ink); cursor: pointer; text-decoration: none; box-shadow: 4px 4px 0 var(--ink); transition: transform 120ms ease, box-shadow 120ms ease; }
+.btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); text-decoration: none; }
+.btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+.btn.ghost { background: transparent; box-shadow: none; }
+.btn.ghost:hover { background: var(--paper-warm); transform: none; box-shadow: none; }
+.btn .arrow { transition: transform 200ms ease; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ── Hero ── */
+.hero { padding: 96px 0 72px; background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%); }
+.hero .stamp { display: inline-block; font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); background: var(--sage-soft); padding: 6px 12px; border-radius: 20px; margin-bottom: 24px; }
+.hero h1 { font-size: clamp(2.2rem, 5.4vw, 3.5rem); font-weight: 800; margin-bottom: 22px; max-width: none; line-height: 1.12; }
+.hero h1 .ink-accent { color: var(--sage-deep); }
+.hero h1 .h1-line-1 { display: block; }
+.hero h1 .h1-line-2 { display: block; margin-top: 6px; }
+.hero .sub { font-size: 1.18rem; color: var(--ink-soft); max-width: 56ch; margin-bottom: 32px; }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* ── Animated headline: per-letter typewriter, futures pill lands on arrival ──
+   Rules of the road:
+     1. No layout shift  — all 5 words overlap in one grid cell, sized to
+        widest. FOUC guard via visibility: hidden on inactive .cyc.
+     2. No blur          — opacity-only transitions. No transform on letters,
+        so no subpixel rasterization during animation.
+     3. Modern easing    — MD3 expressive curves (emphasized decelerate for
+        arrival, emphasized accelerate for exit, gentle spring for the pill).
+     4. Payoff on arrival— the highlight pill's transition-delay is set to
+        the real enterDuration of "futures" so it wipes in AFTER the last
+        letter lands, not during the typing. */
+
+.hero h1 {
+  --ease-emph:     cubic-bezier(0.2, 0, 0, 1);          /* MD3 emphasized */
+  --ease-emph-dec: cubic-bezier(0.05, 0.7, 0.1, 1);     /* emphasized decelerate */
+  --ease-emph-acc: cubic-bezier(0.3, 0, 0.8, 0.15);     /* emphasized accelerate */
+  --ease-spring:   cubic-bezier(0.34, 1.2, 0.64, 1);    /* gentle spring settle */
+  --chr-enter: 200ms;
+  --chr-exit:  120ms;
+  --chr-exit-stagger: 18ms;
+}
+
+/* Grid-overlap slot: all words share one cell sized to widest, so the line
+   never reflows as words swap. .word wrapper is inline-block and content-
+   sized, so the pill hugs the actual letters not the grid cell. */
+.cycle-slot {
+  display: inline-grid;
+  grid-template-areas: "slot";
+  vertical-align: baseline;
+  text-align: left;
+}
+.cycle-slot .cyc {
+  grid-area: slot;
+  justify-self: start;
+  color: var(--sage-deep);
+  white-space: nowrap;
+  pointer-events: none;
+  visibility: hidden;  /* FOUC guard — only active/leaving are visible */
+}
+.cycle-slot .cyc.is-active,
+.cycle-slot .cyc.is-leaving {
+  visibility: visible;
+}
+.cycle-slot .cyc .word {
+  display: inline-block;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Pure-opacity typewriter. No transform = no subpixel blur. The stagger
+   alone carries the cascade — letters appear to type in left-to-right. */
+.cycle-slot .cyc .chr {
+  display: inline-block;
+  opacity: 0;
+  transition: opacity var(--chr-enter) var(--ease-emph-dec);
+  transition-delay: calc(var(--i) * var(--chr-stagger, 34ms));
+}
+.cycle-slot .cyc.is-active .chr {
+  opacity: 1;
+}
+.cycle-slot .cyc.is-leaving .chr {
+  opacity: 0;
+  transition: opacity var(--chr-exit) var(--ease-emph-acc);
+  transition-delay: calc(var(--i) * var(--chr-exit-stagger));
+}
+
+/* Highlight pill on "futures". --pill-delay is set by JS to match the real
+   enter duration so the pill arrives EXACTLY when the last letter settles. */
+.cycle-slot .cyc.is-futures .word::before {
+  content: "";
+  position: absolute;
+  top: 0.04em;
+  right: -0.22em;
+  bottom: 0.08em;
+  left: -0.22em;
+  background: var(--sage-soft);
+  border-radius: 7px;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0s;
+  z-index: -1;
+}
+.cycle-slot .cyc.is-futures.is-active .word::before {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 440ms var(--pill-delay, 640ms) var(--ease-spring);
+}
+.cycle-slot .cyc.is-futures.is-leaving .word::before {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 220ms var(--ease-emph-acc);
+}
+
+/* Reduced-motion: show "futures" statically with the pill, nothing animates */
+@media (prefers-reduced-motion: reduce) {
+  .cycle-slot .cyc,
+  .cycle-slot .cyc .chr,
+  .cycle-slot .cyc.is-futures .word::before { transition: none !important; }
+  .cycle-slot .cyc { visibility: hidden; }
+  .cycle-slot .cyc.is-futures { visibility: visible; }
+  .cycle-slot .cyc.is-futures .chr { opacity: 1; }
+  .cycle-slot .cyc.is-futures .word::before { clip-path: inset(0 0 0 0); }
+}
+
+/* ── Capabilities (dark) ── */
+.cap { background: var(--ink); color: var(--paper); padding: 80px 0; }
+.cap .kicker { color: var(--butter); margin-bottom: 14px; }
+.cap h2 { color: var(--paper); font-size: clamp(2rem, 4.4vw, 2.8rem); max-width: 22ch; margin-bottom: 44px; }
+.cap-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 600px) { .cap-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) { .cap-grid { grid-template-columns: repeat(4, 1fr); } }
+.cap-card { background: rgba(250, 246, 238, 0.04); border: 1px solid rgba(134, 193, 149, 0.3); border-radius: 12px; padding: 22px 20px; }
+.cap-card .icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(134, 193, 149, 0.15); border: 1px solid rgba(134, 193, 149, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; color: var(--sage); }
+.cap-card .icon svg { width: 20px; height: 20px; }
+.cap-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--paper); margin-bottom: 6px; line-height: 1.25; }
+.cap-card p { color: rgba(250, 246, 238, 0.7); font-size: 0.88rem; line-height: 1.45; max-width: none; }
+
+/* ── Subsystems ── */
+.subs .pair { display: grid; gap: 22px; margin-top: 36px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .subs .pair { grid-template-columns: 1fr 1fr; gap: 28px; } }
+.sub-card { background: #fffdf6; border: 2px solid var(--ink); border-radius: 14px; padding: 32px 28px; box-shadow: 4px 4px 0 var(--ink); display: flex; flex-direction: column; }
+.sub-card .badge { display: inline-block; font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage-deep); background: var(--sage-soft); padding: 5px 11px; border-radius: 14px; margin-bottom: 14px; align-self: flex-start; }
+.sub-card h3 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 800; margin-bottom: 8px; }
+.sub-card .tagline { font-size: 1rem; color: var(--ink-soft); margin-bottom: 18px; }
+.sub-card ul { list-style: none; padding: 0; margin: 0 0 22px; }
+.sub-card li { font-size: 0.94rem; color: var(--ink-soft); padding: 5px 0 5px 22px; position: relative; }
+.sub-card li::before { content: '→'; position: absolute; left: 0; top: 5px; color: var(--sage); font-weight: 700; }
+.sub-card .more { margin-top: auto; font-family: var(--font-display); font-weight: 700; font-size: 0.96rem; color: var(--sage-deep); display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; }
+
+/* ── Final CTA ── */
+.final { padding: 80px 0; text-align: center; background: var(--paper-warm); }
+.final h2 { font-size: clamp(1.85rem, 4vw, 2.4rem); margin: 0 auto 18px; max-width: 22ch; }
+.final p { margin: 0 auto 32px; color: var(--ink-soft); font-size: 1.05rem; }
+
+footer { padding: 28px 0; border-top: 1px solid var(--rule); font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+
+
+/* ── Merged from Setup frame ── */
+/* ── Stack diagram ── */
+.stack { background: var(--ink); color: var(--paper); padding: 80px 0; }
+.stack .kicker { color: var(--butter); }
+.stack h2 { color: var(--paper); margin-bottom: 36px; }
+.stack-card {
+  margin-top: 14px;
+  background: rgba(250, 246, 238, 0.04);
+  border: 1.5px solid rgba(245, 216, 142, 0.3);
+  border-radius: 14px;
+  padding: 28px 26px;
+  display: grid; grid-template-columns: 1fr; gap: 18px;
+  align-items: center;
+}
+@media (min-width: 720px) { .stack-card { grid-template-columns: 220px 1fr; gap: 32px; } }
+.stack-icons {
+  display: flex; gap: 14px; align-items: center; justify-content: center;
+}
+.stack-icons .chip {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.stack-icons .chip .icon-box {
+  width: 76px; height: 76px;
+  border-radius: 14px;
+  background: rgba(245, 216, 142, 0.15);
+  border: 1.5px solid rgba(245, 216, 142, 0.5);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--butter);
+}
+.stack-icons .chip .icon-box svg { width: 38px; height: 38px; }
+.stack-icons .chip .label {
+  font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; color: var(--paper);
+}
+.stack-icons .plus {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--butter);
+  margin-bottom: 24px;
+}
+.stack-card .body h3 { color: var(--paper); margin-bottom: 8px; }
+.stack-card .body p { color: rgba(250, 246, 238, 0.78); font-size: 0.96rem; max-width: none; }
+.stack-note {
+  margin-top: 28px;
+  font-family: var(--font-mono); font-size: 0.85rem;
+  color: rgba(250, 246, 238, 0.65);
+}
+
+/* ── Benefits ── */
+.benefits .quad {
+  display: grid; gap: 22px; margin-top: 36px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) { .benefits .quad { grid-template-columns: 1fr 1fr; gap: 24px; } }
+.benefit {
+  background: #fffdf6; border: 2px solid var(--ink); border-radius: 14px;
+  padding: 28px 24px; box-shadow: 4px 4px 0 var(--ink);
+}
+.benefit .icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: var(--sage-soft); border: 1.5px solid var(--sage);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px; color: var(--sage-deep);
+}
+.benefit .icon svg { width: 24px; height: 24px; }
+.benefit h3 { font-size: 1.15rem; margin-bottom: 8px; }
+.benefit p { font-size: 0.94rem; }
+
+/* ── Other combos ── */
+.combos .grid {
+  display: grid; gap: 14px; margin-top: 28px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 600px) { .combos .grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) { .combos .grid { grid-template-columns: repeat(3, 1fr); } }
+.combo {
+  background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 10px;
+  padding: 18px 20px;
+}
+.combo h3 { font-size: 0.98rem; margin-bottom: 4px; }
+.combo p { font-size: 0.88rem; max-width: none; }
+
+/* ── Setup steps ── */
+.setup-steps { margin-top: 28px; }
+.setup-step {
+  display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: start;
+  padding: 22px 0; border-bottom: 1px dashed var(--rule);
+}
+.setup-step:last-child { border-bottom: none; }
+.setup-step .num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--paper); border: 2.5px solid var(--sage);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--sage-deep);
+}
+.setup-step h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.setup-step p { font-size: 0.96rem; }
+.setup-step code {
+  font-family: var(--font-mono); font-size: 0.85em;
+  background: var(--paper-deep); padding: 2px 6px; border-radius: 4px;
+}
+
+footer { padding: 28px 0; border-top: 1px solid var(--rule); font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+
+
+/* ── Merged from Get Started frame ── */
+
+:root {
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-retro: "Aldrich", monospace;
+  --font-mono: "JetBrains Mono", monospace;
+  --ink: #1f1d1a; --ink-soft: #44403c; --ink-faint: #6e6760;
+  --paper: #faf6ee; --paper-warm: #f5eede; --paper-deep: #ece1c7;
+  --sage: #6fa67f; --sage-deep: #1f5028; --sage-soft: #dcebd7;
+  --butter: #f5d88e; --butter-deep: #6b4613; --butter-soft: #fbefc8;
+  --rule: #e7dec9;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-sans); background: var(--paper); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; font-size: 17px; }
+a { color: var(--sage-deep); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+section { padding: 72px 0; }
+section + section { border-top: 1px solid var(--rule); }
+.kicker { font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 18px; }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+h2 { font-size: clamp(1.85rem, 3.6vw, 2.4rem); font-weight: 700; max-width: 24ch; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { color: var(--ink-soft); max-width: 60ch; }
+
+.adapter-hero { padding: 96px 0 48px; background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%); }
+.adapter-hero .stamp { display: inline-block; font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); background: var(--sage-soft); padding: 6px 12px; border-radius: 20px; margin-bottom: 24px; }
+.adapter-hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.2rem); font-weight: 800; margin-bottom: 22px; max-width: 22ch; }
+.adapter-hero h1 .ink-accent { color: var(--sage-deep); }
+.adapter-hero .sub { font-size: 1.15rem; color: var(--ink-soft); max-width: 56ch; }
+
+.steps { margin-top: 28px; }
+.step {
+  display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: start;
+  padding: 22px 0; border-bottom: 1px dashed var(--rule);
+}
+.step:last-child { border-bottom: none; }
+.step .num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--paper); border: 2.5px solid var(--sage);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--sage-deep);
+}
+.step h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.step p { font-size: 0.96rem; }
+
+.prompt-section { background: var(--ink); color: var(--paper); padding: 80px 0; }
+.prompt-section .kicker { color: var(--butter); }
+.prompt-section h2 { color: var(--paper); margin-bottom: 16px; }
+.prompt-section > .wrap > p { color: rgba(250, 246, 238, 0.78); margin-bottom: 28px; }
+
+.prompt-box {
+  position: relative;
+  background: rgba(250, 246, 238, 0.06);
+  border: 1.5px solid rgba(245, 216, 142, 0.3);
+  border-radius: 12px;
+  padding: 24px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+.prompt-box pre {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: rgba(250, 246, 238, 0.88);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.copy-btn {
+  position: sticky;
+  top: 0;
+  float: right;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.82rem;
+  padding: 8px 16px;
+  border-radius: 6px; border: 2px solid var(--butter);
+  background: rgba(245, 216, 142, 0.15); color: var(--butter);
+  cursor: pointer;
+  transition: background 120ms ease;
+  z-index: 2;
+}
+.copy-btn:hover { background: rgba(245, 216, 142, 0.25); }
+.copy-btn.copied { background: var(--sage-deep); border-color: var(--sage); color: var(--sage-soft); }
+
+.after-copy {
+  margin-top: 32px;
+  background: rgba(250, 246, 238, 0.06);
+  border: 1.5px solid rgba(111, 166, 127, 0.4);
+  border-radius: 12px;
+  padding: 24px;
+}
+.after-copy h3 { color: var(--paper); margin-bottom: 12px; }
+.after-copy p { color: rgba(250, 246, 238, 0.78); font-size: 0.94rem; margin-bottom: 8px; }
+.after-copy code { font-family: var(--font-mono); font-size: 0.85em; background: rgba(111, 166, 127, 0.2); padding: 2px 6px; border-radius: 4px; color: var(--sage-soft); }
+
+footer { padding: 28px 0; border-top: 1px solid var(--rule); font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="stamp">Local Intelligence Packet</span>
+    <h1 aria-label="Cultivate local intelligence. Grow better futures.">
+      <span class="h1-line-1">Cultivate local intelligence.</span>
+      <span class="h1-line-2">Grow better <span class="cycle-slot" aria-hidden="true"><span class="cyc is-active" data-idx="0"><span class="word">websites.</span></span><span class="cyc" data-idx="1"><span class="word">posts.</span></span><span class="cyc" data-idx="2"><span class="word">essays.</span></span><span class="cyc" data-idx="3"><span class="word">connections.</span></span><span class="cyc" data-idx="4"><span class="word">relationships.</span></span><span class="cyc is-futures" data-idx="5"><span class="word">futures.</span></span></span></span>
+    </h1>
+    <p class="sub">A vault-agnostic publishing system that turns a folder of markdown into curated HTML intelligence packets and a full local-first preview website. Adapts to whatever structure you already have.</p>
+    <div class="ctas">
+      <a href="#" class="btn" data-tab="lenses" id="cta-lenses">Browse the lenses <span class="arrow">→</span></a>
+      <a href="#adapter-prompt" class="btn ghost" id="cta-start">Get started</a>
+    </div>
+  </div>
+</section>
+
+<section class="cap">
+  <div class="wrap">
+    <div class="kicker">What you can do</div>
+    <h2>Four things this packet makes possible.</h2>
+
+    <div class="cap-grid">
+      <div class="cap-card">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </div>
+        <h3>Publish effortlessly.</h3>
+        <p>Tell your AI what you want. It reads your folder, picks the lens, hands you a self-contained HTML file. Publishing used to be a pipeline. Now it's a sentence.</p>
+      </div>
+      <div class="cap-card">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <h3>Make your data valuable.</h3>
+        <p>Your notes, exchanges, and artifacts are raw material. Frames, essays, decks, briefings — all shaped from the same folder. Nothing you wrote sits wasted.</p>
+      </div>
+      <div class="cap-card">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+            <path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <h3>Communicate and collaborate.</h3>
+        <p>Frames are shaped for the reader. An explainer for a collaborator, a digest for a community, a reel for your audience. Same content, different shape, aimed at someone specific.</p>
+      </div>
+      <div class="cap-card">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"/>
+            <polyline points="16 6 12 2 8 6"/>
+            <line x1="12" y1="2" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <h3>Ship early and often.</h3>
+        <p>One file out. No build step, no hosting, no deploys. Email it, text it, post it. Ship the rough version today, refine it tomorrow, keep the rhythm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="adapter-hero">
+  <div class="wrap">
+    <span class="stamp">Get Started</span>
+    <h1>Hand your AI this prompt and <span class="ink-accent">your computer becomes your second brain.</span></h1>
+    <p class="sub">The adapter prompt tells your AI how to read the packet and your folder, produce a First Look audit, and generate your first frame. Copy it, paste it, go.</p>
+  </div>
+</section>
+
+
+
+<section class="prompt-section" id="adapter-prompt">
+  <div class="wrap">
+    <div class="prompt-box">
+      <button class="copy-btn" id="copy-prompt" onclick="copyPrompt()">Copy prompt</button>
+      <pre id="prompt-text">You are helping a user try the Local Intelligence Packet on their existing folder of files. The packet gives them two things:
+
+1. **Content Publishing Pipeline (CPP)** â€” produces curated standalone HTML &quot;frames&quot; from selected content.
+
+Your job: get them to a working frame as fast as possible using what they already have. Lead with what works. Suggest improvements only after.
+
+## Step 1 â€” Look at both sides briefly
+
+Skim the packet:
+- The packet's `README.md`.
+- `publishing-pipeline/CUTS-SPEC.md` (the cut/frame/window concepts).
+- `publishing-pipeline/skills/cut-packet/SKILL.md` (the skill that produces frames).
+
+Skim the user's folder:
+- Top-level folder names. What kind of work lives here?
+- 5â€“8 sample files across different folders. What's the shape â€” long-form notes, short captures, structured docs, mixed?
+- Any existing frontmatter (YAML at the top of files). What fields are common, if any?
+- Any organizing files: project hubs, daily notes, principles, indexes, changelogs?
+- File formats: are there non-markdown files (PDFs, images, .docx)? Note them; the packet can still work around them.
+
+Don't go deep yet. You're scanning to see what kind of help this person needs. Less is fine.
+
+## Step 2 â€” Produce the First Look report (MANDATORY, DO THIS FIRST)
+
+**Before you write any conversational reply**, produce a **First Look** HTML report and save it to `03_cuts/first-look.html` in the user's folder (create the `03_cuts/` folder if it doesn't exist). This is non-optional. It is the user's first artifact from the packet â€” a tangible thing they can open in their browser to see what the packet found and what every lens can do for them.
+
+The First Look frame is a lens shipped with the packet. The canonical reference is `publishing-pipeline/lenses/_examples/example-first-look.html`. Use it as the starting point. The full spec is at `publishing-pipeline/lenses/First Look.md`.
+
+Personalize these fields with what you actually found in their folder:
+
+- **Hero meta line** â€” real file count, folder count, overhaul count
+- **Stat cards** â€” real numbers (markdown files, files with frontmatter, project hubs, daily notes â€” adjust to what's actually present)
+- **What-we-found prose** â€” specific to their folder
+- **Suggested overhauls** â€” ONLY items that actually apply. Cap at 3. Skip the section entirely if nothing's needed.
+- **Lens rankings** â€” assess every shipped lens against their content. Real star ratings. Real &quot;why this fits&quot; reasoning. Personalized prompt text.
+- **Final CTA** â€” name the top-ranked lens specifically.
+
+Keep the visual structure of the example as-is, including the Preview buttons on the winner card and other-fits rows. Only the content varies.
+
+If you cannot write the file (no write access, unclear path), stop and say so plainly. Do not skip silently and pretend it's optional.
+
+## Step 3 â€” Tell them what you can already produce
+
+Lead with possibility, not gaps. Even if the folder has no frontmatter and no obvious structure, you can almost always produce SOMETHING. State plainly:
+
+1. **One specific frame you could produce right now**, from their content as-is. Name it. Give a one-line description. Examples:
+   - &quot;A 'recent work' explainer pulling from your last 5 daily notes.&quot;
+   - &quot;An overview of the three projects in your `clients/` folder.&quot;
+   - &quot;A timeline of your published essays from `writing/`.&quot;
+
+2. **Why it works** with what they have. Be specific. (&quot;Your daily notes have consistent date-based filenames, so the timeline lens works without any setup.&quot; or &quot;Even though there's no YAML frontmatter, the cut skill can read titles and headings to build a debrief lens.&quot;)
+
+If frontmatter is sparse or missing, say it's fine. Most lenses can work from filenames, headings, and content alone. The packet is forgiving by design.
+
+If the folder has no markdown files (e.g., mostly PDFs or other formats), say what's still possible â€” for example, the AI can read PDFs and emit them through a markdown-staged frame. Give them an honest &quot;yes, this can still work, here's how.&quot;
+
+## Step 4 â€” Recommend one small thing
+
+Pick the **single** most useful change they could make to unlock more value. Make it concrete. Tell them why it unlocks something specific. Examples (pick whichever fits their situation, only one):
+
+- &quot;Add a `00 - [Project Name].md` hub file to each of your 3 active projects. That gives the system a place to put project-level summary, and unlocks the project-overview lens.&quot;
+- &quot;Add `visibility: public` to the top of 3 files you'd be happy to share. That marks them as ready to publish.&quot;
+- &quot;Make a `Daily/Changelog.md` and write 2â€“3 lines per day about what you worked on. That powers the timeline view in the preview site.&quot;
+- &quot;Convert your top 3 PDFs into markdown summaries. The packet can produce frames from those summaries and link back to the originals.&quot;
+
+ONE recommendation. Concrete. Why-driven. No long lists.
+
+## Step 5 â€” Optional enhancements (max 3)
+
+A short bulleted list of things they MIGHT do later if they want richer output. One line each. Pure invitation, no pressure. Examples:
+- Add a `Principles/` folder with your guiding values, one per file. Unlocks principle linking.
+- Add `principles:` field to project hubs to draw lines between projects and values.
+
+## Step 6 â€” Close with ALL THREE of these (each on its own line, in this order)
+
+1. **The offer** â€” one line:
+   > &quot;Want me to produce that first frame right now?&quot;
+
+2. **The simple copy-and-paste prompt** (fill in the top-ranked lens you named in the audit):
+   > Or just say: &quot;Cut me a frame using the [lens name] lens.&quot;
+
+3. **The First Look signpost with the EXACT absolute path** (literal path, no placeholder syntax, so the user can click or navigate to it directly):
+   > &quot;Not sure? Open <absolute-path-to-user-folder>/03_cuts/first-look.html in your browser â€” it shows what I found, ranks every lens against your content, and lets you preview each lens before you pick one. Every lens has a Copy prompt button.&quot;
+
+Do not bury any of these in a paragraph. Each on its own visible line. Replace `<absolute-path-to-user-folder>` with the real, literal path on the user's machine.
+
+If you genuinely need an answer to proceed, ask one question (max two). Don't pad.
+
+## After every frame you produce later
+
+When the user says &quot;yes, produce it&quot; or uses the simple &quot;Cut me a frame...&quot; prompt, create the frame and end your reply with the EXACT absolute path to the generated HTML, labeled:
+
+> Your frame is at: `<absolute-path>/03_cuts/frames/<filename>.html`
+
+Literal path. Not a placeholder. The user should be able to navigate to the file directly from your reply.
+
+## If they want the full deep setup
+
+Only when the user asks for full integration (or says something like &quot;do the whole setup&quot;), produce a detailed plan covering:
+
+1. **Folder layout decision** â€” monorepo vs. side-by-side vs. custom, based on what you saw.
+2. **Path rewrites for `generate-content.mjs`** â€” every constant or folder name that needs to change. Give line numbers (or unique search strings), current value, new value.
+3. **Frontmatter mapping** â€” packet field â†” user field. List specific files that need new fields.
+4. **Visibility strategy** â€” which files to mark `public`, what custom content-tags to suggest based on inferred audiences.
+5. **Skill installation** â€” where their AI's skills directory lives (`.claude/`, `.cursor/`, etc.), how to install the cut-packet skill.
+6. **Narratives audit** â€” the 9 the packet ships. Table: filename | keep / rewrite-for-X / delete | why.
+8. **Public assets audit** â€” packet ships generic SVG icons; check if their `type:` taxonomy matches.
+9. **First-run checklist** â€” numbered commands to verify the setup works end-to-end.
+
+Keep this section in your back pocket. Do not produce it unprompted.
+
+## Voice
+
+- Plainspoken. Conversational. Not technical unless asked.
+- Lead with &quot;we can...&quot; not &quot;this is missing...&quot;
+- Recommendations, not requirements. The packet bends to the user, not the other way around.
+- Brief. If they have less to engage with, your response should be shorter, not longer.
+- No section-heavy walls of text by default. Save that for the &quot;full setup&quot; path above.
+- No throat-clearing. Start with what you found and what you can do.
+
+Generate the response directly. No preamble, no &quot;here is my plan.&quot; If their folder is unreadable or you can't access it, stop and say what you need.</pre>
+    </div>
+    <div class="after-copy">
+      <h3>After you paste</h3>
+      <p>The AI drops <code>03_cuts/first-look.html</code> in your folder before anything else. Open it in your browser. It shows what the AI found, ranks every lens against your content, and lets you preview each one.</p>
+      <p>To produce a frame, say <code>Cut me a frame using the [lens] lens.</code> or pick any prompt from the First Look audit.</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="stack">
+  <div class="wrap">
+    <div class="kicker">Suggested stack</div>
+    <h2>Obsidian + Claude Code.</h2>
+
+    <div class="stack-card">
+      <div class="stack-icons">
+        <div class="chip">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l8 4v10l-8 4-8-4V7z"/>
+              <path d="M12 3v18"/>
+              <path d="M4 7l8 4 8-4"/>
+            </svg>
+          </div>
+          <span class="label">Obsidian</span>
+        </div>
+        <span class="plus">+</span>
+        <div class="chip">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M8 14c.5 1.5 2 2.5 4 2.5s3.5-1 4-2.5"/>
+              <circle cx="9" cy="10" r="0.8" fill="currentColor"/>
+              <circle cx="15" cy="10" r="0.8" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="label">Claude Code</span>
+        </div>
+      </div>
+      <div class="body">
+        <h3>One folder. One AI. Bidirectional access.</h3>
+        <p>Obsidian gives you a markdown-native folder. Claude Code (or Claude Desktop with filesystem access) reads the whole thing, edits files, and runs the cuts skill against your own work — all without your data leaving the machine.</p>
+      </div>
+    </div>
+
+    <p class="stack-note">→ Don't have either yet? Start with Claude Code (free trial) and a fresh folder. The packet will work in 5 minutes.</p>
+  </div>
+</section>
+<section class="combos">
+  <div class="wrap">
+    <div class="kicker">Alternatives</div>
+    <h2>Other combos that work.</h2>
+
+    <div class="grid">
+      <div class="combo">
+        <h3>Cursor + folder</h3>
+        <p>Same idea as Claude Code. Drop the packet, paste the adapter prompt, go.</p>
+      </div>
+      <div class="combo">
+        <h3>Claude Desktop + filesystem</h3>
+        <p>If you prefer the chat UI to a code editor. Filesystem access via MCP.</p>
+      </div>
+      <div class="combo">
+        <h3>ChatGPT + uploads</h3>
+        <p>Manual file upload per session. Heavier lift, but works for one-off frames.</p>
+      </div>
+      <div class="combo">
+        <h3>Aider + git repo</h3>
+        <p>If your folder is a git repo and you want commit-aware editing.</p>
+      </div>
+      <div class="combo">
+        <h3>Roo Code / Cline</h3>
+        <p>Open-source AI editors. Same skill model. Same outputs.</p>
+      </div>
+      <div class="combo">
+        <h3>Any AI with file access</h3>
+        <p>If it can read your files and follow a prompt, it can run this packet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="benefits">
+  <div class="wrap">
+    <div class="kicker">Why this combo</div>
+    <h2>Why this combo.</h2>
+
+    <div class="quad">
+      <div class="benefit">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6.5a2.5 2.5 0 015 0V18a3 3 0 01-6 0z"/>
+            <path d="M16 6.5a2.5 2.5 0 015 0V18a3 3 0 01-6 0z"/>
+            <path d="M8 12h8"/>
+          </svg>
+        </div>
+        <h3>Context, not chat history.</h3>
+        <p>Your AI sees your whole folder, not just the conversation. Past sessions, project hubs, principles, daily logs — all of it. The cuts skill builds on what's already written.</p>
+      </div>
+      <div class="benefit">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="13.5" cy="6.5" r="1.5" fill="currentColor"/>
+            <circle cx="17.5" cy="10.5" r="1.5" fill="currentColor"/>
+            <circle cx="8.5" cy="7.5" r="1.5" fill="currentColor"/>
+            <circle cx="6.5" cy="12.5" r="1.5" fill="currentColor"/>
+            <path d="M12 22a10 10 0 110-20 8 8 0 018 8c0 2-1.5 3-3 3s-3-1-3-3 1.5-3 3-3"/>
+          </svg>
+        </div>
+        <h3>Full design control.</h3>
+        <p>The packet ships a design system you can edit. Pure CSS with custom properties. No Tailwind, no framework lock-in. Change a color token, every frame updates. Your artifacts stay on-brand.</p>
+      </div>
+      <div class="benefit">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+        </div>
+        <h3>Local-first, by default.</h3>
+        <p>Everything happens on your machine. Your folder doesn't get uploaded. The bundled HTML you ship contains exactly what you put in it — no telemetry, no cloud round-trips.</p>
+      </div>
+      <div class="benefit">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"/>
+            <polyline points="16 6 12 2 8 6"/>
+            <line x1="12" y1="2" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <h3>Output stays portable.</h3>
+        <p>Frames are self-contained HTML. No build step required to view them. No CDN dependency. Email it, attach it, archive it. Open it again in five years and it still works.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="kicker">Suggested-stack setup</div>
+    <h2>If you're going with the suggested stack.</h2>
+
+    <div class="setup-steps">
+      <div class="setup-step">
+        <div class="num">01</div>
+        <div>
+          <h3>Install Obsidian, open your folder as a vault.</h3>
+          <p>Free at obsidian.md. Point it at the folder of notes you want to publish from. No conversion needed; Obsidian reads markdown as-is.</p>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="num">02</div>
+        <div>
+          <h3>Install Claude Code.</h3>
+          <p>The CLI version of Claude with full filesystem access. Works in any terminal. Same tools as the desktop app, scriptable.</p>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="num">03</div>
+        <div>
+          <h3>Drop this packet folder anywhere alongside your vault.</h3>
+          <p>Sibling to your vault, or inside it as a subfolder — both work. The adapter handles the path mapping.</p>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="num">04</div>
+        <div>
+          <h3>Open the <code>Get Started</code> tab. Copy the adapter prompt.</h3>
+          <p>Paste it into Claude with: "the packet lives at [path], my vault lives at [path]." The AI scans both.</p>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="num">05</div>
+        <div>
+          <h3>Open the First Look audit.</h3>
+          <p>Before the chat reply, the AI drops <code>03_cuts/first-look.html</code> in your folder. Open it in your browser — it shows what was found, ranks every lens against your content, and lets you preview each lens before you pick one.</p>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="num">06</div>
+        <div>
+          <h3>Produce a frame.</h3>
+          <p>Say "produce that first frame," or copy any prompt from the audit — they all use the format <code>Cut me a frame using the [lens] lens.</code> You get a self-contained HTML in <code>03_cuts/frames/</code>, and the AI tells you the exact path.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="final">
+  <div class="wrap">
+    <div class="kicker">Get started</div>
+    <h2>Hand the adapter prompt to your AI.</h2>
+    <p>Tell it where the packet lives and where your folder lives. It produces a setup plan tuned to what you already have.</p>
+    <a href="#adapter-prompt" class="btn" id="cta-final">Copy the adapter prompt <span class="arrow">↑</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <span>Local Intelligence Packet · v1.0</span>
+    <span>Frame · welcome (adapter prompt embedded)</span>
+  </div>
+</footer>
+
+<script>
+// CTAs that use data-tab message the parent window to switch tabs (when in window context)
+document.querySelectorAll('a[data-tab]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const tab = a.dataset.tab;
+    if (window.self !== window.top) {
+      window.parent.postMessage({ type: 'switchFrame', frameId: 'frame-' + tab }, '*');
+    } else {
+      // Standalone: nothing to navigate to, gentle fallback
+      alert('Open the packet window to navigate to: ' + tab);
+    }
+  });
+});
+
+// ── Animated headline: typewriter cycle, futures pill lands on arrival ──
+(function runHeadlineAnimation() {
+  const slots = Array.from(document.querySelectorAll('.cycle-slot .cyc'));
+  if (!slots.length) return;
+
+  // Per-word stagger variation so the cadence doesn't feel metronomic.
+  // Indexed by data-idx: websites, posts, essays, connections, relationships, futures.
+  const PER_WORD_STAGGER_MS = [32, 44, 28, 36, 40, 54];
+  const CHR_ENTER = 200;       // matches CSS --chr-enter
+  const CHR_EXIT  = 120;       // matches CSS --chr-exit
+  const EXIT_STAGGER = 18;     // matches CSS --chr-exit-stagger
+  const PILL_WIPE = 440;       // matches CSS pill wipe duration
+
+  // Hold times after entrance completes
+  const HOLD_CYCLE = 1200;     // cycling words
+  // futures: let the pill finish wiping, then let it read before cycling out
+  const HOLD_FUTURES_AFTER_TYPE = PILL_WIPE + 1700;
+  const REST_BEFORE_LOOP = 240;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+  // Split each word's inner .word into <span class="chr" style="--i:N"> so
+  // letter delays cascade. The .word wrapper stays inline-block (content-
+  // sized) so the highlight pill hugs the letters, not the grid cell.
+  slots.forEach((slot, i) => {
+    const stagger = PER_WORD_STAGGER_MS[i] || 34;
+    slot.style.setProperty('--chr-stagger', stagger + 'ms');
+    const wordEl = slot.querySelector('.word') || slot;
+    const text = wordEl.textContent;
+    wordEl.textContent = '';
+    [...text].forEach((ch, ci) => {
+      const s = document.createElement('span');
+      s.className = 'chr';
+      s.style.setProperty('--i', ci);
+      s.textContent = ch === ' ' ? '\u00A0' : ch;
+      wordEl.appendChild(s);
+    });
+  });
+
+  function enterDuration(slot) {
+    const len = slot.querySelectorAll('.chr').length;
+    const stagger = parseFloat(getComputedStyle(slot).getPropertyValue('--chr-stagger')) || 34;
+    return (len - 1) * stagger + CHR_ENTER;
+  }
+  function exitDuration(slot) {
+    const len = slot.querySelectorAll('.chr').length;
+    return (len - 1) * EXIT_STAGGER + CHR_EXIT;
+  }
+
+  // Tell the futures pill to wait until the last letter settles before wiping in.
+  // This is the "payoff on arrival" — the highlight lands as the typing finishes.
+  slots.forEach(slot => {
+    if (slot.classList.contains('is-futures')) {
+      slot.style.setProperty('--pill-delay', enterDuration(slot) + 'ms');
+    }
+  });
+
+  let currentIdx = 0; // matches seeded is-active on [data-idx="0"]
+
+  async function swapTo(idx) {
+    if (idx === currentIdx) return;
+    const outgoing = slots[currentIdx];
+    const incoming = slots[idx];
+
+    if (outgoing) {
+      outgoing.classList.remove('is-active');
+      outgoing.classList.add('is-leaving');
+      await wait(exitDuration(outgoing));
+      outgoing.classList.remove('is-leaving');
+    }
+
+    // Force a reflow so the entering transition replays cleanly
+    // eslint-disable-next-line no-unused-expressions
+    incoming.offsetHeight;
+    incoming.classList.add('is-active');
+    currentIdx = idx;
+    await wait(enterDuration(incoming));
+  }
+
+  async function loop() {
+    let firstIteration = true;
+    while (true) {
+      for (let i = 0; i < slots.length; i++) {
+        if (!(i === 0 && firstIteration)) {
+          await swapTo(i);
+        }
+        const isFutures = slots[i].classList.contains('is-futures');
+        await wait(isFutures ? HOLD_FUTURES_AFTER_TYPE : HOLD_CYCLE);
+      }
+      firstIteration = false;
+      await wait(REST_BEFORE_LOOP);
+    }
+  }
+
+  loop();
+})();
+</script>
+
+
+<script>
+function copyPrompt() {
+  const text = document.getElementById('prompt-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-prompt');
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy prompt';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+<script>
+// Listen for scrollTo messages from the outer shell (Get Started CTA in the header)
+window.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'scrollTo' && e.data.anchor) {
+    const target = document.getElementById(e.data.anchor);
+    if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+});
+</script>
+
+</body>
+</html>
