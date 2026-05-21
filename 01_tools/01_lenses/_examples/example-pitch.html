@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitch Example · Placeholder Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Aldrich&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-retro: "Aldrich", monospace;
+  --font-mono: "JetBrains Mono", monospace;
+  --ink: #1f1d1a; --ink-soft: #44403c; --ink-faint: #6e6760;
+  --paper: #faf6ee; --paper-warm: #f5eede; --paper-deep: #ece1c7;
+  --sage: #6fa67f; --sage-deep: #1f5028; --sage-soft: #dcebd7;
+  --butter: #f5d88e; --butter-deep: #6b4613; --butter-soft: #fbefc8;
+  --blush: #f9a8b8; --blush-soft: #fcdee4; --blush-text: #7a2c3c;
+  --rule: #e7dec9;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-sans);
+  background: var(--ink);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+.deck { position: fixed; inset: 0; overflow: hidden; }
+
+.progress {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 3px; background: rgba(0,0,0,0.08); z-index: 100;
+}
+.progress-fill {
+  height: 100%; background: var(--sage-deep);
+  width: 0%; transition: width 280ms ease;
+}
+
+/*
+ * Centering pattern (do not refactor without reading this).
+ * The slide is a scroll container (overflow-y: auto). Centering lives
+ * on the inner element via min-height: 100% + flex column + justify-content: center.
+ * If you put `display: flex; align-items: center` on .slide directly, content
+ * taller than the viewport gets cut off at the top because flex centering
+ * pushes overflow above the scrollable area. Don't do that.
+ */
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity 320ms ease;
+  background: var(--paper);
+  overflow-y: auto;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+.slide-inner {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide.bg-paper      { background: var(--paper); }
+.slide.bg-paper-warm { background: var(--paper-warm); }
+.slide.bg-paper-deep { background: var(--paper-deep); }
+.slide.bg-sage-soft  { background: var(--sage-soft); }
+.slide.bg-blush-soft { background: var(--blush-soft); }
+.slide.bg-butter-soft{ background: var(--butter-soft); }
+.slide.bg-ink        { background: var(--ink); color: var(--paper); }
+.slide.bg-ink p,
+.slide.bg-ink h1,
+.slide.bg-ink h2 { color: var(--paper); }
+
+.kicker {
+  font-family: var(--font-retro); font-size: 0.72rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 16px;
+  color: var(--ink-soft);
+}
+.bg-blush-soft .kicker { color: var(--blush-text); }
+.bg-sage-soft .kicker  { color: var(--sage-deep); }
+.bg-butter-soft .kicker{ color: var(--butter-deep); }
+.bg-ink .kicker        { color: var(--butter); }
+
+h1 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.9rem, 6vw, 3.2rem);
+  line-height: 1.1; letter-spacing: -0.02em;
+  margin-bottom: 22px; max-width: 22ch;
+  color: var(--ink);
+}
+.bg-ink h1 { color: var(--paper); }
+.body p {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--ink-soft); max-width: 56ch;
+}
+.body p + p { margin-top: 12px; }
+.bg-ink .body p { color: rgba(250, 246, 238, 0.85); }
+
+.placeholder {
+  font-family: var(--font-mono); font-weight: 500;
+  background: var(--butter-soft); color: var(--butter-deep);
+  padding: 1px 8px; border-radius: 3px;
+  font-size: 0.92em;
+}
+.bg-ink .placeholder {
+  background: rgba(245, 216, 142, 0.18);
+  color: var(--butter);
+}
+
+.slide-title .stamp {
+  display: inline-block;
+  font-family: var(--font-retro); font-size: 0.7rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage-deep); background: var(--sage-soft);
+  padding: 6px 12px; border-radius: 20px; margin-bottom: 28px;
+}
+.slide-title h1 .accent { color: var(--sage-deep); }
+.slide-title .sub {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--ink-soft); max-width: 48ch;
+  margin-bottom: 18px;
+}
+.slide-title .audience-tag {
+  font-family: var(--font-mono); font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+
+.numbered { list-style: none; counter-reset: num; margin-top: 8px; }
+.numbered li {
+  counter-increment: num;
+  padding: 14px 0 14px 44px; position: relative;
+  border-top: 1px solid var(--rule);
+  font-size: clamp(0.98rem, 2.4vw, 1.1rem);
+  color: var(--ink-soft); max-width: 60ch;
+}
+.numbered li:last-child { border-bottom: 1px solid var(--rule); }
+.numbered li::before {
+  content: counter(num, decimal-leading-zero);
+  position: absolute; left: 0; top: 14px;
+  font-family: var(--font-mono); font-size: 0.85rem;
+  color: var(--sage-deep); font-weight: 600;
+}
+
+.cards {
+  display: grid; gap: 16px;
+  grid-template-columns: 1fr;
+  margin-top: 8px;
+}
+@media (min-width: 720px) {
+  .cards { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+}
+.card {
+  background: #fffdf6; border: 2px solid var(--ink); border-radius: 12px;
+  padding: 20px 18px; box-shadow: 4px 4px 0 var(--ink);
+}
+.card .num {
+  font-family: var(--font-display); font-weight: 800; font-size: 0.9rem;
+  color: var(--butter-deep); background: var(--butter-soft);
+  display: inline-block; padding: 4px 10px; border-radius: 12px;
+  margin-bottom: 10px;
+}
+.card h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1.05rem; margin-bottom: 6px; color: var(--ink);
+}
+.card p { font-size: 0.92rem; color: var(--ink-soft); }
+
+.evidence-list {
+  list-style: none; margin-top: 10px;
+  display: grid; gap: 10px;
+}
+.evidence-list li {
+  font-size: clamp(0.95rem, 2.3vw, 1.05rem);
+  color: var(--ink-soft);
+  padding: 10px 14px;
+  background: #fffdf6;
+  border-left: 3px solid var(--butter-deep);
+  border-radius: 4px;
+}
+
+.flow {
+  display: grid; gap: 14px;
+  grid-template-columns: 1fr;
+  margin: 12px 0 18px;
+  font-family: var(--font-mono); font-size: 0.92rem;
+}
+@media (min-width: 720px) {
+  .flow { grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; }
+}
+.flow-node {
+  background: #fffdf6; border: 2px solid var(--ink);
+  padding: 14px 16px; border-radius: 8px;
+  text-align: center;
+}
+.flow-arrow {
+  text-align: center; font-size: 1.3rem; color: var(--ink-soft);
+}
+.flow-caption {
+  font-style: italic; color: var(--ink-soft);
+  font-family: var(--font-sans); font-size: 0.95rem;
+  margin-top: 6px;
+}
+
+.slide-peak .pull {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  line-height: 1.25; max-width: 22ch;
+  color: var(--paper);
+}
+.slide-peak .pull .em { color: var(--butter); }
+.slide-peak .attribution {
+  margin-top: 28px; font-family: var(--font-retro);
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--butter);
+}
+
+.ask-amount {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  color: var(--paper); margin-bottom: 18px;
+  display: block;
+}
+.use-of-funds { list-style: none; margin: 14px 0 22px; }
+.use-of-funds li {
+  font-size: clamp(0.95rem, 2.3vw, 1.05rem);
+  color: rgba(250, 246, 238, 0.85);
+  padding: 10px 0; border-top: 1px solid rgba(250, 246, 238, 0.2);
+}
+.use-of-funds li:last-child { border-bottom: 1px solid rgba(250, 246, 238, 0.2); }
+.ask-structure {
+  font-family: var(--font-mono); font-size: 0.85rem;
+  color: var(--butter); margin-top: 16px;
+}
+
+.slide-close .repeatable {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+  line-height: 1.2; max-width: 22ch;
+  color: var(--ink); margin-bottom: 24px;
+}
+.slide-close .repeatable .accent { color: var(--sage-deep); }
+.slide-close .next-step {
+  font-family: var(--font-mono); font-size: 0.95rem;
+  color: var(--ink-soft);
+  padding: 14px 16px; background: var(--sage-soft);
+  border-radius: 8px; display: inline-block;
+}
+
+.hud {
+  position: fixed; bottom: 14px; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 18px; z-index: 50;
+  pointer-events: none;
+}
+.hud .counter, .hud .timer, .hud .help {
+  font-family: var(--font-mono); font-size: 0.78rem;
+  background: rgba(31, 29, 26, 0.7); color: var(--paper);
+  padding: 6px 10px; border-radius: 4px;
+  pointer-events: auto;
+}
+.hud .help { display: none; cursor: pointer; }
+@media (min-width: 720px) { .hud .help { display: inline-block; } }
+.hud .timer[hidden] { display: none; }
+
+.notes {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 30vh; max-height: 240px;
+  background: var(--ink); color: var(--paper);
+  border-top: 2px solid var(--butter);
+  padding: 18px 22px;
+  font-size: 0.92rem; line-height: 1.5;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 240ms ease;
+  z-index: 40;
+}
+.notes.visible { transform: translateY(0); }
+.notes-label {
+  font-family: var(--font-retro); font-size: 0.65rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--butter); margin-bottom: 8px;
+}
+.notes p { color: rgba(250, 246, 238, 0.9); max-width: 70ch; }
+.notes p + p { margin-top: 6px; }
+
+.help-overlay {
+  position: fixed; inset: 0;
+  background: rgba(31, 29, 26, 0.9); color: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+  font-family: var(--font-sans);
+}
+.help-overlay.hidden { display: none; }
+.help-card {
+  background: var(--ink); border: 2px solid var(--butter);
+  border-radius: 12px; padding: 28px 32px; max-width: 460px;
+  text-align: left;
+}
+.help-card h2 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.3rem; color: var(--paper); margin-bottom: 14px;
+}
+.help-card .intro {
+  color: rgba(250, 246, 238, 0.85); font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+.help-card .keys {
+  display: grid; gap: 8px; grid-template-columns: 80px 1fr;
+  font-size: 0.9rem; color: rgba(250, 246, 238, 0.9);
+}
+.help-card kbd {
+  font-family: var(--font-mono); font-size: 0.78rem;
+  background: rgba(245, 216, 142, 0.15);
+  border: 1px solid rgba(245, 216, 142, 0.4);
+  color: var(--butter); padding: 3px 8px; border-radius: 4px;
+}
+.help-card .dismiss {
+  margin-top: 18px; font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--butter); cursor: pointer; text-align: center;
+}
+
+@media (max-width: 719px) {
+  .help-card .desktop-only { display: none; }
+  .notes { height: 40vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide, .progress-fill, .notes { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+  <div class="progress"><div class="progress-fill" id="progress"></div></div>
+
+  <section class="slide slide-title bg-paper">
+    <div class="slide-inner">
+      <span class="stamp">Pitch Lens · Placeholder Template</span>
+      <h1><span class="placeholder">[Project Name]</span></h1>
+      <p class="sub"><span class="placeholder">[One-line description: who you are, what you do, who it's for]</span></p>
+      <p class="audience-tag">For <span class="placeholder">[audience-type]</span> · <span class="placeholder">[time-budget]</span> · 11 slides</p>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>Title slide. Project name plus a one-line that names the audience and the work.</p>
+      <p>Replace the stamp with the specific funder or audience when delivering. The audience tag at the bottom orients the room.</p>
+    </aside>
+  </section>
+
+  <section class="slide bg-sage-soft">
+    <div class="slide-inner">
+      <div class="kicker">The Shift</div>
+      <h1><span class="placeholder">[Name a change in the world the audience already senses but has not articulated]</span></h1>
+      <div class="body">
+        <p><span class="placeholder">[One or two sentences of evidence the audience can verify from their own experience. No mention of your product, solution, or proposal yet.]</span></p>
+      </div>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>30 seconds. Land the shift. Audience nods or doesn't.</p>
+      <p>Do not mention the project yet. The Shift is about the world. If they don't recognize it, the rest of the deck won't land.</p>
+    </aside>
+  </section>
+
+  <section class="slide bg-blush-soft">
+    <div class="slide-inner">
+      <div class="kicker">What is now</div>
+      <h1><span class="placeholder">[The current painful state, specific and felt, in the audience's world]</span></h1>
+      <div class="body">
+        <p><span class="placeholder">[Make the pain specific and felt, not abstract. Use the audience's own language.]</span></p>
+      </div>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>30 seconds. The "what is" half of the sparkline. Let the pain land before showing the alternative.</p>
+    </aside>
+  </section>
+
+  <section class="slide bg-sage-soft">
+    <div class="slide-inner">
+      <div class="kicker">What could be</div>
+      <h1><span class="placeholder">[The Promised Land, named in 5-10 words]</span></h1>
+      <div class="body">
+        <p><span class="placeholder">[Concrete and desirable. The future state if the audience acts.]</span></p>
+      </div>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>30 seconds. Speak this slowly, with confidence. The Promised Land phrase recurs in the close.</p>
+    </aside>
+  </section>
+
+  <section class="slide bg-paper-warm">
+    <div class="slide-inner">
+      <div class="kicker">Why now</div>
+      <h1><span class="placeholder">[Three forces converge]</span></h1>
+      <ol class="numbered">
+        <li><span class="placeholder">[First force: a specific, time-bounded recent shift]</span></li>
+        <li><span class="placeholder">[Second force: another concrete change in the landscape]</span></li>
+        <li><span class="placeholder">[Third force: rising audience demand or visible inflection]</span></li>
+      </ol>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>30 seconds. Why-Now is one of the slides funders spend the most time on. Be specific about each force.</p>
+    </aside>
+  </section>
+
+  <section class="slide bg-paper-deep">
+    <div class="slide-inner">
+      <div class="kicker">The Experience</div>
+      <h1><span class="placeholder">[The single show-don't-tell moment]</span></h1>
+      <div class="flow" aria-label="Visual flow placeholder">
+        <div class="flow-node"><span class="placeholder">[Step 1]</span></div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node"><span class="placeholder">[Step 2]</span></div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node"><span class="placeholder">[Step 3]</span></div>
+      </div>
+      <p class="flow-caption"><span class="placeholder">[The visceral one-line caption about what the audience just saw]</span></p>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>60 seconds. The show-don't-tell slide. If you have a live demo, switch to it here. Otherwise this static flow is the fallback.</p>
+    </aside>
+  </section>
+
+  <section class="slide bg-paper">
+    <div class="slide-inner">
+      <div class="kicker">What we equip you with</div>
+      <h1><span class="placeholder">[Three offerings]</span></h1>
+      <div class="cards">
+        <div class="card">
+          <div class="num">01</div>
+          <h3><span class="placeholder">[Offering one]</span></h3>
+          <p><span class="placeholder">[One sentence on what it does and why it matters.]</span></p>
+        </div>
+        <div class="card">
+          <div class="num">02</div>
+          <h3><span class="placeholder">[Offering two]</span></h3>
+          <p><span class="placeholder">[One sentence.]</span></p>
+        </div>
+        <div class="card">
+          <div class="num">03</div>
+          <h3><span class="placeholder">[Offering three]</span></h3>
+          <p><span class="placeholder">[One sentence.]</span></p>
+        </div>
+      </div>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>45 seconds. One sentence per card. Don't read the body copy on the slide; let the audience read while you summarize.</p>
+    </aside>
+  </section>
+
+  <section class="slide bg-butter-soft">
+    <div class="slide-inner">
+      <div class="kicker">Proof stack</div>
+      <h1><span class="placeholder">[Built. Live. Working.]</span></h1>
+      <ul class="evidence-list">
+        <li><span class="placeholder">[Concrete proof point one: traction, partner, prototype, named outcome]</span></li>
+        <li><span class="placeholder">[Concrete proof point two]</span></li>
+        <li><span class="placeholder">[Concrete proof point three]</span></li>
+        <li><span class="placeholder">[Founder-market fit: one line on why this team for this problem]</span></li>
+      </ul>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>45 seconds. Lead with the most concrete. Investors read this slide for credibility cues.</p>
+    </aside>
+  </section>
+
+  <section class="slide slide-peak bg-ink">
+    <div class="slide-inner">
+      <p class="pull"><span class="placeholder">[The single most resonant sentence in the entire deck. Pull-quote from your own work or a customer's voice. Under 20 words.]</span></p>
+      <div class="attribution">The Peak · Slide 9 of 11</div>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>30 seconds. Stop. Let the slide land. Do not narrate.</p>
+      <p>This is the moment the audience must remember a week later (Kahneman's peak-end rule). If silent, count to three before clicking forward.</p>
+    </aside>
+  </section>
+
+  <section class="slide bg-ink">
+    <div class="slide-inner">
+      <div class="kicker">The Ask</div>
+      <h1><span class="placeholder">[The specific, milestone-linked ask in one sentence]</span></h1>
+      <span class="ask-amount"><span class="placeholder">[your raise target]</span> · <span class="placeholder">[capital structure]</span></span>
+      <ul class="use-of-funds">
+        <li><span class="placeholder">[Use of funds line item one with milestone]</span></li>
+        <li><span class="placeholder">[Use of funds line item two]</span></li>
+        <li><span class="placeholder">[Use of funds line item three]</span></li>
+      </ul>
+      <p class="ask-structure">Structure: <span class="placeholder">[deal terms, repayment conditions, mission alignment]</span></p>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>30 seconds. The ask must be specific. Use of funds are line items, not categories.</p>
+      <p>Replace [your raise target] with a number sized to the milestone, derived from a bottom-up budget. Do not invent a number.</p>
+    </aside>
+  </section>
+
+  <section class="slide slide-close bg-paper">
+    <div class="slide-inner">
+      <div class="kicker">The Close</div>
+      <p class="repeatable"><span class="placeholder">[The repeatable sentence the audience tells their colleagues. Under 15 words. Names the project and the Promised Land.]</span></p>
+      <p class="next-step">→ <span class="placeholder">[One specific next step. Calendarable. Not "let's stay in touch."]</span></p>
+    </div>
+    <aside class="slide-notes" hidden>
+      <p>15 seconds. The repeatable sentence is what the audience uses when someone asks "what was that about?" Keep it under 15 words.</p>
+      <p>One next step. Not three options. End on the slide. Silence is the close.</p>
+    </aside>
+  </section>
+
+</div>
+
+<div class="hud">
+  <span class="counter" id="counter">1 / 11</span>
+  <span class="timer" id="timer" hidden>00:00</span>
+  <span class="help" id="help-toggle">? · keys</span>
+</div>
+
+<div class="notes" id="notes">
+  <div class="notes-label">Speaker Notes · slide <span id="notes-slide">1</span></div>
+  <div id="notes-body"></div>
+</div>
+
+<div class="help-overlay" id="help-overlay">
+  <div class="help-card">
+    <h2>Pitch deck · placeholder template</h2>
+    <p class="intro">This is a blank Pitch lens template. Each slide shows the structure with <span class="placeholder">[bracketed]</span> placeholder content. Run the adapter prompt against your project to generate a populated version.</p>
+    <div class="keys">
+      <kbd>← →</kbd><span>Previous · next slide</span>
+      <kbd>Space</kbd><span>Next slide</span>
+      <kbd>Home / End</kbd><span>First · last slide</span>
+      <kbd class="desktop-only">P</kbd><span class="desktop-only">Toggle speaker notes</span>
+      <kbd class="desktop-only">T</kbd><span class="desktop-only">Toggle count-up timer</span>
+      <kbd class="desktop-only">F</kbd><span class="desktop-only">Toggle fullscreen</span>
+      <kbd>Tap · click</kbd><span>Advance slide (mobile)</span>
+      <kbd>Swipe</kbd><span>Navigate (mobile)</span>
+    </div>
+    <div class="dismiss" id="help-dismiss">Press any key or tap to start →</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const counter = document.getElementById('counter');
+  const progressFill = document.getElementById('progress');
+  const notesPanel = document.getElementById('notes');
+  const notesBody = document.getElementById('notes-body');
+  const notesSlide = document.getElementById('notes-slide');
+  const timer = document.getElementById('timer');
+  const helpOverlay = document.getElementById('help-overlay');
+  const helpDismiss = document.getElementById('help-dismiss');
+  const helpToggle = document.getElementById('help-toggle');
+
+  let current = 0;
+  let notesVisible = false;
+  let timerVisible = false;
+  let timerInterval = null;
+  let timerStart = null;
+
+  function show(idx) {
+    if (idx < 0) idx = 0;
+    if (idx >= slides.length) idx = slides.length - 1;
+    slides[current].classList.remove('active');
+    current = idx;
+    slides[current].classList.add('active');
+    slides[current].scrollTop = 0;
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+    progressFill.style.width = ((current + 1) / slides.length * 100) + '%';
+    updateNotes();
+  }
+
+  function updateNotes() {
+    notesSlide.textContent = (current + 1);
+    const noteEl = slides[current].querySelector('.slide-notes');
+    notesBody.innerHTML = noteEl ? noteEl.innerHTML : '<p>No notes for this slide.</p>';
+  }
+
+  function next() { show(current + 1); }
+  function prev() { show(current - 1); }
+  function first() { show(0); }
+  function last() { show(slides.length - 1); }
+
+  function toggleNotes() {
+    notesVisible = !notesVisible;
+    notesPanel.classList.toggle('visible', notesVisible);
+  }
+
+  function toggleTimer() {
+    timerVisible = !timerVisible;
+    if (timerVisible) {
+      timerStart = Date.now();
+      timer.hidden = false;
+      timer.textContent = '00:00';
+      timerInterval = setInterval(function() {
+        const elapsed = Math.floor((Date.now() - timerStart) / 1000);
+        const m = Math.floor(elapsed / 60).toString().padStart(2, '0');
+        const s = (elapsed % 60).toString().padStart(2, '0');
+        timer.textContent = m + ':' + s;
+      }, 1000);
+    } else {
+      timer.hidden = true;
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(function() {});
+    } else {
+      document.exitFullscreen().catch(function() {});
+    }
+  }
+
+  function dismissHelp() { helpOverlay.classList.add('hidden'); }
+
+  document.addEventListener('keydown', function(e) {
+    if (!helpOverlay.classList.contains('hidden')) { dismissHelp(); return; }
+    switch (e.key) {
+      case 'ArrowRight': case ' ': case 'PageDown': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'PageUp': e.preventDefault(); prev(); break;
+      case 'Home': e.preventDefault(); first(); break;
+      case 'End': e.preventDefault(); last(); break;
+      case 'p': case 'P': toggleNotes(); break;
+      case 't': case 'T': toggleTimer(); break;
+      case 'f': case 'F': toggleFullscreen(); break;
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (helpOverlay.contains(e.target)) return;
+    if (notesPanel.contains(e.target)) return;
+    if (e.target === helpToggle) { helpOverlay.classList.remove('hidden'); return; }
+    if (!helpOverlay.classList.contains('hidden')) { dismissHelp(); return; }
+    next();
+  });
+
+  let touchStartX = 0; let touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    if (!helpOverlay.classList.contains('hidden')) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) next(); else prev();
+    }
+  }, { passive: true });
+
+  helpDismiss.addEventListener('click', function(e) { e.stopPropagation(); dismissHelp(); });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

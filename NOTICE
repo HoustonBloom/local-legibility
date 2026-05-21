@@ -1,0 +1,16 @@
+Local Brain
+Copyright 2026 Local Brain contributors
+
+A vault-agnostic publishing system. Turn any folder of markdown into
+curated HTML artifacts, shaped for one audience at a time. Built for
+human-plus-AI workflows.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+see LICENSE for full terms.
+
+This NOTICE file is provided for informational purposes per Section 4(d)
+of the License. The contents do not modify the License itself.
+
+If you fork Local Brain or build on it, you are welcome to add your own
+attribution to this NOTICE alongside the entries above. The packet is
+designed to be forked. The exit is the feature, at every layer, by design.
