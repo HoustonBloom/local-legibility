@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Look : Your Folder, Assessed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Caveat:wght@400;500;600&family=Aldrich&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+  --font-retro: "Aldrich", monospace;
+  --font-mono: "JetBrains Mono", monospace;
+  --ink: #1f1d1a; --ink-soft: #44403c; --ink-faint: #6e6760;
+  --paper: #faf6ee; --paper-warm: #f5eede; --paper-deep: #ece1c7;
+  --sage: #6fa67f; --sage-deep: #1f5028; --sage-soft: #dcebd7;
+  --butter: #f5d88e; --butter-deep: #6b4613; --butter-soft: #fbefc8;
+  --blush: #f9a8b8; --blush-soft: #fcdee4;
+  --sky: #7dd3fc; --sky-soft: #d9eef5; --sky-deep: #0c4a6e;
+  --rule: #e7dec9;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-sans); background: var(--paper); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; font-size: 17px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+section { padding: 56px 0; }
+section + section { border-top: 1px solid var(--rule); }
+.kicker { font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 18px; }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2rem); font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { color: var(--ink-soft); max-width: 60ch; }
+
+/* ── Hero ── */
+.hero { padding: 72px 0 36px; background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%); }
+.hero .stamp { display: inline-block; font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); background: var(--sage-soft); padding: 6px 12px; border-radius: 20px; margin-bottom: 18px; }
+.hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; margin-bottom: 14px; max-width: 22ch; }
+.hero h1 .ink-accent { color: var(--sage-deep); }
+.hero .sub { font-size: 1.1rem; color: var(--ink-soft); max-width: 56ch; }
+.hero .meta { margin-top: 18px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-faint); }
+
+/* ── Stat cards ── */
+.stats { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 28px; }
+@media (min-width: 600px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat {
+  background: #fffdf6; border: 2px solid var(--ink); border-radius: 10px;
+  padding: 18px 18px; box-shadow: 3px 3px 0 var(--ink);
+}
+.stat .num { font-family: var(--font-display); font-weight: 800; font-size: 1.8rem; color: var(--ink); }
+.stat .label { font-family: var(--font-retro); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-top: 4px; }
+.stat.sage { background: var(--sage-soft); }
+.stat.sage .num { color: var(--sage-deep); }
+.stat.butter { background: var(--butter-soft); }
+.stat.butter .num { color: var(--butter-deep); }
+.stat.sky { background: var(--sky-soft); }
+.stat.sky .num { color: var(--sky-deep); }
+
+/* ── Suggested overhauls (education + growth guide) ── */
+.overhauls .item {
+  display: grid; grid-template-columns: 38px 1fr; gap: 16px; align-items: start;
+  padding: 22px 0; border-bottom: 1px dashed var(--rule);
+}
+.overhauls .item:last-child { border-bottom: none; }
+.overhauls .item .num {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--sage);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; color: var(--sage-deep);
+}
+.overhauls .item-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 14px; margin-bottom: 10px; flex-wrap: wrap;
+}
+.overhauls .item h3 { font-size: 1rem; margin-bottom: 0; flex: 1; min-width: 200px; }
+.overhauls .item p { font-size: 0.93rem; line-height: 1.55; }
+.overhauls .why-now, .overhauls .when-needed {
+  font-size: 0.92rem; margin-top: 10px; line-height: 1.55;
+}
+.overhauls .why-now strong, .overhauls .when-needed strong {
+  color: var(--ink); font-weight: 700; font-family: var(--font-display);
+}
+
+/* Scale badges : signal urgency at a glance */
+.scale-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.68rem;
+  padding: 5px 10px; border-radius: 12px;
+  white-space: nowrap; letter-spacing: 0.04em;
+  border: 1px solid; text-transform: uppercase; font-weight: 600;
+}
+.scale-badge.required {
+  color: #7a2c3c; background: var(--blush-soft);
+  border-color: rgba(122, 44, 60, 0.3);
+}
+.scale-badge.required::before { content: '●'; color: #c94351; }
+.scale-badge.at-scale {
+  color: var(--butter-deep); background: var(--butter-soft);
+  border-color: rgba(107, 70, 19, 0.35);
+}
+.scale-badge.at-scale::before { content: '▲'; color: var(--butter-deep); }
+.scale-badge.nice {
+  color: var(--sage-deep); background: var(--sage-soft);
+  border-color: var(--sage);
+}
+.scale-badge.nice::before { content: '○'; color: var(--sage-deep); }
+
+/* Capacity bar : shows where the user is vs. where this overhaul becomes needed */
+.capacity {
+  background: var(--paper-warm); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 12px 14px; margin: 12px 0;
+}
+.capacity-labels {
+  display: flex; justify-content: space-between; gap: 10px;
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--ink-soft); margin-bottom: 7px;
+}
+.capacity-labels .now { color: var(--sage-deep); font-weight: 600; }
+.capacity-labels .threshold { color: var(--ink-faint); }
+.capacity-track {
+  position: relative; height: 10px; background: var(--paper-deep);
+  border-radius: 5px; overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.capacity-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sage) 0%, var(--sage-deep) 100%);
+  transition: width 400ms ease;
+}
+.capacity-fill.warning {
+  background: linear-gradient(90deg, var(--butter) 0%, var(--butter-deep) 100%);
+}
+.capacity-fill.critical {
+  background: linear-gradient(90deg, #f9a8b8 0%, #c94351 100%);
+}
+.capacity-note {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--ink-soft); margin-top: 7px;
+}
+
+.code-card {
+  background: #fffdf6; border: 1px solid var(--rule); border-radius: 10px;
+  margin-top: 12px; overflow: hidden;
+}
+.code-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 14px; background: var(--paper-warm); border-bottom: 1px solid var(--rule);
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint);
+}
+.code-body { padding: 14px 18px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink); white-space: pre; overflow-x: auto; }
+.code-body .key { color: var(--sage-deep); }
+.code-body .dim { color: var(--ink-faint); }
+
+/* ── Wired-up section (transparency on what changed) ── */
+.wired { background: var(--paper-warm); }
+.wired-grid {
+  display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px;
+}
+@media (min-width: 720px) { .wired-grid { grid-template-columns: 1fr 1fr; gap: 18px; } }
+.wired-card {
+  background: #fffdf6; border: 1px solid var(--rule); border-radius: 10px;
+  padding: 18px 20px;
+}
+.wired-card .icon-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.wired-card .icon-row .ico {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: var(--sage-soft); border: 1px solid var(--sage);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--sage-deep);
+}
+.wired-card .icon-row .ico svg { width: 16px; height: 16px; }
+.wired-card .icon-row h3 { font-size: 0.98rem; font-family: var(--font-display); font-weight: 700; }
+.wired-card .from-to {
+  font-family: var(--font-mono); font-size: 0.78rem;
+  background: var(--paper-deep); padding: 8px 10px; border-radius: 6px;
+  margin-bottom: 8px; line-height: 1.4;
+  word-break: break-all;
+}
+.wired-card .from-to .arrow { color: var(--sage-deep); margin: 0 6px; }
+.wired-card .why { font-size: 0.86rem; color: var(--ink-soft); }
+
+/* ── Plan flag (shown for lenses with high token cost) ── */
+.plan-flag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.68rem;
+  padding: 4px 10px; border-radius: 12px;
+  color: #7a2c3c; background: var(--blush-soft);
+  border: 1px solid rgba(122, 44, 60, 0.3);
+  letter-spacing: 0.04em; text-transform: uppercase; font-weight: 600;
+}
+.plan-flag::before { content: '⚠'; font-size: 0.85em; }
+
+/* ── Suggested next: lens-catalog card layout ── */
+.lens { padding: 48px 0; border-top: 1px solid var(--rule); }
+.lens-grid {
+  display: grid; grid-template-columns: 1fr; gap: 32px;
+  align-items: start;
+}
+@media (min-width: 820px) { .lens-grid { grid-template-columns: 1fr 1.2fr; gap: 48px; } }
+
+.preview {
+  background: var(--paper-warm);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 var(--ink);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4 / 3;
+}
+.preview svg { width: 100%; height: 100%; display: block; }
+
+/* Top-ranked lens: heavier visual weight */
+.lens.top-ranked .preview {
+  border: 2.5px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.lens-body .lens-meta {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  font-family: var(--font-retro); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-faint); margin-bottom: 12px;
+}
+.lens-body .lens-meta .badge { padding: 4px 10px; border-radius: 12px; }
+.lens-body .lens-meta .badge.ready { background: var(--sage-soft); color: var(--sage-deep); }
+.lens-body .lens-meta .badge.best-fit { background: var(--sage-deep); color: var(--paper); }
+.lens-body .lens-meta .badge.soon { background: var(--butter-soft); color: var(--butter-deep); }
+.lens-body h2 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+.lens-body .tagline { font-size: 1rem; color: var(--ink-soft); margin-bottom: 18px; max-width: none; }
+.lens-body .what, .lens-body .why { margin-bottom: 14px; }
+.lens-body .what .label, .lens-body .why .label {
+  font-family: var(--font-retro); font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--sage-deep); margin-bottom: 4px;
+}
+.lens-body .what p, .lens-body .why p { font-size: 0.94rem; color: var(--ink-soft); max-width: none; }
+
+.winner-note {
+  margin-top: 14px; padding: 10px 14px;
+  background: var(--sage-soft); border-left: 3px solid var(--sage-deep);
+  border-radius: 6px;
+  font-family: var(--font-display); font-weight: 600; font-size: 0.92rem;
+  color: var(--sage-deep);
+}
+
+/* ── View example button ── */
+.view-btn {
+  margin-top: 18px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 600; font-size: 0.95rem;
+  padding: 12px 20px;
+  border-radius: 8px; border: 2px solid var(--ink);
+  background: var(--paper); color: var(--ink);
+  cursor: pointer; text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+.view-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); background: var(--sage-soft); }
+.view-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+.view-btn .arrow { transition: transform 200ms ease; }
+.view-btn:hover .arrow { transform: translateX(3px); }
+.lens.top-ranked .view-btn { background: var(--sage); }
+.lens.top-ranked .view-btn:hover { background: var(--sage-deep); color: var(--paper); }
+
+.soon-pill {
+  margin-top: 18px; display: inline-block;
+  font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-faint); background: var(--paper-deep);
+  padding: 8px 14px; border-radius: 14px;
+}
+
+/* Section intro (Suggested next kicker/heading, before the cards) */
+.suggested-intro { padding: 48px 0 0; }
+.suggested-intro .wrap > p { margin-top: 14px; }
+
+/* ── Buttons (copy/prompt) ── */
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-display); font-weight: 600; font-size: 0.82rem;
+  padding: 8px 12px; border-radius: 6px;
+  border: 1.5px solid var(--ink); background: var(--paper); color: var(--ink);
+  cursor: pointer; text-decoration: none;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  white-space: nowrap;
+}
+.copy-btn:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); background: var(--sage-soft); }
+.copy-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+.copy-btn.copied { background: var(--sage); color: var(--paper); }
+
+/* ── Final CTA ── */
+.final { padding: 80px 0; text-align: center; background: var(--ink); color: var(--paper); }
+.final .kicker { color: var(--butter); }
+.final h2 { color: var(--paper); font-size: clamp(1.85rem, 4vw, 2.4rem); margin: 0 auto 14px; max-width: 22ch; }
+.final p { color: rgba(250, 246, 238, 0.8); margin: 0 auto 28px; max-width: 50ch; font-size: 1.05rem; }
+.final .big-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;
+  padding: 18px 32px; border-radius: 10px;
+  border: 2.5px solid var(--paper); background: var(--sage); color: var(--ink);
+  cursor: pointer; text-decoration: none;
+  box-shadow: 5px 5px 0 var(--paper);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.final .big-btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--paper); }
+.final .big-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--paper); }
+.final .or-note { margin-top: 22px; font-family: var(--font-hand); font-size: 1.2rem; color: var(--butter); }
+
+footer { padding: 28px 0; border-top: 1px solid var(--rule); font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); background: var(--paper); }
+footer .inner { max-width: 1040px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+
+/* ── Toast for copy feedback ── */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--paper);
+  padding: 10px 18px; border-radius: 8px;
+  font-family: var(--font-display); font-weight: 600; font-size: 0.92rem;
+  box-shadow: 0 10px 30px -8px rgba(0,0,0,0.3);
+  opacity: 0; pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+  z-index: 1100;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+
+/* ── Modal overlay (self-contained preview) ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(31, 29, 26, 0.78);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.modal-overlay[data-open="true"] { opacity: 1; pointer-events: auto; }
+.modal-window {
+  width: 100%; max-width: 1100px; height: 90vh;
+  background: var(--paper);
+  border: 2.5px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.4);
+  display: flex; flex-direction: column; overflow: hidden;
+  transform: scale(0.96);
+  transition: transform 200ms ease;
+}
+.modal-overlay[data-open="true"] .modal-window { transform: scale(1); }
+.modal-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px;
+  background: var(--paper-warm);
+  border-bottom: 1.5px solid var(--ink);
+  gap: 12px;
+}
+.modal-bar .modal-title {
+  font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--ink);
+  flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.modal-bar .modal-title .lens-chip {
+  display: inline-block; padding: 2px 8px; margin: 0 4px;
+  background: var(--sage-soft); color: var(--sage-deep);
+  border-radius: 6px; font-family: var(--font-mono); font-size: 0.85em;
+}
+.modal-actions { display: flex; align-items: center; gap: 8px; }
+.modal-bar .modal-copy {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-display); font-weight: 600; font-size: 0.82rem;
+  padding: 6px 12px; border-radius: 6px;
+  border: 1.5px solid var(--ink); background: var(--paper); color: var(--ink);
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  white-space: nowrap;
+}
+.modal-bar .modal-copy:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); background: var(--sage-soft); }
+.modal-bar .modal-copy:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+.modal-bar .modal-copy.copied { background: var(--sage); color: var(--paper); }
+.modal-bar .modal-note {
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint);
+  flex: 1; text-align: center;
+}
+.modal-close {
+  background: var(--paper); border: 1.5px solid var(--ink);
+  width: 32px; height: 32px; border-radius: 6px;
+  font-size: 1.2rem; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; color: var(--ink);
+  transition: background 120ms ease;
+}
+.modal-close:hover { background: var(--blush-soft); }
+.modal-iframe-wrap { flex: 1; overflow: hidden; background: var(--paper); }
+.modal-iframe-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+@media (max-width: 600px) {
+  .modal-overlay { padding: 0; }
+  .modal-window { height: 100vh; max-width: 100%; border-radius: 0; border: none; }
+  .modal-bar .modal-note { display: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="stamp">First Look · Kit Setup Report</span>
+    <h1>Your folder, <span class="ink-accent">ready to publish.</span></h1>
+    <p class="sub">We scanned your folder and matched it against the packet's lenses. Here's what we found, what we suggest, and the prompts to try each lens with one click.</p>
+    <div class="meta">Scanned 23 files across 4 folders · Lens fit assessed · 3 growth-guide items flagged</div>
+  </div>
+</section>
+
+<!-- ─── What we found ─── -->
+<section>
+  <div class="wrap">
+    <div class="kicker">What we found</div>
+    <h2>Your folder is in good shape.</h2>
+    <p style="margin-top: 14px;">Most files have clear titles and dates. About a third already use frontmatter. You have a daily notes pattern and a few project hubs : that's enough for the packet to work right now.</p>
+
+    <div class="stats">
+      <div class="stat sage">
+        <div class="num">23</div>
+        <div class="label">Markdown files</div>
+      </div>
+      <div class="stat butter">
+        <div class="num">8</div>
+        <div class="label">With frontmatter</div>
+      </div>
+      <div class="stat sky">
+        <div class="num">4</div>
+        <div class="label">Project hubs</div>
+      </div>
+      <div class="stat">
+        <div class="num">12</div>
+        <div class="label">Daily notes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── What we wired up (transparency) ─── -->
+<section class="wired">
+  <div class="wrap">
+    <div class="kicker">What we wired up</div>
+    <h2>Here's exactly what changed.</h2>
+    <p style="margin-top: 14px;">The kit adapted to your folder so you don't have to. Below is the full mapping : what was renamed, where the skill landed, and which paths the pipeline now reads.</p>
+
+    <div class="wired-grid">
+      <div class="wired-card">
+        <div class="icon-row">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6a1 1 0 011-1h5l2 2h9a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+            </svg>
+          </div>
+          <h3>Source folder mapped</h3>
+        </div>
+        <div class="from-to">
+          your <strong>notes/</strong> folder<span class="arrow">→</span>kit's source root
+        </div>
+        <div class="why">The kit will read every markdown file under <code>notes/</code> for cut content. No file moves required.</div>
+      </div>
+
+      <div class="wired-card">
+        <div class="icon-row">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              <path d="M14 2v6h6"/>
+              <line x1="8" y1="13" x2="16" y2="13"/>
+              <line x1="8" y1="17" x2="13" y2="17"/>
+            </svg>
+          </div>
+          <h3>Frontmatter added to 4 files</h3>
+        </div>
+        <div class="from-to">
+          (no frontmatter)<span class="arrow">→</span>visibility: [local, public]
+        </div>
+        <div class="why">Added a <code>visibility:</code> line to your 4 most recent daily notes so the cuts skill can source from them. Every other file untouched.</div>
+      </div>
+
+      <div class="wired-card">
+        <div class="icon-row">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3>Skill installed</h3>
+        </div>
+        <div class="from-to">
+          kit's skills/cut-packet/<span class="arrow">→</span>.claude/skills/cut-packet/
+        </div>
+        <div class="why">Your AI can now invoke the cuts skill directly. The skill files were copied into your local AI's skill directory, not symlinked.</div>
+      </div>
+
+      <div class="wired-card">
+        <div class="icon-row">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <h3>Path constants updated</h3>
+        </div>
+        <div class="from-to">
+          generate-content.mjs<span class="arrow">→</span>reads notes/, projects/, principles/
+        </div>
+        <div class="why">If you run Local Brain Preview later, the script knows where to look. We swapped the packet's defaults (Initiatives, Products, Research) for your actual folder names.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Suggested overhauls (education + growth guide) ─── -->
+<section class="overhauls">
+  <div class="wrap">
+    <div class="kicker">Growth guide · know what to add, and when</div>
+    <h2>Make the system work better as you grow.</h2>
+    <p style="margin-top: 14px;">Nothing here is required today. Each item tells you <em>why</em> it matters and <em>at what scale</em>. Do them as you hit the thresholds, not before.</p>
+
+    <div class="item">
+      <div class="num">1</div>
+      <div>
+        <div class="item-head">
+          <h3>Add a <code style="font-family: var(--font-mono); background: var(--paper-deep); padding: 1px 6px; border-radius: 4px;">visibility:</code> field to files you'd be happy to share publicly.</h3>
+          <span class="scale-badge nice">Nice to test · Required to publish</span>
+        </div>
+        <p class="why-now"><strong>Why it matters:</strong> The <code style="font-family: var(--font-mono); font-size: 0.9em;">visibility</code> array is how the packet knows what to include in a cut and what the preview site is allowed to publish. Without it, the cuts skill can still read filenames and headings : but a tag makes inclusion deliberate.</p>
+        <p class="when-needed"><strong>When it matters:</strong> Not yet. You're still exploring. The moment you want an external-facing frame or you spin up the local preview site, this becomes required on every file that goes public.</p>
+        <div class="code-card">
+          <div class="code-head">
+            <span>Add to the top of each file</span>
+            <button class="copy-btn" data-copy="---&#10;visibility: [local, public]&#10;---">Copy snippet</button>
+          </div>
+          <div class="code-body"><span class="dim">---</span>
+<span class="key">visibility:</span> [local, public]
+<span class="dim">---</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="num">2</div>
+      <div>
+        <div class="item-head">
+          <h3>Add a short <code style="font-family: var(--font-mono); background: var(--paper-deep); padding: 1px 6px; border-radius: 4px;">intake.md</code> beside each PDF or non-markdown file summarizing its key points.</h3>
+          <span class="scale-badge at-scale">At scale · Needed at 10+ non-markdown files</span>
+        </div>
+
+        <div class="capacity">
+          <div class="capacity-labels">
+            <span class="now">You: 2 non-markdown files</span>
+            <span class="threshold">Threshold: 10</span>
+          </div>
+          <div class="capacity-track"><div class="capacity-fill" style="width: 20%;"></div></div>
+          <div class="capacity-note">20% of threshold. Plenty of runway. Revisit when you pass ~8.</div>
+        </div>
+
+        <p class="why-now"><strong>Why it matters:</strong> Cuts work best with markdown text. A 200-word summary gives lenses strong material to work from : and keeps the originals untouched. Summaries let the skill pick the right files to include at full depth.</p>
+        <p class="when-needed"><strong>When it matters:</strong> Right now the packet can read your 2 PDFs inline : no bottleneck. Once you pass ~10, reading every file during every cut starts burning context unnecessarily. Summaries become the efficient way in.</p>
+        <div class="code-card">
+          <div class="code-head">
+            <span>Top of each intake.md</span>
+            <button class="copy-btn" data-copy="---&#10;visibility: [local, public]&#10;type: summary&#10;source: ../path/to/original.pdf&#10;---">Copy snippet</button>
+          </div>
+          <div class="code-body"><span class="dim">---</span>
+<span class="key">visibility:</span> [local, public]
+<span class="key">type:</span> summary
+<span class="key">source:</span> ../path/to/original.pdf
+<span class="dim">---</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="num">3</div>
+      <div>
+        <div class="item-head">
+          <h3>Create a <code style="font-family: var(--font-mono); background: var(--paper-deep); padding: 1px 6px; border-radius: 4px;">Daily/Changelog.md</code> with 2-3 lines per day.</h3>
+          <span class="scale-badge nice">Nice to have · Unlocks timeline view</span>
+        </div>
+        <p class="why-now"><strong>Why it matters:</strong> This powers the Activity Timeline lens and the timeline widget in the local preview site. It also helps the cuts skill know which projects are active versus dormant.</p>
+        <p class="when-needed"><strong>When it matters:</strong> Optional while you're in a single folder. Becomes high-value once you have 3+ projects running in parallel : the changelog is the only cross-project pulse the packet can read at a glance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Suggested next: section intro ─── -->
+<section class="suggested-intro">
+  <div class="wrap">
+    <div class="kicker">Suggested next · Ranked for your content</div>
+    <h2>Try this first.</h2>
+    <p style="margin-top: 14px;">Based on your content, these lenses will produce the most useful frames. Top-ranked is marked Best fit. Each card has a Preview button that opens a live example : no AI tokens spent.</p>
+  </div>
+</section>
+
+<!-- ─────── 01 · REEL (★ Best fit) ─────── -->
+<section class="lens top-ranked">
+  <div class="wrap">
+    <div class="lens-grid">
+      <div class="preview" aria-hidden="true">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <rect width="400" height="300" fill="#1f1d1a"/>
+          <rect x="140" y="30" width="120" height="220" rx="14" fill="#fffdf6" stroke="#f5d88e" stroke-width="1.5"/>
+          <text x="200" y="80" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="14" fill="#1f1d1a">Slide 03</text>
+          <line x1="160" y1="92" x2="240" y2="92" stroke="#6fa67f" stroke-width="2"/>
+          <text x="200" y="120" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="8" fill="#44403c">your bold</text>
+          <text x="200" y="132" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="8" fill="#44403c">claim here</text>
+          <circle cx="200" cy="170" r="22" fill="#dcebd7" stroke="#1f5028" stroke-width="1.5"/>
+          <text x="200" y="174" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="12" fill="#1f5028">★</text>
+          <rect x="148" y="220" width="104" height="20" rx="10" fill="#1f1d1a"/>
+          <text x="172" y="234" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#f5d88e">←</text>
+          <text x="200" y="234" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#f5d88e">03 / 08</text>
+          <text x="228" y="234" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#f5d88e">→</text>
+        </svg>
+      </div>
+      <div class="lens-body">
+        <div class="lens-meta">
+          <span class="badge best-fit">★ Best fit</span>
+          <span>Lens · Reel</span>
+        </div>
+        <h2>Reel</h2>
+        <p class="tagline">A full-viewport set of 5 to 9 scrollable slides with persistent bottom-bar navigation. Audience-facing, social-shareable.</p>
+        <div class="what">
+          <div class="label">What is it</div>
+          <p>Each slide stands on its own with a title, a tight body, and an optional visual. Swipe / arrow / keyboard navigation. Mobile-first.</p>
+        </div>
+        <div class="why">
+          <div class="label">Why use it</div>
+          <p>Your daily notes and short-form posts are perfect Reel material. Ships fast and lands well : the right first frame to make.</p>
+        </div>
+        <div class="winner-note">★ Best fit : this is the lens we'd produce first.</div>
+        <button class="view-btn" data-example="example-reel" data-lens="Reel" data-prompt="Cut me a frame using the reel lens. Pull from my last 5 daily notes. Save to cuts/frames/ and tell me the exact path.">Preview lens <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── 02 · EXPLAINER ─────── -->
+<section class="lens">
+  <div class="wrap">
+    <div class="lens-grid">
+      <div class="preview" aria-hidden="true">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <rect width="400" height="300" fill="#fffdf6"/>
+          <rect x="20" y="20" width="80" height="20" rx="10" fill="#dcebd7"/>
+          <text x="60" y="34" text-anchor="middle" font-family="Aldrich, monospace" font-size="8" letter-spacing="2" fill="#1f5028">BEAT 2</text>
+          <text x="20" y="64" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="16" fill="#1f1d1a">Plain text is the format.</text>
+          <text x="20" y="84" font-family="Space Grotesk, sans-serif" font-size="9" fill="#44403c">A folder of files. Readable forever.</text>
+          <rect x="20" y="105" width="240" height="120" rx="6" fill="#fffdf6" stroke="#e7dec9" stroke-width="1"/>
+          <rect x="20" y="105" width="240" height="20" rx="6" fill="#f5eede"/>
+          <circle cx="32" cy="115" r="3" fill="#f9a8b8"/>
+          <circle cx="42" cy="115" r="3" fill="#f5d88e"/>
+          <circle cx="52" cy="115" r="3" fill="#6fa67f"/>
+          <text x="62" y="118" font-family="JetBrains Mono, monospace" font-size="6" fill="#6e6760">notes / project.md</text>
+          <text x="32" y="140" font-family="JetBrains Mono, monospace" font-size="6" fill="#6e6760">---</text>
+          <text x="32" y="152" font-family="JetBrains Mono, monospace" font-size="6" fill="#1f5028">type: project</text>
+          <text x="32" y="164" font-family="JetBrains Mono, monospace" font-size="6" fill="#1f5028">visibility: [public]</text>
+          <text x="32" y="176" font-family="JetBrains Mono, monospace" font-size="6" fill="#6e6760">---</text>
+          <text x="32" y="194" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="9" fill="#1f1d1a"># A New Project</text>
+          <text x="280" y="150" font-family="Caveat, cursive" font-size="14" fill="#1f5028">↖ this label</text>
+          <text x="280" y="166" font-family="Caveat, cursive" font-size="14" fill="#1f5028">  is the publish</text>
+          <text x="280" y="182" font-family="Caveat, cursive" font-size="14" fill="#1f5028">  switch.</text>
+          <text x="200" y="265" text-anchor="middle" font-family="Caveat, cursive" font-size="20" fill="#6e6760">↓</text>
+        </svg>
+      </div>
+      <div class="lens-body">
+        <div class="lens-meta">
+          <span class="badge ready">Ready</span>
+          <span>Lens · Explainer</span>
+        </div>
+        <h2>Explainer / Walk-through</h2>
+        <p class="tagline">Numbered "beats" walking through a concept, with file previews and hand-written margin notes.</p>
+        <div class="what">
+          <div class="label">What is it</div>
+          <p>Each beat shows the actual artifact (a file, a code block, a diagram), then annotates what matters. Teaches by demonstration.</p>
+        </div>
+        <div class="why">
+          <div class="label">Why use it</div>
+          <p>Your project hubs are deep enough for walk-through beats with real file previews.</p>
+        </div>
+        <button class="view-btn" data-example="example-explainer" data-lens="Explainer" data-prompt="Cut me a frame using the explainer lens. Walk through how my [project] works. Save to cuts/frames/ and tell me the exact path.">Preview lens <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── 03 · SESSION NARRATIVE ─────── -->
+<section class="lens">
+  <div class="wrap">
+    <div class="lens-grid">
+      <div class="preview" aria-hidden="true">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <rect width="400" height="300" fill="#fffdf6"/>
+          <text x="20" y="38" font-family="Aldrich, monospace" font-size="9" letter-spacing="2" fill="#1f5028">SESSION · 2026-04-19</text>
+          <text x="20" y="62" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="20" fill="#1f1d1a">What we shipped</text>
+          <line x1="20" y1="78" x2="380" y2="78" stroke="#e7dec9" stroke-width="1"/>
+          <rect x="20" y="92" width="80" height="50" rx="6" fill="#dcebd7" stroke="#1f5028" stroke-width="1.2"/>
+          <text x="60" y="115" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="18" fill="#1f5028">5</text>
+          <text x="60" y="132" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#44403c">DECISIONS</text>
+          <rect x="108" y="92" width="80" height="50" rx="6" fill="#fbefc8" stroke="#6b4613" stroke-width="1.2"/>
+          <text x="148" y="115" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="18" fill="#6b4613">12</text>
+          <text x="148" y="132" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#44403c">FILES</text>
+          <rect x="196" y="92" width="80" height="50" rx="6" fill="#d9eef5" stroke="#0c4a6e" stroke-width="1.2"/>
+          <text x="236" y="115" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="18" fill="#0c4a6e">3h</text>
+          <text x="236" y="132" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#44403c">DURATION</text>
+          <line x1="32" y1="180" x2="32" y2="270" stroke="#1f5028" stroke-width="1.5" stroke-dasharray="2 3"/>
+          <circle cx="32" cy="185" r="4" fill="#6fa67f"/>
+          <text x="44" y="189" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">Setup · scoped the work</text>
+          <circle cx="32" cy="215" r="4" fill="#f5d88e"/>
+          <text x="44" y="219" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">Build · wired the pipeline</text>
+          <circle cx="32" cy="245" r="4" fill="#7dd3fc"/>
+          <text x="44" y="249" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">Discovery · noticed the bug</text>
+          <circle cx="32" cy="275" r="4" fill="#f9a8b8"/>
+        </svg>
+      </div>
+      <div class="lens-body">
+        <div class="lens-meta">
+          <span class="badge ready">Ready</span>
+          <span>Lens · Session Narrative</span>
+        </div>
+        <h2>Session Narrative</h2>
+        <p class="tagline">A chronological story of a work session: what happened, what got decided, what's next.</p>
+        <div class="what">
+          <div class="label">What is it</div>
+          <p>Timeline view with stat cards, typed events (setup / build / discovery / synthesis / decision / output), inline insights, files touched, open threads.</p>
+        </div>
+        <div class="why">
+          <div class="label">Why use it</div>
+          <p>Turns your recent session notes into a debrief: stat cards, timeline, decisions made.</p>
+        </div>
+        <button class="view-btn" data-example="example-session-narrative" data-lens="Session Narrative" data-prompt="Cut me a frame using the session-narrative lens. Debrief my [date] session notes. Save to cuts/frames/ and tell me the exact path.">Preview lens <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── 04 · PRODUCT WEBSITE ─────── -->
+<section class="lens">
+  <div class="wrap">
+    <div class="lens-grid">
+      <div class="preview" aria-hidden="true">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <rect width="400" height="300" fill="#faf6ee"/>
+          <rect x="0" y="0" width="400" height="32" fill="#fffdf6" stroke="#e7dec9" stroke-width="1"/>
+          <text x="20" y="20" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="11" fill="#1f1d1a">Brand <tspan fill="#1f5028">Name</tspan></text>
+          <rect x="320" y="8" width="68" height="18" rx="3" fill="#6fa67f" stroke="#1f1d1a" stroke-width="1"/>
+          <text x="354" y="20" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="8" fill="#1f1d1a">Book a call</text>
+          <text x="20" y="70" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="22" fill="#1f1d1a">Big bold</text>
+          <text x="20" y="92" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="22" fill="#1f5028">claim here.</text>
+          <text x="20" y="115" font-family="Space Grotesk, sans-serif" font-size="9" fill="#44403c">A single subhead that sets up the rest.</text>
+          <rect x="20" y="128" width="100" height="22" rx="4" fill="#6fa67f" stroke="#1f1d1a" stroke-width="1.5"/>
+          <text x="70" y="143" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="9" fill="#1f1d1a">Primary CTA →</text>
+          <rect x="20" y="180" width="110" height="80" rx="6" fill="#fffdf6" stroke="#1f1d1a" stroke-width="1.2"/>
+          <rect x="32" y="192" width="22" height="22" rx="4" fill="#dcebd7" stroke="#6fa67f" stroke-width="1"/>
+          <text x="32" y="232" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="9" fill="#1f1d1a">Card one</text>
+          <rect x="145" y="180" width="110" height="80" rx="6" fill="#fffdf6" stroke="#1f1d1a" stroke-width="1.2"/>
+          <rect x="157" y="192" width="22" height="22" rx="4" fill="#fbefc8" stroke="#6b4613" stroke-width="1"/>
+          <text x="157" y="232" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="9" fill="#1f1d1a">Card two</text>
+          <rect x="270" y="180" width="110" height="80" rx="6" fill="#fffdf6" stroke="#1f1d1a" stroke-width="1.2"/>
+          <rect x="282" y="192" width="22" height="22" rx="4" fill="#d9eef5" stroke="#0c4a6e" stroke-width="1"/>
+          <text x="282" y="232" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="9" fill="#1f1d1a">Card three</text>
+        </svg>
+      </div>
+      <div class="lens-body">
+        <div class="lens-meta">
+          <span class="badge ready">Ready</span>
+          <span>Lens · Product Website</span>
+        </div>
+        <h2>Product Website</h2>
+        <p class="tagline">A single-page marketing site for one product, service, or pitch. Conversion-shaped.</p>
+        <div class="what">
+          <div class="label">What is it</div>
+          <p>9 sections: hero, the trap, what you install, what members get, what the space becomes, how it works, what's included, who you're working with, closing CTA.</p>
+        </div>
+        <div class="why">
+          <div class="label">Why use it</div>
+          <p>Works for one project ready to pitch externally : hero, problem, solution, CTA.</p>
+        </div>
+        <button class="view-btn" data-example="example-product-website" data-lens="Product Website" data-prompt="Cut me a frame using the product-website lens. Pitch site for [project name]. Save to cuts/frames/ and tell me the exact path.">Preview lens <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── 05 · PITCH ─────── -->
+<section class="lens">
+  <div class="wrap">
+    <div class="lens-grid">
+      <div class="preview" aria-hidden="true">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <rect width="400" height="300" fill="#faf6ee"/>
+          <text x="20" y="56" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="22" fill="#1f1d1a">A claim that</text>
+          <text x="20" y="78" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="22" fill="#1f5028">earns the room.</text>
+          <text x="20" y="100" font-family="Space Grotesk, sans-serif" font-size="9" fill="#44403c">One line that explains why now.</text>
+          <rect x="20" y="120" width="170" height="60" rx="6" fill="#fce7f3" stroke="#7a2c3c" stroke-width="1"/>
+          <text x="32" y="138" font-family="Aldrich, monospace" font-size="8" letter-spacing="2" fill="#7a2c3c">PROBLEM</text>
+          <text x="32" y="156" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">What's broken right now</text>
+          <text x="32" y="170" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">in 2 plain sentences.</text>
+          <rect x="200" y="120" width="180" height="60" rx="6" fill="#dcebd7" stroke="#1f5028" stroke-width="1"/>
+          <text x="212" y="138" font-family="Aldrich, monospace" font-size="8" letter-spacing="2" fill="#1f5028">SOLUTION</text>
+          <text x="212" y="156" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">What you're proposing,</text>
+          <text x="212" y="170" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">named precisely.</text>
+          <rect x="20" y="190" width="360" height="42" rx="6" fill="#fbefc8" stroke="#6b4613" stroke-width="1"/>
+          <text x="32" y="208" font-family="Aldrich, monospace" font-size="8" letter-spacing="2" fill="#6b4613">PROOF · 3 things</text>
+          <text x="32" y="224" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">→ a number  · → a precedent  · → a working example</text>
+          <rect x="20" y="246" width="360" height="38" rx="6" fill="#1f1d1a"/>
+          <text x="32" y="264" font-family="Aldrich, monospace" font-size="8" letter-spacing="2" fill="#f5d88e">THE ASK</text>
+          <text x="32" y="278" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="11" fill="#fafaf9">A specific decision, by a specific date.</text>
+        </svg>
+      </div>
+      <div class="lens-body">
+        <div class="lens-meta">
+          <span class="badge ready">Ready</span>
+          <span>Lens · Pitch</span>
+        </div>
+        <h2>Pitch</h2>
+        <p class="tagline">A short-form persuasive layout for selling an idea, project, or change in direction.</p>
+        <div class="what">
+          <div class="label">What is it</div>
+          <p>Five sections: hero claim, problem, solution, proof (a number, a precedent, a working example), and the ask (specific decision by specific date).</p>
+        </div>
+        <div class="why">
+          <div class="label">Why use it</div>
+          <p>Short-form persuasion: hero, problem, solution, proof, ask. Five minutes to read.</p>
+        </div>
+        <button class="view-btn" data-example="example-pitch" data-lens="Pitch" data-prompt="Cut me a frame using the pitch lens. Five-section persuasion for [proposal]. Save to cuts/frames/ and tell me the exact path.">Preview lens <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── 06 · COMPANY WEBSITE (High token cost) ─────── -->
+<section class="lens">
+  <div class="wrap">
+    <div class="lens-grid">
+      <div class="preview" aria-hidden="true">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <rect width="400" height="300" fill="#faf6ee"/>
+          <rect x="0" y="0" width="400" height="36" fill="#fffdf6" stroke="#e7dec9" stroke-width="1"/>
+          <text x="14" y="22" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="10" fill="#1f1d1a">Local Intelligence <tspan fill="#1f5028">Kit</tspan></text>
+          <text x="220" y="22" font-family="Plus Jakarta Sans, sans-serif" font-weight="600" font-size="8" fill="#6e6760">Welcome</text>
+          <text x="270" y="22" font-family="Plus Jakarta Sans, sans-serif" font-weight="600" font-size="8" fill="#1f5028">Lenses</text>
+          <text x="306" y="22" font-family="Plus Jakarta Sans, sans-serif" font-weight="600" font-size="8" fill="#6e6760">About</text>
+          <line x1="270" y1="32" x2="296" y2="32" stroke="#1f5028" stroke-width="2"/>
+          <rect x="338" y="10" width="50" height="16" rx="3" fill="#6fa67f" stroke="#1f1d1a" stroke-width="1"/>
+          <text x="363" y="22" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="7" fill="#1f1d1a">Start →</text>
+          <text x="20" y="78" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="20" fill="#1f1d1a">One pipeline.</text>
+          <text x="20" y="100" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="20" fill="#1f5028">Many ways to see.</text>
+          <text x="20" y="118" font-family="Space Grotesk, sans-serif" font-size="8" fill="#44403c">Multi-page kit, bundled into one shareable file.</text>
+          <rect x="20" y="140" width="170" height="130" rx="6" fill="#fffdf6" stroke="#1f1d1a" stroke-width="1.5"/>
+          <rect x="32" y="152" width="22" height="22" rx="4" fill="#dcebd7" stroke="#6fa67f" stroke-width="1"/>
+          <text x="32" y="194" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="10" fill="#1f1d1a">Lens · Reel</text>
+          <text x="32" y="208" font-family="Space Grotesk, sans-serif" font-size="7" fill="#6e6760">scrollable slides</text>
+          <text x="32" y="225" font-family="Space Grotesk, sans-serif" font-size="6" fill="#6e6760">audience-facing</text>
+          <text x="32" y="248" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="8" fill="#1f5028">View example →</text>
+          <rect x="200" y="140" width="170" height="130" rx="6" fill="#fffdf6" stroke="#1f1d1a" stroke-width="1.5"/>
+          <rect x="212" y="152" width="22" height="22" rx="4" fill="#fbefc8" stroke="#6b4613" stroke-width="1"/>
+          <text x="212" y="194" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="10" fill="#1f1d1a">Lens · Explainer</text>
+          <text x="212" y="208" font-family="Space Grotesk, sans-serif" font-size="7" fill="#6e6760">walk-through beats</text>
+          <text x="212" y="225" font-family="Space Grotesk, sans-serif" font-size="6" fill="#6e6760">files + margin notes</text>
+          <text x="212" y="248" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="8" fill="#1f5028">View example →</text>
+        </svg>
+      </div>
+      <div class="lens-body">
+        <div class="lens-meta">
+          <span class="badge ready">Ready</span>
+          <span>Lens · Company Website</span>
+          <span class="plan-flag">High token cost</span>
+        </div>
+        <h2>Company Website</h2>
+        <p class="tagline">A multi-page marketing site for a company with multiple offerings. Bundled as one shareable HTML file.</p>
+        <div class="what">
+          <div class="label">What is it</div>
+          <p>5 pages typical: Home, 2-3 Offerings (under a dropdown), an optional flagship deep-dive, and an About / Vision page. Single-row sticky nav with mobile hamburger.</p>
+        </div>
+        <div class="why">
+          <div class="label">Why use it</div>
+          <p>Multi-page bundled site (5 pages × separate runs). May exceed Pro/Plus session limits : best with API or split across days.</p>
+        </div>
+        <button class="view-btn" data-example="example-product-website" data-lens="Company Website" data-prompt="Cut me a frame using the company-website lens. Multi-page site for [brand]: home, offerings dropdown, about. Save to cuts/frames/ and tell me the exact path.">Preview lens <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── 07 · OBSERVATORY (Coming soon) ─────── -->
+<section class="lens">
+  <div class="wrap">
+    <div class="lens-grid">
+      <div class="preview" aria-hidden="true">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <rect width="400" height="300" fill="#fffdf6"/>
+          <text x="20" y="34" font-family="Aldrich, monospace" font-size="9" letter-spacing="2" fill="#1f5028">OBSERVATORY · PROJECT NAME</text>
+          <line x1="20" y1="46" x2="380" y2="46" stroke="#e7dec9"/>
+          <rect x="20" y="58" width="170" height="92" rx="6" fill="#dcebd7" stroke="#1f5028" stroke-width="1.2"/>
+          <text x="32" y="78" font-family="Aldrich, monospace" font-size="8" letter-spacing="2" fill="#1f5028">CURRENT STATE</text>
+          <text x="32" y="102" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="22" fill="#1f1d1a">Active</text>
+          <text x="32" y="124" font-family="Space Grotesk, sans-serif" font-size="9" fill="#44403c">Phase 2 · 67% built</text>
+          <rect x="32" y="132" width="120" height="4" rx="2" fill="#fffdf6"/>
+          <rect x="32" y="132" width="80" height="4" rx="2" fill="#1f5028"/>
+          <rect x="200" y="58" width="180" height="92" rx="6" fill="#fbefc8" stroke="#6b4613" stroke-width="1.2"/>
+          <text x="212" y="78" font-family="Aldrich, monospace" font-size="8" letter-spacing="2" fill="#6b4613">OPEN QUESTIONS · 3</text>
+          <text x="212" y="98" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">: Who owns the API surface?</text>
+          <text x="212" y="114" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">: Migration path for v1 users?</text>
+          <text x="212" y="130" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">: Pricing finalized when?</text>
+          <text x="20" y="180" font-family="Aldrich, monospace" font-size="8" letter-spacing="2" fill="#1f5028">RECENT ACTIVITY</text>
+          <circle cx="32" cy="200" r="3" fill="#6fa67f"/>
+          <text x="44" y="204" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">Apr 18 · Spec finalized for Phase 2</text>
+          <circle cx="32" cy="220" r="3" fill="#f5d88e"/>
+          <text x="44" y="224" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">Apr 16 · Stakeholder review notes</text>
+          <circle cx="32" cy="240" r="3" fill="#7dd3fc"/>
+          <text x="44" y="244" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">Apr 14 · Connection to adjacent project mapped</text>
+          <circle cx="32" cy="260" r="3" fill="#f9a8b8"/>
+          <text x="44" y="264" font-family="Space Grotesk, sans-serif" font-size="9" fill="#1f1d1a">Apr 12 · Customer call → 3 new requirements</text>
+        </svg>
+      </div>
+      <div class="lens-body">
+        <div class="lens-meta">
+          <span class="badge soon">Coming soon</span>
+          <span>Lens · Observatory</span>
+        </div>
+        <h2>Observatory</h2>
+        <p class="tagline">A live-status, multi-pane dashboard view of a single project or initiative.</p>
+        <div class="what">
+          <div class="label">What is it</div>
+          <p>Current state pane, open questions pane, recent activity timeline, and connections. Denser than a session narrative, lighter than a full project hub.</p>
+        </div>
+        <div class="why">
+          <div class="label">Why use it</div>
+          <p>For a "where things are right now" snapshot. Constellation view + timeline. Spec is shipped, rendered example coming next iteration.</p>
+        </div>
+        <span class="soon-pill">Example coming soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Final CTA ─── -->
+<section class="final">
+  <div class="wrap">
+    <div class="kicker">Ready when you are</div>
+    <h2>Want us to produce the top-ranked frame right now?</h2>
+    <p>In the chat, say <code style="font-family: var(--font-mono); background: var(--paper-warm); padding: 2px 6px; border-radius: 4px; color: var(--ink);">Cut me a frame using the Reel lens.</code> : you'll get a self-contained HTML in your <code style="font-family: var(--font-mono); background: var(--paper-warm); padding: 2px 6px; border-radius: 4px; color: var(--ink);">cuts/frames/</code> folder and the AI will tell you the exact path.</p>
+    <a href="#" class="big-btn" id="produce-btn">Produce my first frame <span aria-hidden="true">→</span></a>
+    <div class="or-note">or preview any lens above and copy its prompt</div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <span>Local Intelligence Packet · First Look · Lens preview</span>
+    <span>This report is itself a frame, produced by the First Look lens.</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Copied to clipboard</div>
+
+<!-- Modal overlay (self-contained lens preview) -->
+<div class="modal-overlay" id="modal-overlay" data-open="false" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-window">
+    <div class="modal-bar">
+      <span class="modal-title" id="modal-title">Cut a frame with <span class="lens-chip" id="modal-lens-name">Sample</span> lens</span>
+      <div class="modal-actions">
+        <button class="modal-copy" id="modal-copy" type="button">Copy prompt</button>
+        <button class="modal-close" id="modal-close" aria-label="Close preview">×</button>
+      </div>
+    </div>
+    <div class="modal-iframe-wrap">
+      <iframe id="modal-iframe" sandbox="allow-scripts allow-same-origin" title="Lens example preview"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- Lens example payloads (script type=text/html is inert and nest-safe : avoids the HTML-parser bug where nested <template> tags collapse) -->
+<script type="text/html" id="example-reel">{{EXAMPLE_REEL}}</script>
+<script type="text/html" id="example-explainer">{{EXAMPLE_EXPLAINER}}</script>
+<script type="text/html" id="example-session-narrative">{{EXAMPLE_SESSION_NARRATIVE}}</script>
+<script type="text/html" id="example-product-website">{{EXAMPLE_PRODUCT_WEBSITE}}</script>
+<script type="text/html" id="example-pitch">{{EXAMPLE_PITCH}}</script>
+
+<script>
+(function() {
+  const toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  // Copy-to-clipboard for inline snippet buttons (YAML snippets in the growth guide)
+  document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(text);
+        const orig = btn.textContent;
+        btn.classList.add('copied');
+        btn.textContent = '✓ Copied';
+        showToast('Snippet copied');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.textContent = orig;
+        }, 1800);
+      } catch (e) {
+        showToast('Copy failed : select manually');
+      }
+    });
+  });
+
+  // Final CTA: "Produce my first frame" toast
+  const produceBtn = document.getElementById('produce-btn');
+  if (produceBtn) {
+    produceBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast('Tell your AI: "Cut me a frame using the Reel lens."');
+    });
+  }
+
+  // ── Modal: preview any lens's example inline ──
+  const overlay = document.getElementById('modal-overlay');
+  const iframe = document.getElementById('modal-iframe');
+  const lensNameEl = document.getElementById('modal-lens-name');
+  const copyBtn = document.getElementById('modal-copy');
+  const closeBtn = document.getElementById('modal-close');
+  let currentBlobUrl = null;
+  let currentPrompt = '';
+
+  function openExample(templateId, lensName, prompt) {
+    const tpl = document.getElementById(templateId);
+    if (!tpl) { showToast('Preview not available'); return; }
+    if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+    // Payloads are base64-encoded at build time. Decode to get the raw HTML document.
+    const raw = (tpl.textContent || tpl.innerHTML).trim();
+    const html = new TextDecoder('utf-8').decode(Uint8Array.from(atob(raw), c => c.charCodeAt(0)));
+    const blob = new Blob([html], { type: 'text/html' });
+    currentBlobUrl = URL.createObjectURL(blob);
+    iframe.src = currentBlobUrl;
+    lensNameEl.textContent = lensName;
+    currentPrompt = prompt || '';
+    copyBtn.style.display = currentPrompt ? '' : 'none';
+    copyBtn.classList.remove('copied');
+    copyBtn.textContent = 'Copy prompt';
+    overlay.dataset.open = 'true';
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function closeExample() {
+    overlay.dataset.open = 'false';
+    iframe.src = 'about:blank';
+    document.body.style.overflow = '';
+    if (currentBlobUrl) { URL.revokeObjectURL(currentBlobUrl); currentBlobUrl = null; }
+  }
+
+  document.querySelectorAll('.view-btn[data-example]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      openExample(btn.dataset.example, btn.dataset.lens, btn.dataset.prompt || '');
+    });
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    if (!currentPrompt) return;
+    try {
+      await navigator.clipboard.writeText(currentPrompt);
+      copyBtn.classList.add('copied');
+      copyBtn.textContent = '✓ Copied';
+      showToast('Prompt copied : paste into your AI');
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        copyBtn.textContent = 'Copy prompt';
+      }, 1800);
+    } catch (e) {
+      showToast('Copy failed : select manually');
+    }
+  });
+
+  closeBtn.addEventListener('click', closeExample);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeExample(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.dataset.open === 'true') closeExample(); });
+})();
+</script>
+
+</body>
+</html>

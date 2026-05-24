@@ -35,14 +35,14 @@ venv/
 00_inbox/*
 !00_inbox/README.md
 !00_inbox/.gitkeep
-03_cuts/*
-!03_cuts/README.md
-!03_cuts/00_public/
-03_cuts/00_public/*
-!03_cuts/00_public/README.md
-!03_cuts/00_public/00_assets/
-03_cuts/00_public/00_assets/*
-!03_cuts/00_public/00_assets/README.md
+03_outbox/*
+!03_outbox/README.md
+!03_outbox/00_public/
+03_outbox/00_public/*
+!03_outbox/00_public/README.md
+!03_outbox/00_public/00_assets/
+03_outbox/00_public/00_assets/*
+!03_outbox/00_public/00_assets/README.md
 
 # Activity log (the user's own log, not packet content)
 02_activity/*.md

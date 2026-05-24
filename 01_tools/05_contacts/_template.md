@@ -7,7 +7,7 @@ visibility: local
 
 ## Who They Are
 
-One to two paragraphs. Role, orientation, what they care about. Not a bio dump — the version you'd give a collaborator in 30 seconds.
+One to two paragraphs. Role, orientation, what they care about. Not a bio dump : the version you'd give a collaborator in 30 seconds.
 
 ## Shared Work
 
@@ -19,7 +19,7 @@ What drives them. What they track. What matters to them professionally and intel
 
 ## How to Talk to Them
 
-Voice, tone, register. What they respond to. What falls flat. Writing conventions that work with them (direct, scannable, story-led, data-dense — pick the actual words).
+Voice, tone, register. What they respond to. What falls flat. Writing conventions that work with them (direct, scannable, story-led, data-dense : pick the actual words).
 
 ---
 

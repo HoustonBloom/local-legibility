@@ -3,7 +3,7 @@ name: figma-mcp
 description: Load this skill before any Figma MCP call (use_figma, get_design_context, search_design_system, get_screenshot, etc.). Captures API traps learned in production, the user's design-system conventions, and the working patterns that keep Figma builds fast and 1:1 with source. Fires automatically on any Figma MCP tool use and when the user mentions Figma, design tokens, prototype reactions, or design system libraries.
 ---
 
-# Figma MCP — Working With the user's Design System
+# Figma MCP : Working With the user's Design System
 
 Persistent working memory for any agent writing to Figma via the MCP server. Captures what works, what breaks, and what the user actually wants.
 
@@ -109,13 +109,13 @@ Used on `[your-website-folder]`.
 
 Used across both systems.
 
-- `01 Display Serif` — DM Serif Display (editorial display, Cuts covers)
-- `02 Display Sans` — Plus Jakarta Sans (workhorse display + UI)
-- `03 UI Sans` — Inter (Gallery card UI, sans body on cards)
-- `04 Body Sans` — Space Grotesk (Portfolio body)
-- `05 Retro` — Aldrich (retro accent, Z820 stats)
-- `06 Mono` — JetBrains Mono (code, meta, slugs, counters, eyebrows)
-- `07 Script` — Caveat (handwritten sign-offs)
+- `01 Display Serif` : DM Serif Display (editorial display, Cuts covers)
+- `02 Display Sans` : Plus Jakarta Sans (workhorse display + UI)
+- `03 UI Sans` : Inter (Gallery card UI, sans body on cards)
+- `04 Body Sans` : Space Grotesk (Portfolio body)
+- `05 Retro` : Aldrich (retro accent, Z820 stats)
+- `06 Mono` : JetBrains Mono (code, meta, slugs, counters, eyebrows)
+- `07 Script` : Caveat (handwritten sign-offs)
 
 Her text styles follow the numbered naming pattern. Always apply them via `setTextStyleIdAsync`, not raw `fontName` + `fontSize`.
 
@@ -244,16 +244,16 @@ She can update the skill by editing this file directly. New lessons go under `Re
 
 ## Revision log
 
-### v1.1 — 2026-04-20 (extended session)
+### v1.1 : 2026-04-20 (extended session)
 
 Additions from later in the same session:
 
 - **Read the render function, not just the CSS.** When translating an HTML page into Figma, the CSS tells you what each class *looks* like but not which classes are actually emitted. Always find the JavaScript or template that builds the DOM and walk that. Fabricating elements that do not exist in the render output is the fastest way to miss 1:1.
 - **When names get genericized between sessions, find by structure.** the user moves and copies things. "Meta row" frames can come back as "Frame", "Frame 1". Use structural predicates: FRAME with two direct TEXT children separated by ` · `, or FRAME with children that match a known pattern. Do not rely on names alone across sessions.
 - **Workflow docs + Stop hook + skill = three layers of enforcement.** When establishing a new invariant, update (1) the workflow docs so humans + agents reading them see the step, (2) the skill that matches the triggering intent so context auto-loads, and (3) the Stop hook as a session-end backstop. One layer is fragile. Three is resilient.
-- **The `update-config` skill handles Claude Code settings changes.** For hook edits, permission rules, environment variables — invoke it instead of editing settings.json directly. It walks the read → merge → edit → validate → prove-fires flow.
+- **The `update-config` skill handles Claude Code settings changes.** For hook edits, permission rules, environment variables : invoke it instead of editing settings.json directly. It walks the read → merge → edit → validate → prove-fires flow.
 
-### v1.0 — 2026-04-20 (the user + Claude, session one)
+### v1.0 : 2026-04-20 (the user + Claude, session one)
 
 Initial capture from first Figma MCP session. Covered:
 

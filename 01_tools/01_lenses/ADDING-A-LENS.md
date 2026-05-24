@@ -6,9 +6,9 @@ visibility: local
 ---
 # Adding a lens
 
-Start with the [[../00_overview/ADDING-COMPONENTS|shared workflow]] and complete steps 1–7 there first. This doc covers the **lens-specific** surfaces after the shared steps.
+Start with the [[../00_overview/ADDING-COMPONENTS|shared workflow]] and complete steps 1-7 there first. This doc covers the **lens-specific** surfaces after the shared steps.
 
-A lens is a rendering system — it turns a cut config plus tagged content into a finished HTML frame. Lenses live in the packet (`00_cultivate-local-intelligence/Local Brain/01_tools/01_lenses/`) and are registered in multiple places so the build pipeline, the catalog UI, and the cut-packet skill all know about them.
+A lens is a rendering system : it turns a cut config plus tagged content into a finished HTML frame. Lenses live in the packet (`00_cultivate-local-intelligence/Local Brain/01_tools/01_lenses/`) and are registered in multiple places so the build pipeline, the catalog UI, and the cut-packet skill all know about them.
 
 ---
 
@@ -20,7 +20,7 @@ Every new lens must land in **all five** of these places. A lens registered in o
 
 `00_cultivate-local-intelligence/Local Brain/01_tools/01_lenses/<Title Case Name>.md`
 
-Copy from [[_template]] and fill every required section. The spec is authoritative — the catalog card and skill description both summarize from here.
+Copy from [[_template]] and fill every required section. The spec is authoritative : the catalog card and skill description both summarize from here.
 
 ### 2. Reference implementation (example render)
 
@@ -52,7 +52,7 @@ Add two things:
 - `.lens-body` containing meta, `<h2>`, tagline, what/why sections
 - A `<button class="view-btn" data-example="example-<slug>" data-lens="<Display Name>">View example →</button>`
 
-Place the section in **rank order** — the catalog reads top-down as "ranked best-fit first".
+Place the section in **rank order** : the catalog reads top-down as "ranked best-fit first".
 
 **A template placeholder at the bottom of the catalog:**
 

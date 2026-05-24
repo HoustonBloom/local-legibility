@@ -205,7 +205,7 @@ The Map is the largest layer. The Log is a compact timeline below it. The Queue 
 
 Before rendering a new Observatory frame:
 
-1. **Review all prior Observatory frames.** Open each `.html` file in `03_cuts/frames/` that was rendered with `lens: observatory`. Study how the three layers (Map, Log, Queue) were realized, what data was surfaced, and how the reader navigated between system-wide view and project-level detail.
+1. **Review all prior Observatory frames.** Open each `.html` file in `03_outbox/frames/` that was rendered with `lens: observatory`. Study how the three layers (Map, Log, Queue) were realized, what data was surfaced, and how the reader navigated between system-wide view and project-level detail.
 
 2. **Mix interaction patterns.** The Observatory lens defines structure (Map, Log, Queue layers) and purpose (vault-wide state, energy detection). It does not dictate how those layers are presented. The Map layer might use a heatmap grid, a spatial canvas, or a semantic zoom. The Log layer might use a timeline, a scrollytelling sequence, or a reactive scrubber. The Queue layer might use sortable cards, a priority matrix, or belief elicitation (ask the reader what they think needs attention, then reveal the data). Draw from the Pattern Vocabulary (your project's pattern library, if you maintain one).
 

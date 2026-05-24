@@ -91,6 +91,6 @@ These workflows assume:
 - An inbox folder (`00_inbox/`)
 - A daily changelog (`Daily/Changelog.md`)
 - A sessions folder (`Daily/Sessions/`)
-- A cuts/output folder (`03_cuts/`)
+- A cuts/output folder (`03_outbox/`)
 
 The adapter prompt remaps these to your actual paths if they differ.

@@ -8,7 +8,7 @@ status: active
 
 # Lens: Reel
 
-A lens for audience-facing, social-shareable content. **Full viewport. Scrollable slides. Left/right navigation in a persistent bottom bar. Dynamic per-slide layouts. Hyper-responsive — from phone portrait to desktop.**
+A lens for audience-facing, social-shareable content. **Full viewport. Scrollable slides. Left/right navigation in a persistent bottom bar. Dynamic per-slide layouts. Hyper-responsive : from phone portrait to desktop.**
 
 Reads like an Instagram reel or carousel, but in-browser, unboxed, and content-aware. Each slide stands on its own. No fixed aspect ratio. No forced template.
 
@@ -35,7 +35,7 @@ content-tag: [tag that selects vault files]
 lens: reel
 narrative: [voice preset name]           # optional
 style-source: default-tokens            # optional
-output: 03_cuts/frames/YYYYMMDD_concept-descriptor.html
+output: 03_outbox/frames/YYYYMMDD_concept-descriptor.html
 visibility: local
 last-updated: YYYY-MM-DD
 ---
@@ -52,7 +52,7 @@ No `window` field. A reel is a standalone artifact.
 - **Full viewport.** The reel fills the browser window. No square, no fixed aspect ratio box. Slides occupy the viewport minus the bottom bar. On a phone in portrait, the reel is full-bleed. On desktop, it's full-bleed. Content-level max-widths (titles, body copy) keep things readable at any width.
 - **Bottom bar chrome.** A single horizontal strip at the bottom of the viewport holds all navigation:
   - **Prev arrow** (left)
-  - **Note** (center) — see below
+  - **Note** (center) : see below
   - **Next arrow** (right)
   The bottom bar has its own background and a subtle top border. It never overlaps slide content.
 - **The note.** The center of the bottom bar shows:
@@ -77,7 +77,7 @@ Reel pacing fails outside this range. Scroll is a safety valve for a single dens
 
 ### Digest Mode (variant)
 
-For gallery / stumbleupon-style content — weekly link digests, tool roundups, resource collections — where each slide surfaces a distinct external resource with a prominent CTA button, the slide cap extends to **15 slides maximum** (typical: 10–13).
+For gallery / stumbleupon-style content : weekly link digests, tool roundups, resource collections : where each slide surfaces a distinct external resource with a prominent CTA button, the slide cap extends to **15 slides maximum** (typical: 10-13).
 
 Digest mode keeps everything else from the lens: full viewport, bottom-bar nav, scrollable slides, per-slide dynamic composition, `data-title` attribute on each slide. What changes:
 
@@ -127,9 +127,9 @@ Never add text that describes interactivity. No "tap to open." No "click here." 
 
 The bottom bar center note displays three tiers of information. **Do NOT flatten or reorder.**
 
-1. **TIME** (top, biggest) — from `data-time` attribute — e.g., "6 min read"
-2. **TYPE** (middle, quiet) — from `data-type` attribute — e.g., "News · Essay"
-3. **DOTS** (bottom, small) — navigation dots, one per slide
+1. **TIME** (top, biggest) : from `data-time` attribute : e.g., "6 min read"
+2. **TYPE** (middle, quiet) : from `data-type` attribute : e.g., "News · Essay"
+3. **DOTS** (bottom, small) : navigation dots, one per slide
 
 **Why this order:** Read time is the #1 decision factor for whether a reader stays on a slide. Content type is secondary context. Dots are pure wayfinding.
 
@@ -137,14 +137,14 @@ The bottom bar center note displays three tiers of information. **Do NOT flatten
 
 Exact order of elements inside every `.tool-slide` grid. Do not reorder.
 
-1. `.slide-date` — colored dot + published date only. No category, no type, no read time in this row.
-2. `a.title-link > h2` — the title IS a hyperlink wrapping an `<h2>`, linking to the source URL.
-3. `.source-line` — prefixed with "by" + author/org + publication.
-4. `.hero-quote` — pull quote with `.attrib` span.
-5. `.thread-note.promoted` — stakes/hook note, positioned ABOVE body text with the `.promoted` class.
-6. `.ctx` — body paragraph.
-7. `.link-btn` — primary CTA button. Intentionally duplicates the title-link URL.
-8. `.attribution` — via/credit line.
+1. `.slide-date` : colored dot + published date only. No category, no type, no read time in this row.
+2. `a.title-link > h2` : the title IS a hyperlink wrapping an `<h2>`, linking to the source URL.
+3. `.source-line` : prefixed with "by" + author/org + publication.
+4. `.hero-quote` : pull quote with `.attrib` span.
+5. `.thread-note.promoted` : stakes/hook note, positioned ABOVE body text with the `.promoted` class.
+6. `.ctx` : body paragraph.
+7. `.link-btn` : primary CTA button. Intentionally duplicates the title-link URL.
+8. `.attribution` : via/credit line.
 
 #### Color System (Section Palettes)
 
@@ -163,11 +163,11 @@ Exact order of elements inside every `.tool-slide` grid. Do not reorder.
 
 Every slide `<article>` in Digest Mode must carry:
 
-- `data-slide="N"` — 1-indexed position
-- `data-time` — read time string, shown BIG in footer (e.g., "6 min read")
-- `data-type` — content type string, shown small in footer (e.g., "News · Essay")
-- `data-content-type` — powers the cover overlay pill filter
-- `data-title` — shown in the bottom-bar note area + accessibility
+- `data-slide="N"` : 1-indexed position
+- `data-time` : read time string, shown BIG in footer (e.g., "6 min read")
+- `data-type` : content type string, shown small in footer (e.g., "News · Essay")
+- `data-content-type` : powers the cover overlay pill filter
+- `data-title` : shown in the bottom-bar note area + accessibility
 
 #### Cover Slide Specifics
 
@@ -185,37 +185,37 @@ Every slide `<article>` in Digest Mode must carry:
 - **Source attribution** (per slide): credits the author/org who created the resource. Uses `.source-line` with "by" prefix and `.attribution` for via/credit.
 - **Compilation attribution** is collective: "[community]" or just "[Org]." Never attribute compilation to a named individual in the rendered frame. Individual compiler credits live in the cut config only, not in the public-facing HTML.
 - Cover `.sig`: "a weekly digest" + clickable [Org] GitHub link.
-- Close `.signed`: "xo, [Org]" — collective sign-off.
+- Close `.signed`: "xo, [Org]" : collective sign-off.
 
 ### Per-slide attributes
 
 Each `<article>` slide element requires:
 
-- `data-slide="N"` — 1-indexed slide number (for debugging and styling hooks)
-- `data-title="..."` — 3-6 word title shown in the bottom-bar note. Plain text. HTML allowed if you want an italic emphasis.
-- `class="slide sN"` — `sN` is the per-slide style hook (s1, s2, s3, …)
+- `data-slide="N"` : 1-indexed slide number (for debugging and styling hooks)
+- `data-title="..."` : 3-6 word title shown in the bottom-bar note. Plain text. HTML allowed if you want an italic emphasis.
+- `class="slide sN"` : `sN` is the per-slide style hook (s1, s2, s3, …)
 
 ### The slide contract
 
 Each slide holds:
 
-- **title** — 1 to 6 words. The anchor of the slide. If it has no title, it has no job.
-- **body** — ~60 words preferred, up to 120 if scroll-justified. Short sentences, fragments welcome. Never a wall of prose.
-- **visual** (optional) — icon, image, inline component (mock UI, comparison, diagram). The visual can do as much work as the copy, or more.
-- **accent** (optional) — one token from the design system. Rotates across the reel for visual rhythm.
-- **unique layout** — each slide composes itself. No cookie-cutter template. The reel lens is editorial, not deck-like.
+- **title** : 1 to 6 words. The anchor of the slide. If it has no title, it has no job.
+- **body** : ~60 words preferred, up to 120 if scroll-justified. Short sentences, fragments welcome. Never a wall of prose.
+- **visual** (optional) : icon, image, inline component (mock UI, comparison, diagram). The visual can do as much work as the copy, or more.
+- **accent** (optional) : one token from the design system. Rotates across the reel for visual rhythm.
+- **unique layout** : each slide composes itself. No cookie-cutter template. The reel lens is editorial, not deck-like.
 
 ### Slide roles
 
 A reel is a sequence, not a list. Each slide has a role:
 
-- **Hook** (slide 1) — pulls the reader in. A question, claim, or tension.
-- **Context** (slides 2–3) — the problem, the feeling, the why.
-- **Reveal** (middle) — the thing. The object, mechanism, or answer.
-- **Proof** (after reveal) — show it. A visual, number, or receipt.
-- **Implication** (near end) — what this means for the reader.
-- **Signature / Colophon** (optional, near end) — the splash credit. Who made this, and with what.
-- **Invite** (last) — the action. A link, a question, a meeting.
+- **Hook** (slide 1) : pulls the reader in. A question, claim, or tension.
+- **Context** (slides 2-3) : the problem, the feeling, the why.
+- **Reveal** (middle) : the thing. The object, mechanism, or answer.
+- **Proof** (after reveal) : show it. A visual, number, or receipt.
+- **Implication** (near end) : what this means for the reader.
+- **Signature / Colophon** (optional, near end) : the splash credit. Who made this, and with what.
+- **Invite** (last) : the action. A link, a question, a meeting.
 
 Not every reel uses every role. Every slide should have an identifiable job.
 
@@ -287,13 +287,13 @@ If the cut config body contains a `## Slides` section with an ordered outline in
 ## Failure Modes
 
 - **More than 9 slides.** The reel becomes a deck. Cut it.
-- **Any slide missing a `data-title`.** The bottom-bar note falls back to the slide number only — anemic. Always set a title.
+- **Any slide missing a `data-title`.** The bottom-bar note falls back to the slide number only : anemic. Always set a title.
 - **A slide with no title in the content.** The slide has no job. Cut it or add one.
 - **Scrolling multiple screens per slide.** Scroll is for overflow, not for long-form. If a slide needs 3 viewport heights of scroll, it is three slides.
 - **Two accent colors fighting on one slide.** Pick one.
 - **Last slide is a summary.** The last slide is an invite. Summaries belong on the cover.
 - **Copy that could appear in any reel.** If a slide could be lifted into an unrelated piece without notice, it is filler.
-- **Every slide with the same layout.** Defeats the lens. Vary composition per slide — editorial, not template.
+- **Every slide with the same layout.** Defeats the lens. Vary composition per slide : editorial, not template.
 
 ---
 
@@ -303,7 +303,7 @@ The Reel lens inherits engagement principles from the vault's your project's pat
 
 1. **The interaction mechanic carries meaning.** In a Reel, the arrow is the reader's act of moving on from a discovered thing. Navigation IS the argument. Design each slide so the reader arriving *is* the reader receiving. A reel is a Step Sequence pattern, not a deck.
 
-2. **Click affordance is non-negotiable.** If a slide has a clickable element, the reader must know. Filled buttons with all-caps labels and arrow icons are the CTA standard. Inline links use the rust accent. The UI communicates affordance through visual design alone — no text instructions like "tap to open" or "click here" (see Digest Mode: Show Don't Tell). Buttons look like buttons. Arrow icons signal direction. The design teaches the interaction without narrating it.
+2. **Click affordance is non-negotiable.** If a slide has a clickable element, the reader must know. Filled buttons with all-caps labels and arrow icons are the CTA standard. Inline links use the rust accent. The UI communicates affordance through visual design alone : no text instructions like "tap to open" or "click here" (see Digest Mode: Show Don't Tell). Buttons look like buttons. Arrow icons signal direction. The design teaches the interaction without narrating it.
 
 3. **Touch targets meet WCAG 2.5.8.** All tappable elements are minimum **44px × 44px**. Arrows, link buttons, tab indicators. No exceptions.
 
@@ -327,7 +327,7 @@ The Reel lens inherits engagement principles from the vault's your project's pat
 
 ## Reference Implementation
 
-Canonical production reel: `03_cuts/frames/20260415_chatgpt-transformer-creator-reel.html`
+Canonical production reel: `03_outbox/frames/20260415_chatgpt-transformer-creator-reel.html`
 
 Use it as the starting point for any new reel. Preserve:
 
@@ -348,13 +348,13 @@ Use it as the starting point for any new reel. Preserve:
                data-slide="1"
                data-title="Cover"
                aria-hidden="false">
-        <!-- slide 1 content — any layout -->
+        <!-- slide 1 content : any layout -->
       </article>
       <article class="slide s2"
                data-slide="2"
                data-title="The reframe"
                aria-hidden="true">
-        <!-- slide 2 content — different layout -->
+        <!-- slide 2 content : different layout -->
       </article>
       <!-- ... -->
     </div>
@@ -399,7 +399,7 @@ Navigation bindings: click on arrows, keyboard `ArrowLeft/Right/Home/End`, touch
 
 **v0.4** (2026-04-16): **Digest Mode rendering specification.** Bakes in hard-won decisions from live mobile testing into the lens spec so future frames render correctly without re-discovery. Critical rendering notes (no `position: fixed`, no `inset` shorthand, no pre-doctype content, ~85KB cap). Template structure locked: fixed vs. dynamic elements enumerated. Show-don't-tell principle replaces click-hint text. Bottom bar upgraded to three-tier hierarchy (TIME → TYPE → DOTS). Slide content hierarchy codified (8 elements in exact order, thread-notes promoted above body). Color system table with dark-section override requirements. Data attributes spec (`data-time`, `data-type`, `data-content-type`). Cover type pills as `<button>` elements with `data-filter` triggering a bottom-sheet overlay (full spec: HTML structure, JS index builder, open/close/navigate). Cover `data-time` shows browse time, `data-type` empty. Clickable `<a>` GitHub link in cover sig. Attribution rules formalized: source attribution per slide, compilation attribution is collective [Org] (never individual in rendered frames). Arrow buttons: dark ink bg, cream icon. Button styling: weight 800, 2.5px border, 6px shadow. Title wrapped in hyperlink. Source-lines prefixed with "by."
 
-**v0.3** (2026-04-16): Engagement Principles added (10 principles from Pattern Vocabulary + Nicky Case canon). Cover click-hint pattern formalized — every reel includes a small dashed micro-instruction near the cover's section markers to teach the interaction. WCAG 2.5.8 touch-target minimum (44px) explicit. Overflow gradient mask for scrollable slides added to visual contract. Reduced-motion compliance required. Validated by the [Org] Digest reel (Week of April 7, 2026) — first Digest Mode production reel, 14 slides including internal-facing feedback slide.
+**v0.3** (2026-04-16): Engagement Principles added (10 principles from Pattern Vocabulary + Nicky Case canon). Cover click-hint pattern formalized : every reel includes a small dashed micro-instruction near the cover's section markers to teach the interaction. WCAG 2.5.8 touch-target minimum (44px) explicit. Overflow gradient mask for scrollable slides added to visual contract. Reduced-motion compliance required. Validated by the [Org] Digest reel (Week of April 7, 2026) : first Digest Mode production reel, 14 slides including internal-facing feedback slide.
 
 **v0.2** (2026-04-16): **Major revision.** Validated by building a weekly-digest reel and iterating live on a phone:
 - **Ditched the square constraint.** The reel now fills the full viewport. Square was leaving 45% of the screen as empty margin on portrait mobile.
@@ -407,4 +407,4 @@ Navigation bindings: click on arrows, keyboard `ArrowLeft/Right/Home/End`, touch
 - **Slides are vertically scrollable.** Reel pacing still favors tight content, but overflow is allowed and styled (thin rust scrollbar). Scroll resets on navigation.
 - **Removed indicator dots.** The bottom-bar note does the work.
 - **Per-slide dynamic layouts confirmed.** No cookie-cutter template. Each slide is its own composition.
-- First production reel: `03_cuts/frames/20260415_chatgpt-transformer-creator-reel.html`.
+- First production reel: `03_outbox/frames/20260415_chatgpt-transformer-creator-reel.html`.

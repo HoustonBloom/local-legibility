@@ -4,7 +4,7 @@ subject: component
 for: [human, ai]
 visibility: local
 ---
-# Adding a new component (lens or atmosphere) — shared workflow
+# Adding a new component (lens or atmosphere) : shared workflow
 
 Both lenses and atmospheres are composed design artifacts that slot into the Local Intelligence system at specific surfaces. This doc captures the **steps that are the same** for either one. For the steps that differ, see:
 
@@ -32,7 +32,7 @@ Both component types require:
 
 ```yaml
 type: source-doc      # do not invent a new type; your vault uses source-doc for both
-category: lens        # or: atmosphere — this is the semantic category
+category: lens        # or: atmosphere : this is the semantic category
 date: YYYY-MM-DD
 status: [active, draft]
 visibility: local
@@ -45,7 +45,7 @@ A component without complete frontmatter should not be merged. If a draft is mis
 
 ## 3. Fill the body sections listed in the template
 
-Every template has a fixed set of required `##` sections. Skipping one silently leaves a downstream validator guessing. If a section genuinely does not apply, write `Not applicable` with a one-sentence reason — do not delete the heading.
+Every template has a fixed set of required `##` sections. Skipping one silently leaves a downstream validator guessing. If a section genuinely does not apply, write `Not applicable` with a one-sentence reason : do not delete the heading.
 
 ## 4. Create a reference implementation
 
@@ -64,11 +64,11 @@ The sample must be self-contained (no external asset dependencies beyond Google 
 - **Atmosphere spec:** `Name.md` (single noun, capitalized, e.g. `Field.md`).
 - **Sample:** lowercase slug with hyphens, `.html` extension.
 
-If normalization collides with an existing file, stop and ask — do not overwrite.
+If normalization collides with an existing file, stop and ask : do not overwrite.
 
 ## 6. Versioning
 
-Bump `version` in frontmatter when the component's contract changes (new required field, renamed section, changed output shape). Git history is the historical record — do not carry old versions inside the packet.
+Bump `version` in frontmatter when the component's contract changes (new required field, renamed section, changed output shape). Git history is the historical record : do not carry old versions inside the packet.
 
 ## 7. Validate
 

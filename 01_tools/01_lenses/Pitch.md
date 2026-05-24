@@ -49,7 +49,7 @@ Not "what is this." Not "what should I understand." Not "what happened." The Pit
 
 ## Output Contract
 
-A single self-contained HTML file rendered at `03_cuts/frames/YYYYMMDD_<slug>-pitch.html` (the lens slug `-pitch` is mandatory as the final segment of the filename per the vault's lens-in-filename rule).
+A single self-contained HTML file rendered at `03_outbox/frames/YYYYMMDD_<slug>-pitch.html` (the lens slug `-pitch` is mandatory as the final segment of the filename per the vault's lens-in-filename rule).
 
 The file:
 - Contains 10-12 slides (default 11; configurable via `time-budget` field)
@@ -299,7 +299,7 @@ time-budget: 3min | 5min | 10min   # default 5min
 capital-stage: pre-seed | seed | series-a | grant | community
 status: active
 visibility: [audience-tag]
-output: 03_cuts/frames/YYYYMMDD_<slug>-pitch.html
+output: 03_outbox/frames/YYYYMMDD_<slug>-pitch.html
 tags: [cut, project-tag, pitch]
 last-updated: YYYY-MM-DD
 ---

@@ -27,32 +27,32 @@ The lens assumes:
 
 Each section answers one question. If a section doesn't answer its question concretely, cut it.
 
-1. **Hero** — What is this and why am I here?
+1. **Hero** : What is this and why am I here?
    - Headline (one line, bold claim or reframe)
    - Subhead (one sentence, who it's for and what it does)
    - Primary CTA button
-2. **The trap** — Why should I care right now?
+2. **The trap** : Why should I care right now?
    - Pain stated in the buyer's own language
    - Concrete enough that the buyer nods
-3. **What we install** — What's the actual thing?
+3. **What we install** : What's the actual thing?
    - Diagram or photo of the deliverable
-   - 3–4 capability points, each one sentence
-4. **What members get** — How does this become a member benefit?
+   - 3-4 capability points, each one sentence
+4. **What members get** : How does this become a member benefit?
    - Named offerings (workshops, sessions, resources)
    - Each with a one-line description of the outcome
-5. **What your space becomes** — What's the differentiation?
+5. **What your space becomes** : What's the differentiation?
    - Reframe from "feature list" to "new category"
    - One declarative sentence that sticks
-6. **How it works** — What does buying look like?
-   - 3–5 numbered steps
+6. **How it works** : What does buying look like?
+   - 3-5 numbered steps
    - Each step names the output, not the activity
-7. **What's included** — What does it cost?
+7. **What's included** : What does it cost?
    - Ranges OK. Placeholders like "TBD" are honest when true.
    - Three lines max. Bundle, don't itemize.
-8. **Who you're working with** — Who am I trusting?
+8. **Who you're working with** : Who am I trusting?
    - Real person, real credentials, real lineage
    - Skip generic "about us" corporate voice
-9. **Closing CTA** — What's the next step?
+9. **Closing CTA** : What's the next step?
    - One specific action. "Book a 30-minute walkthrough" beats "Get in touch."
    - Single button. No form unless you'll actually read the submissions.
 

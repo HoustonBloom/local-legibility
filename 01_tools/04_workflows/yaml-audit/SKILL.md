@@ -5,7 +5,7 @@ description: Normalize YAML frontmatter on .md files in the Local Intelligence P
 
 # YAML Audit
 
-Normalize YAML frontmatter on `.md` files inside `00_cultivate-local-intelligence/Local Brain/`. The goal is a minimal, purpose-driven frontmatter — just enough to identify the file's type, audience, and visibility. No date fields (the filesystem knows), no verbose tag arrays, no project: references that duplicate the folder context.
+Normalize YAML frontmatter on `.md` files inside `00_cultivate-local-intelligence/Local Brain/`. The goal is a minimal, purpose-driven frontmatter : just enough to identify the file's type, audience, and visibility. No date fields (the filesystem knows), no verbose tag arrays, no project: references that duplicate the folder context.
 
 ## When to run
 
@@ -14,7 +14,7 @@ Normalize YAML frontmatter on `.md` files inside `00_cultivate-local-intelligenc
 - The user asks to normalize, audit, or fix YAML
 
 **Do NOT run on:**
-- `SKILL.md` files (Claude Code harness reads a specific format — leave alone)
+- `SKILL.md` files (Claude Code harness reads a specific format : leave alone)
 - Files inside `_examples/` (HTML, not MD)
 - Files inside `local-brain-preview/` (separate subsystem)
 
@@ -109,7 +109,7 @@ visibility: local
 
 ## Workflow
 
-1. **Identify file type from path + filename.** Use the rules above. If the path doesn't match any rule, flag it and ask the user where the file belongs — do not invent a type.
+1. **Identify file type from path + filename.** Use the rules above. If the path doesn't match any rule, flag it and ask the user where the file belongs : do not invent a type.
 
 2. **Preserve the body.** Read the file, extract everything below the existing frontmatter (if any). Do not modify the body content.
 
@@ -123,21 +123,21 @@ visibility: local
 
 These fields were common in older frontmatter and should be removed unless the user explicitly asks to keep them:
 
-- `date`, `last-updated` — filesystem tracks this
-- `project` — folder context implies this
-- `tags` — derivable from path + type
-- `aliases` — keep only if they're functionally needed for wikilink resolution
-- `author` — vault is single-author; implicit
-- `version` — use Git or file history
-- `phase`, `category`, `brand`, `maturity` — keep only if downstream tooling consumes them
-- `example:` — discoverable from folder structure
+- `date`, `last-updated` : filesystem tracks this
+- `project` : folder context implies this
+- `tags` : derivable from path + type
+- `aliases` : keep only if they're functionally needed for wikilink resolution
+- `author` : vault is single-author; implicit
+- `version` : use Git or file history
+- `phase`, `category`, `brand`, `maturity` : keep only if downstream tooling consumes them
+- `example:` : discoverable from folder structure
 
 ## Fields to ADD if missing
 
-- `type` — required on every file
-- `for:` — always `[human, ai]` unless style-source (`[ai]`) or you know the audience is single
-- `visibility` — default to `local` for packet files; `public` only if intentionally shipped
-- `status` — for lens/atmosphere specs only; derivable from whether an example exists
+- `type` : required on every file
+- `for:` : always `[human, ai]` unless style-source (`[ai]`) or you know the audience is single
+- `visibility` : default to `local` for packet files; `public` only if intentionally shipped
+- `status` : for lens/atmosphere specs only; derivable from whether an example exists
 
 ## Special cases
 
@@ -145,7 +145,7 @@ These fields were common in older frontmatter and should be removed unless the u
 Leave untouched. Claude Code harness reads `name:` and `description:` from these and interprets them specially. Do not attempt to normalize.
 
 ### Content files outside the packet
-This skill only applies to `00_cultivate-local-intelligence/Local Brain/`. For vault-level content files (daily notes, cut configs in `03_cuts/`, person profiles in `People/`), use a different schema — the vault's general convention from `CLAUDE.md`.
+This skill only applies to `00_cultivate-local-intelligence/Local Brain/`. For vault-level content files (daily notes, cut configs in `03_outbox/`, person profiles in `People/`), use a different schema : the vault's general convention from `CLAUDE.md`.
 
 ## Reference implementation
 

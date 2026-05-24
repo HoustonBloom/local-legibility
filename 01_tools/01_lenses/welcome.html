@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome — Local Intelligence Packet</title>
+<title>Welcome : Local Intelligence Packet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Aldrich&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@ body { font-family: var(--font-sans); background: var(--paper); color: var(--ink
 a { color: var(--sage-deep); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
-section { padding: 72px 0; }
+section { padding: 72px 0; contain: layout paint; }
 section + section { border-top: 1px solid var(--rule); }
 .kicker { font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 18px; }
 h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
@@ -53,13 +53,13 @@ p { color: var(--ink-soft); max-width: 60ch; }
 
 /* ── Animated headline: per-letter typewriter, futures pill lands on arrival ──
    Rules of the road:
-     1. No layout shift  — all 5 words overlap in one grid cell, sized to
+     1. No layout shift : all 5 words overlap in one grid cell, sized to
         widest. FOUC guard via visibility: hidden on inactive .cyc.
-     2. No blur          — opacity-only transitions. No transform on letters,
+     2. No blur        : opacity-only transitions. No transform on letters,
         so no subpixel rasterization during animation.
-     3. Modern easing    — MD3 expressive curves (emphasized decelerate for
+     3. Modern easing  : MD3 expressive curves (emphasized decelerate for
         arrival, emphasized accelerate for exit, gentle spring for the pill).
-     4. Payoff on arrival— the highlight pill's transition-delay is set to
+     4. Payoff on arrival: the highlight pill's transition-delay is set to
         the real enterDuration of "futures" so it wipes in AFTER the last
         letter lands, not during the typing. */
 
@@ -88,7 +88,7 @@ p { color: var(--ink-soft); max-width: 60ch; }
   color: var(--sage-deep);
   white-space: nowrap;
   pointer-events: none;
-  visibility: hidden;  /* FOUC guard — only active/leaving are visible */
+  visibility: hidden;  /* FOUC guard : only active/leaving are visible */
 }
 .cycle-slot .cyc.is-active,
 .cycle-slot .cyc.is-leaving {
@@ -101,7 +101,7 @@ p { color: var(--ink-soft); max-width: 60ch; }
 }
 
 /* Pure-opacity typewriter. No transform = no subpixel blur. The stagger
-   alone carries the cascade — letters appear to type in left-to-right. */
+   alone carries the cascade : letters appear to type in left-to-right. */
 .cycle-slot .cyc .chr {
   display: inline-block;
   opacity: 0;
@@ -162,7 +162,7 @@ p { color: var(--ink-soft); max-width: 60ch; }
 .cap-card { background: rgba(250, 246, 238, 0.04); border: 1px solid rgba(134, 193, 149, 0.3); border-radius: 12px; padding: 22px 20px; }
 .cap-card .icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(134, 193, 149, 0.15); border: 1px solid rgba(134, 193, 149, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; color: var(--sage); }
 .cap-card .icon svg { width: 20px; height: 20px; }
-.cap-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--paper); margin-bottom: 6px; line-height: 1.25; }
+.cap-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--paper); margin-bottom: 12px; line-height: 1.25; }
 .cap-card p { color: rgba(250, 246, 238, 0.7); font-size: 0.88rem; line-height: 1.45; max-width: none; }
 
 /* ── Subsystems ── */
@@ -170,7 +170,7 @@ p { color: var(--ink-soft); max-width: 60ch; }
 @media (min-width: 760px) { .subs .pair { grid-template-columns: 1fr 1fr; gap: 28px; } }
 .sub-card { background: #fffdf6; border: 2px solid var(--ink); border-radius: 14px; padding: 32px 28px; box-shadow: 4px 4px 0 var(--ink); display: flex; flex-direction: column; }
 .sub-card .badge { display: inline-block; font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage-deep); background: var(--sage-soft); padding: 5px 11px; border-radius: 14px; margin-bottom: 14px; align-self: flex-start; }
-.sub-card h3 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 800; margin-bottom: 8px; }
+.sub-card h3 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 800; margin-bottom: 14px; }
 .sub-card .tagline { font-size: 1rem; color: var(--ink-soft); margin-bottom: 18px; }
 .sub-card ul { list-style: none; padding: 0; margin: 0 0 22px; }
 .sub-card li { font-size: 0.94rem; color: var(--ink-soft); padding: 5px 0 5px 22px; position: relative; }
@@ -223,7 +223,7 @@ footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex
   font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--butter);
   margin-bottom: 24px;
 }
-.stack-card .body h3 { color: var(--paper); margin-bottom: 8px; }
+.stack-card .body h3 { color: var(--paper); margin-bottom: 14px; }
 .stack-card .body p { color: rgba(250, 246, 238, 0.78); font-size: 0.96rem; max-width: none; }
 .stack-note {
   margin-top: 28px;
@@ -249,7 +249,7 @@ footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex
   margin-bottom: 16px; color: var(--sage-deep);
 }
 .benefit .icon svg { width: 24px; height: 24px; }
-.benefit h3 { font-size: 1.15rem; margin-bottom: 8px; }
+.benefit h3 { font-size: 1.15rem; margin-bottom: 14px; }
 .benefit p { font-size: 0.94rem; }
 
 /* ── Other combos ── */
@@ -263,7 +263,7 @@ footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex
   background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 10px;
   padding: 18px 20px;
 }
-.combo h3 { font-size: 0.98rem; margin-bottom: 4px; }
+.combo h3 { font-size: 0.98rem; margin-bottom: 10px; }
 .combo p { font-size: 0.88rem; max-width: none; }
 
 /* ── Setup steps ── */
@@ -279,11 +279,275 @@ footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--sage-deep);
 }
-.setup-step h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.setup-step h3 { font-size: 1.1rem; margin-bottom: 12px; }
 .setup-step p { font-size: 0.96rem; }
 .setup-step code {
   font-family: var(--font-mono); font-size: 0.85em;
   background: var(--paper-deep); padding: 2px 6px; border-radius: 4px;
+}
+
+/* ── Download section · Field atmosphere backdrop ── */
+.download-section {
+  position: relative;
+  background: #1f1d1a;
+  overflow: hidden;
+  padding-bottom: 96px;
+}
+.setup-section {
+  background: #ffffff;
+  padding-top: 0;
+  padding-bottom: 96px;
+  position: relative;
+  overflow: hidden;
+}
+.setup-section .field-bg-light {
+  position: absolute; inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.setup-section .field-bg-light canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
+.setup-section .wrap,
+.setup-section .setup-steps-expandable { position: relative; z-index: 2; }
+.setup-section .wrap { padding-top: 72px; }
+.setup-section .setup-steps-expandable {
+  width: 100%;
+  max-width: none;
+  margin-top: 0;
+  padding: 0 24px;
+  border-top: none;
+}
+@media (min-width: 768px) {
+  .setup-section .setup-steps-expandable { padding: 0 48px; }
+}
+@media (min-width: 1200px) {
+  .setup-section .setup-steps-expandable { padding: 0 72px; }
+}
+.download-section .wrap { position: relative; z-index: 2; }
+.download-section .field-bg {
+  position: absolute; inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.download-section .field-bg canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
+.download-section .glass-veil {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: rgba(31, 29, 26, 0.04);
+  -webkit-backdrop-filter: blur(0.6px) saturate(1.04);
+  backdrop-filter: blur(0.6px) saturate(1.04);
+  z-index: 1;
+}
+
+/* Section-level text reads against the dark Field */
+.download-section .kicker { color: var(--sage); }
+.download-section h2 { color: var(--paper); }
+.download-section > .wrap > p {
+  color: rgba(250, 246, 238, 0.78);
+  max-width: 60ch;
+}
+
+/* Flow diagram (3-phase) */
+.flow-diagram {
+  display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 12px; align-items: stretch;
+  margin: 32px 0 8px;
+}
+.flow-card {
+  background: linear-gradient(180deg, rgba(31, 35, 42, 0.62) 0%, rgba(20, 22, 26, 0.72) 100%);
+  border: 1px solid rgba(245, 216, 142, 0.28);
+  border-radius: 14px;
+  box-shadow: 0 18px 42px -14px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  padding: 24px 22px;
+  display: flex; flex-direction: column; gap: 12px;
+  color: var(--paper);
+}
+.flow-card.is-ai {
+  background: linear-gradient(180deg, rgba(31, 80, 40, 0.62) 0%, rgba(18, 48, 24, 0.74) 100%);
+  border-color: rgba(134, 193, 149, 0.42);
+}
+.flow-card .phase-tag {
+  font-family: var(--font-retro); font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--butter);
+}
+.flow-card.is-ai .phase-tag { color: var(--sage); }
+.flow-card h4 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.02rem; line-height: 1.2; color: var(--paper);
+  margin: 0;
+}
+.flow-card ul {
+  list-style: none; padding: 0; margin: 4px 0 0;
+  font-size: 0.88rem; color: rgba(250, 246, 238, 0.85);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.flow-card ul li::before {
+  content: "·"; margin-right: 6px; color: var(--butter); font-weight: 700;
+}
+.flow-card.is-ai ul li::before { color: var(--sage); }
+.flow-card .duration {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1.5px dashed rgba(245, 216, 142, 0.25);
+  font-family: var(--font-retro);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--butter);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.flow-card .duration::before {
+  content: "";
+  display: inline-block;
+  width: 16px; height: 16px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5d88e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><polyline points='12 6 12 12 16 14'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  flex-shrink: 0;
+}
+.flow-arrow {
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(245, 216, 142, 0.55);
+}
+.flow-arrow svg { width: 22px; height: 22px; }
+@media (max-width: 760px) {
+  .flow-diagram { grid-template-columns: 1fr; gap: 8px; }
+  .flow-arrow { transform: rotate(90deg); padding: 4px 0; }
+}
+
+/* Expandable steps */
+.setup-steps-expandable { margin-top: 28px; border-top: 1px solid var(--rule); }
+.setup-steps-expandable details {
+  border-bottom: 1px solid var(--rule);
+  transition: background 120ms ease;
+}
+.setup-steps-expandable details:hover { background: rgba(31, 29, 26, 0.02); }
+.setup-steps-expandable details[open] { background: transparent; }
+.setup-steps-expandable summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 0;
+  display: grid; grid-template-columns: 40px 1fr auto; gap: 16px; align-items: center;
+}
+.setup-steps-expandable summary::-webkit-details-marker { display: none; }
+.setup-steps-expandable summary .step-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--sage);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 0.92rem; color: var(--sage-deep);
+  flex-shrink: 0;
+}
+.setup-steps-expandable details[open] summary .step-num {
+  background: var(--sage); color: var(--paper); border-color: var(--sage-deep);
+}
+.setup-steps-expandable summary .step-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1.05rem; line-height: 1.3; color: var(--ink);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.setup-steps-expandable summary .step-title code {
+  font-family: var(--font-mono); font-size: 0.82em;
+  background: var(--paper-deep); padding: 2px 6px; border-radius: 4px;
+  color: var(--ink);
+}
+.setup-steps-expandable .pill-optional {
+  font-family: var(--font-retro); font-size: 0.62rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--butter-deep);
+  background: var(--butter-soft);
+  padding: 3px 9px; border-radius: 20px;
+  border: 1px solid var(--butter);
+}
+.setup-steps-expandable summary .step-chevron {
+  width: 18px; height: 18px; color: var(--ink-faint);
+  transition: transform 200ms ease;
+}
+.setup-steps-expandable details[open] summary .step-chevron { transform: rotate(90deg); }
+.setup-steps-expandable .step-body {
+  padding: 0 0 22px 56px;
+  font-size: 0.96rem; color: var(--ink-soft); line-height: 1.55;
+}
+.setup-steps-expandable .step-body p { margin-bottom: 8px; max-width: 60ch; }
+.setup-steps-expandable .step-body p:last-child { margin-bottom: 0; }
+.setup-steps-expandable .step-body code {
+  font-family: var(--font-mono); font-size: 0.85em;
+  background: var(--paper-deep); padding: 2px 6px; border-radius: 4px;
+}
+.setup-steps-expandable .step-body strong { color: var(--ink); font-weight: 700; }
+.setup-steps-expandable .step-body a { color: var(--sage-deep); text-decoration: underline; }
+@media (max-width: 640px) {
+  .setup-steps-expandable .step-body { padding-left: 0; padding-top: 4px; }
+}
+
+/* AI takeover callout */
+.ai-takeover {
+  margin-top: 32px;
+  padding: 26px 28px;
+  background: var(--sage-soft);
+  border: 2px solid var(--sage-deep);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--sage-deep);
+  display: flex; gap: 18px; align-items: flex-start;
+}
+.ai-takeover .icon {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  color: var(--sage-deep);
+}
+.ai-takeover .icon svg { width: 100%; height: 100%; }
+.ai-takeover h3 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.18rem; color: var(--sage-deep);
+  margin: 0 0 6px;
+}
+.ai-takeover p {
+  font-size: 0.96rem; color: var(--ink-soft); line-height: 1.55;
+  margin: 0; max-width: 64ch;
+}
+.ai-takeover p + p { margin-top: 8px; }
+
+.download-card {
+  margin: 28px 0 12px;
+  padding: 28px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 6px 6px 0 var(--ink);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 22px;
+}
+.download-card .download-cta { display: flex; flex-direction: column; gap: 8px; }
+.download-card .btn-download {
+  font-size: 1.08rem; padding: 16px 26px;
+  background: var(--sage); color: var(--ink);
+}
+.download-card .btn-download svg { width: 20px; height: 20px; }
+.download-card .download-meta {
+  font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink-faint);
+}
+.download-card .download-fallback {
+  flex: 1; min-width: 260px;
+  font-size: 0.92rem; color: var(--ink-soft); line-height: 1.5;
+  padding-left: 22px; border-left: 1px dashed var(--rule);
+}
+.download-card .download-fallback code {
+  font-family: var(--font-mono); font-size: 0.85em;
+  background: var(--paper-deep); padding: 2px 6px; border-radius: 4px;
+  word-break: break-all;
+}
+@media (max-width: 640px) {
+  .download-card { padding: 22px; gap: 18px; }
+  .download-card .download-fallback { padding-left: 0; border-left: none; padding-top: 18px; border-top: 1px dashed var(--rule); }
 }
 
 footer { padding: 28px 0; border-top: 1px solid var(--rule); font-family: var(--font-retro); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
@@ -309,7 +573,7 @@ body { font-family: var(--font-sans); background: var(--paper); color: var(--ink
 a { color: var(--sage-deep); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
-section { padding: 72px 0; }
+section { padding: 72px 0; contain: layout paint; }
 section + section { border-top: 1px solid var(--rule); }
 .kicker { font-family: var(--font-retro); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 18px; }
 h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
@@ -335,12 +599,12 @@ p { color: var(--ink-soft); max-width: 60ch; }
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--sage-deep);
 }
-.step h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.step h3 { font-size: 1.1rem; margin-bottom: 12px; }
 .step p { font-size: 0.96rem; }
 
 .prompt-section { background: var(--ink); color: var(--paper); padding: 80px 0; }
 .prompt-section .kicker { color: var(--butter); }
-.prompt-section h2 { color: var(--paper); margin-bottom: 16px; }
+.prompt-section h2 { color: var(--paper); margin-bottom: 24px; }
 .prompt-section > .wrap > p { color: rgba(250, 246, 238, 0.78); margin-bottom: 28px; }
 
 .prompt-box {
@@ -349,8 +613,6 @@ p { color: var(--ink-soft); max-width: 60ch; }
   border: 1.5px solid rgba(245, 216, 142, 0.3);
   border-radius: 12px;
   padding: 24px;
-  max-height: 480px;
-  overflow-y: auto;
 }
 .prompt-box pre {
   font-family: var(--font-mono);
@@ -403,8 +665,191 @@ footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex
     </h1>
     <p class="sub">A vault-agnostic publishing system that turns a folder of markdown into curated HTML intelligence packets and a full local-first preview website. Adapts to whatever structure you already have.</p>
     <div class="ctas">
-      <a href="#" class="btn" data-tab="lenses" id="cta-lenses">Browse the lenses <span class="arrow">→</span></a>
-      <a href="#adapter-prompt" class="btn ghost" id="cta-start">Get started</a>
+      <a href="#get-started" class="btn" id="cta-get-started">Get Started <span class="arrow">→</span></a>
+      <a href="#" class="btn ghost" data-tab="workflow" id="cta-learn-more">Learn more</a>
+    </div>
+  </div>
+</section>
+
+<section id="get-started" class="download-section">
+  <div class="field-bg" aria-hidden="true">
+    <canvas id="get-started-field"></canvas>
+  </div>
+  <div class="glass-veil" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="kicker">Start here</div>
+    <h2>Get the packet running on your computer.</h2>
+    <p>Eight quick steps. After step 8, your AI takes over and walks you through the rest.</p>
+
+    <div class="flow-diagram" aria-hidden="true">
+      <div class="flow-card">
+        <span class="phase-tag">Phase 1 · You</span>
+        <h4>Download &amp; place</h4>
+        <ul>
+          <li>Download the ZIP</li>
+          <li>Unzip it</li>
+          <li>Drop the folder anywhere</li>
+        </ul>
+        <span class="duration">~ 2 minutes</span>
+      </div>
+      <div class="flow-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="13 5 20 12 13 19"/></svg>
+      </div>
+      <div class="flow-card">
+        <span class="phase-tag">Phase 2 · You</span>
+        <h4>Hand off to your AI</h4>
+        <ul>
+          <li>Install your AI tool</li>
+          <li>Copy the adapter prompt</li>
+          <li>Paste it with your folder paths</li>
+        </ul>
+        <span class="duration">~ 2 minutes</span>
+      </div>
+      <div class="flow-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><polyline points="13 5 20 12 13 19"/></svg>
+      </div>
+      <div class="flow-card is-ai">
+        <span class="phase-tag">Phase 3 · The AI</span>
+        <h4>Walks you through the rest</h4>
+        <ul>
+          <li>Audits your folder</li>
+          <li>Recommends the right lens</li>
+          <li>Cuts your first frame</li>
+        </ul>
+        <span class="duration">guided, no setup</span>
+      </div>
+    </div>
+
+    <div class="download-card">
+      <div class="download-cta">
+        <a href="https://github.com/HoustonBloom/local-legibility/archive/refs/heads/main.zip" class="btn btn-download" download onclick="setTimeout(() => { const t = document.querySelector('.adapter-hero'); if (t) t.scrollIntoView({behavior: 'instant', block: 'start'}); }, 150);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Local Brain (.zip)
+        </a>
+        <span class="download-meta">~ 355 KB · 66 files · GitHub-hosted</span>
+      </div>
+      <div class="download-fallback">
+        Or pull with git: <code>git clone https://github.com/HoustonBloom/local-legibility.git</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="setup-section">
+  <div class="field-bg-light" aria-hidden="true">
+    <canvas id="setup-section-field"></canvas>
+  </div>
+    <div class="setup-steps-expandable">
+      <details>
+        <summary>
+          <span class="step-num">1</span>
+          <span class="step-title">Save the ZIP file to your computer.</span>
+          <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </summary>
+        <div class="step-body">
+          <p>Click the green button above. Your browser saves <code>local-legibility-main.zip</code> to your default Downloads folder.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="step-num">2</span>
+          <span class="step-title">Unzip it.</span>
+          <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </summary>
+        <div class="step-body">
+          <p><strong>Windows:</strong> right-click the ZIP, choose Extract All.</p>
+          <p><strong>Mac:</strong> double-click the ZIP. It expands beside itself.</p>
+          <p><strong>Linux:</strong> <code>unzip local-legibility-main.zip</code>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="step-num">3</span>
+          <span class="step-title">Move the unzipped folder anywhere on your computer.</span>
+          <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </summary>
+        <div class="step-body">
+          <p>Documents, home directory, wherever you keep work. The path doesn't matter; the adapter prompt handles it.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="step-num">4</span>
+          <span class="step-title">Install Obsidian. <span class="pill-optional">Optional</span></span>
+          <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </summary>
+        <div class="step-body">
+          <p>Skip if you already have a markdown editor you like. Otherwise <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a> is free, point it at the folder of notes you want to publish from, no conversion needed.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="step-num">5</span>
+          <span class="step-title">Install your AI tool.</span>
+          <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </summary>
+        <div class="step-body">
+          <p><a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a> is the CLI version with full filesystem access. The Claude desktop app with the Cowork preview also works. Either one needs to be able to read the folder you just placed.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="step-num">6</span>
+          <span class="step-title">Open <code>Getting Started.html</code> inside the folder.</span>
+          <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </summary>
+        <div class="step-body">
+          <p>Double-click the file. It opens in your default browser. You'll see this exact page running locally. Keep it open for the next step.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="step-num">7</span>
+          <span class="step-title">Copy the adapter prompt from the section below.</span>
+          <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </summary>
+        <div class="step-body">
+          <p>Scroll down to the <strong>Hand your AI this prompt</strong> section. Click <strong>Copy prompt</strong>. The full adapter prompt is now on your clipboard.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="step-num">8</span>
+          <span class="step-title">Paste the prompt into your AI with your folder paths.</span>
+          <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </summary>
+        <div class="step-body">
+          <p>Paste the prompt. Add one line at the end: <code>the packet lives at [path/to/local-brain], my notes live at [path/to/your-folder].</code> Hit enter.</p>
+        </div>
+      </details>
+    </div>
+
+  <div class="wrap">
+    <div class="ai-takeover">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+          <line x1="9" y1="9" x2="9.01" y2="9"/>
+          <line x1="15" y1="9" x2="15.01" y2="9"/>
+        </svg>
+      </div>
+      <div>
+        <h3>From here, your AI takes over.</h3>
+        <p>Once the prompt is in, the AI scans your folder, writes a <strong>First Look audit</strong> (<code>03_outbox/first-look.html</code>) ranking every lens against your content, and waits for you to pick one. Say <code>produce that first frame</code> and it cuts the first HTML file straight into <code>03_outbox/frames/</code>.</p>
+        <p>You don't need to read the rest of this page before starting. The AI knows the packet and will guide you from inside the chat.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -434,7 +879,7 @@ footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex
           </svg>
         </div>
         <h3>Make your data valuable.</h3>
-        <p>Your notes, exchanges, and artifacts are raw material. Frames, essays, decks, briefings — all shaped from the same folder. Nothing you wrote sits wasted.</p>
+        <p>Your notes, exchanges, and artifacts are raw material. Frames, essays, decks, briefings : all shaped from the same folder. Nothing you wrote sits wasted.</p>
       </div>
       <div class="cap-card">
         <div class="icon" aria-hidden="true">
@@ -479,11 +924,11 @@ footer .inner { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex
       <button class="copy-btn" id="copy-prompt" onclick="copyPrompt()">Copy prompt</button>
       <pre id="prompt-text">You are helping a user try the Local Intelligence Packet on their existing folder of files. The packet gives them two things:
 
-1. **Content Publishing Pipeline (CPP)** â€” produces curated standalone HTML &quot;frames&quot; from selected content.
+1. **Content Publishing Pipeline (CPP)** : produces curated standalone HTML &quot;frames&quot; from selected content.
 
 Your job: get them to a working frame as fast as possible using what they already have. Lead with what works. Suggest improvements only after.
 
-## Step 1 â€” Look at both sides briefly
+## Step 1 : Look at both sides briefly
 
 Skim the packet:
 - The packet's `README.md`.
@@ -492,33 +937,33 @@ Skim the packet:
 
 Skim the user's folder:
 - Top-level folder names. What kind of work lives here?
-- 5â€“8 sample files across different folders. What's the shape â€” long-form notes, short captures, structured docs, mixed?
+- 5-8 sample files across different folders. What's the shape : long-form notes, short captures, structured docs, mixed?
 - Any existing frontmatter (YAML at the top of files). What fields are common, if any?
 - Any organizing files: project hubs, daily notes, principles, indexes, changelogs?
 - File formats: are there non-markdown files (PDFs, images, .docx)? Note them; the packet can still work around them.
 
 Don't go deep yet. You're scanning to see what kind of help this person needs. Less is fine.
 
-## Step 2 â€” Produce the First Look report (MANDATORY, DO THIS FIRST)
+## Step 2 : Produce the First Look report (MANDATORY, DO THIS FIRST)
 
-**Before you write any conversational reply**, produce a **First Look** HTML report and save it to `03_cuts/first-look.html` in the user's folder (create the `03_cuts/` folder if it doesn't exist). This is non-optional. It is the user's first artifact from the packet â€” a tangible thing they can open in their browser to see what the packet found and what every lens can do for them.
+**Before you write any conversational reply**, produce a **First Look** HTML report and save it to `03_outbox/first-look.html` in the user's folder (create the `03_outbox/` folder if it doesn't exist). This is non-optional. It is the user's first artifact from the packet : a tangible thing they can open in their browser to see what the packet found and what every lens can do for them.
 
 The First Look frame is a lens shipped with the packet. The canonical reference is `publishing-pipeline/lenses/_examples/example-first-look.html`. Use it as the starting point. The full spec is at `publishing-pipeline/lenses/First Look.md`.
 
 Personalize these fields with what you actually found in their folder:
 
-- **Hero meta line** â€” real file count, folder count, overhaul count
-- **Stat cards** â€” real numbers (markdown files, files with frontmatter, project hubs, daily notes â€” adjust to what's actually present)
-- **What-we-found prose** â€” specific to their folder
-- **Suggested overhauls** â€” ONLY items that actually apply. Cap at 3. Skip the section entirely if nothing's needed.
-- **Lens rankings** â€” assess every shipped lens against their content. Real star ratings. Real &quot;why this fits&quot; reasoning. Personalized prompt text.
-- **Final CTA** â€” name the top-ranked lens specifically.
+- **Hero meta line** : real file count, folder count, overhaul count
+- **Stat cards** : real numbers (markdown files, files with frontmatter, project hubs, daily notes : adjust to what's actually present)
+- **What-we-found prose** : specific to their folder
+- **Suggested overhauls** : ONLY items that actually apply. Cap at 3. Skip the section entirely if nothing's needed.
+- **Lens rankings** : assess every shipped lens against their content. Real star ratings. Real &quot;why this fits&quot; reasoning. Personalized prompt text.
+- **Final CTA** : name the top-ranked lens specifically.
 
 Keep the visual structure of the example as-is, including the Preview buttons on the winner card and other-fits rows. Only the content varies.
 
 If you cannot write the file (no write access, unclear path), stop and say so plainly. Do not skip silently and pretend it's optional.
 
-## Step 3 â€” Tell them what you can already produce
+## Step 3 : Tell them what you can already produce
 
 Lead with possibility, not gaps. Even if the folder has no frontmatter and no obvious structure, you can almost always produce SOMETHING. State plainly:
 
@@ -531,35 +976,35 @@ Lead with possibility, not gaps. Even if the folder has no frontmatter and no ob
 
 If frontmatter is sparse or missing, say it's fine. Most lenses can work from filenames, headings, and content alone. The packet is forgiving by design.
 
-If the folder has no markdown files (e.g., mostly PDFs or other formats), say what's still possible â€” for example, the AI can read PDFs and emit them through a markdown-staged frame. Give them an honest &quot;yes, this can still work, here's how.&quot;
+If the folder has no markdown files (e.g., mostly PDFs or other formats), say what's still possible : for example, the AI can read PDFs and emit them through a markdown-staged frame. Give them an honest &quot;yes, this can still work, here's how.&quot;
 
-## Step 4 â€” Recommend one small thing
+## Step 4 : Recommend one small thing
 
 Pick the **single** most useful change they could make to unlock more value. Make it concrete. Tell them why it unlocks something specific. Examples (pick whichever fits their situation, only one):
 
 - &quot;Add a `00 - [Project Name].md` hub file to each of your 3 active projects. That gives the system a place to put project-level summary, and unlocks the project-overview lens.&quot;
 - &quot;Add `visibility: public` to the top of 3 files you'd be happy to share. That marks them as ready to publish.&quot;
-- &quot;Make a `Daily/Changelog.md` and write 2â€“3 lines per day about what you worked on. That powers the timeline view in the preview site.&quot;
+- &quot;Make a `Daily/Changelog.md` and write 2-3 lines per day about what you worked on. That powers the timeline view in the preview site.&quot;
 - &quot;Convert your top 3 PDFs into markdown summaries. The packet can produce frames from those summaries and link back to the originals.&quot;
 
 ONE recommendation. Concrete. Why-driven. No long lists.
 
-## Step 5 â€” Optional enhancements (max 3)
+## Step 5 : Optional enhancements (max 3)
 
 A short bulleted list of things they MIGHT do later if they want richer output. One line each. Pure invitation, no pressure. Examples:
 - Add a `Principles/` folder with your guiding values, one per file. Unlocks principle linking.
 - Add `principles:` field to project hubs to draw lines between projects and values.
 
-## Step 6 â€” Close with ALL THREE of these (each on its own line, in this order)
+## Step 6 : Close with ALL THREE of these (each on its own line, in this order)
 
-1. **The offer** â€” one line:
+1. **The offer** : one line:
    > &quot;Want me to produce that first frame right now?&quot;
 
 2. **The simple copy-and-paste prompt** (fill in the top-ranked lens you named in the audit):
    > Or just say: &quot;Cut me a frame using the [lens name] lens.&quot;
 
 3. **The First Look signpost with the EXACT absolute path** (literal path, no placeholder syntax, so the user can click or navigate to it directly):
-   > &quot;Not sure? Open <absolute-path-to-user-folder>/03_cuts/first-look.html in your browser â€” it shows what I found, ranks every lens against your content, and lets you preview each lens before you pick one. Every lens has a Copy prompt button.&quot;
+   > &quot;Not sure? Open <absolute-path-to-user-folder>/03_outbox/first-look.html in your browser : it shows what I found, ranks every lens against your content, and lets you preview each lens before you pick one. Every lens has a Copy prompt button.&quot;
 
 Do not bury any of these in a paragraph. Each on its own visible line. Replace `<absolute-path-to-user-folder>` with the real, literal path on the user's machine.
 
@@ -569,7 +1014,7 @@ If you genuinely need an answer to proceed, ask one question (max two). Don't pa
 
 When the user says &quot;yes, produce it&quot; or uses the simple &quot;Cut me a frame...&quot; prompt, create the frame and end your reply with the EXACT absolute path to the generated HTML, labeled:
 
-> Your frame is at: `<absolute-path>/03_cuts/frames/<filename>.html`
+> Your frame is at: `<absolute-path>/03_outbox/frames/<filename>.html`
 
 Literal path. Not a placeholder. The user should be able to navigate to the file directly from your reply.
 
@@ -577,14 +1022,14 @@ Literal path. Not a placeholder. The user should be able to navigate to the file
 
 Only when the user asks for full integration (or says something like &quot;do the whole setup&quot;), produce a detailed plan covering:
 
-1. **Folder layout decision** â€” monorepo vs. side-by-side vs. custom, based on what you saw.
-2. **Path rewrites for `generate-content.mjs`** â€” every constant or folder name that needs to change. Give line numbers (or unique search strings), current value, new value.
-3. **Frontmatter mapping** â€” packet field â†” user field. List specific files that need new fields.
-4. **Visibility strategy** â€” which files to mark `public`, what custom content-tags to suggest based on inferred audiences.
-5. **Skill installation** â€” where their AI's skills directory lives (`.claude/`, `.cursor/`, etc.), how to install the cut-packet skill.
-6. **Narratives audit** â€” the 9 the packet ships. Table: filename | keep / rewrite-for-X / delete | why.
-8. **Public assets audit** â€” packet ships generic SVG icons; check if their `type:` taxonomy matches.
-9. **First-run checklist** â€” numbered commands to verify the setup works end-to-end.
+1. **Folder layout decision** : monorepo vs. side-by-side vs. custom, based on what you saw.
+2. **Path rewrites for `generate-content.mjs`** : every constant or folder name that needs to change. Give line numbers (or unique search strings), current value, new value.
+3. **Frontmatter mapping** : packet field ↔ user field. List specific files that need new fields.
+4. **Visibility strategy** : which files to mark `public`, what custom content-tags to suggest based on inferred audiences.
+5. **Skill installation** : where their AI's skills directory lives (`.claude/`, `.cursor/`, etc.), how to install the cut-packet skill.
+6. **Narratives audit** : the 9 the packet ships. Table: filename | keep / rewrite-for-X / delete | why.
+8. **Public assets audit** : packet ships generic SVG icons; check if their `type:` taxonomy matches.
+9. **First-run checklist** : numbered commands to verify the setup works end-to-end.
 
 Keep this section in your back pocket. Do not produce it unprompted.
 
@@ -601,7 +1046,7 @@ Generate the response directly. No preamble, no &quot;here is my plan.&quot; If 
     </div>
     <div class="after-copy">
       <h3>After you paste</h3>
-      <p>The AI drops <code>03_cuts/first-look.html</code> in your folder before anything else. Open it in your browser. It shows what the AI found, ranks every lens against your content, and lets you preview each one.</p>
+      <p>The AI drops <code>03_outbox/first-look.html</code> in your folder before anything else. Open it in your browser. It shows what the AI found, ranks every lens against your content, and lets you preview each one.</p>
       <p>To produce a frame, say <code>Cut me a frame using the [lens] lens.</code> or pick any prompt from the First Look audit.</p>
     </div>
   </div>
@@ -640,7 +1085,7 @@ Generate the response directly. No preamble, no &quot;here is my plan.&quot; If 
       </div>
       <div class="body">
         <h3>One folder. One AI. Bidirectional access.</h3>
-        <p>Obsidian gives you a markdown-native folder. Claude Code (or Claude Desktop with filesystem access) reads the whole thing, edits files, and runs the cuts skill against your own work — all without your data leaving the machine.</p>
+        <p>Obsidian gives you a markdown-native folder. Claude Code (or Claude Desktop with filesystem access) reads the whole thing, edits files, and runs the cuts skill against your own work : all without your data leaving the machine.</p>
       </div>
     </div>
 
@@ -695,7 +1140,7 @@ Generate the response directly. No preamble, no &quot;here is my plan.&quot; If 
           </svg>
         </div>
         <h3>Context, not chat history.</h3>
-        <p>Your AI sees your whole folder, not just the conversation. Past sessions, project hubs, principles, daily logs — all of it. The cuts skill builds on what's already written.</p>
+        <p>Your AI sees your whole folder, not just the conversation. Past sessions, project hubs, principles, daily logs : all of it. The cuts skill builds on what's already written.</p>
       </div>
       <div class="benefit">
         <div class="icon" aria-hidden="true">
@@ -718,7 +1163,7 @@ Generate the response directly. No preamble, no &quot;here is my plan.&quot; If 
           </svg>
         </div>
         <h3>Local-first, by default.</h3>
-        <p>Everything happens on your machine. Your folder doesn't get uploaded. The bundled HTML you ship contains exactly what you put in it — no telemetry, no cloud round-trips.</p>
+        <p>Everything happens on your machine. Your folder doesn't get uploaded. The bundled HTML you ship contains exactly what you put in it : no telemetry, no cloud round-trips.</p>
       </div>
       <div class="benefit">
         <div class="icon" aria-hidden="true">
@@ -730,57 +1175,6 @@ Generate the response directly. No preamble, no &quot;here is my plan.&quot; If 
         </div>
         <h3>Output stays portable.</h3>
         <p>Frames are self-contained HTML. No build step required to view them. No CDN dependency. Email it, attach it, archive it. Open it again in five years and it still works.</p>
-      </div>
-    </div>
-  </div>
-</section>
-<section>
-  <div class="wrap">
-    <div class="kicker">Suggested-stack setup</div>
-    <h2>If you're going with the suggested stack.</h2>
-
-    <div class="setup-steps">
-      <div class="setup-step">
-        <div class="num">01</div>
-        <div>
-          <h3>Install Obsidian, open your folder as a vault.</h3>
-          <p>Free at obsidian.md. Point it at the folder of notes you want to publish from. No conversion needed; Obsidian reads markdown as-is.</p>
-        </div>
-      </div>
-      <div class="setup-step">
-        <div class="num">02</div>
-        <div>
-          <h3>Install Claude Code.</h3>
-          <p>The CLI version of Claude with full filesystem access. Works in any terminal. Same tools as the desktop app, scriptable.</p>
-        </div>
-      </div>
-      <div class="setup-step">
-        <div class="num">03</div>
-        <div>
-          <h3>Drop this packet folder anywhere alongside your vault.</h3>
-          <p>Sibling to your vault, or inside it as a subfolder — both work. The adapter handles the path mapping.</p>
-        </div>
-      </div>
-      <div class="setup-step">
-        <div class="num">04</div>
-        <div>
-          <h3>Open the <code>Get Started</code> tab. Copy the adapter prompt.</h3>
-          <p>Paste it into Claude with: "the packet lives at [path], my vault lives at [path]." The AI scans both.</p>
-        </div>
-      </div>
-      <div class="setup-step">
-        <div class="num">05</div>
-        <div>
-          <h3>Open the First Look audit.</h3>
-          <p>Before the chat reply, the AI drops <code>03_cuts/first-look.html</code> in your folder. Open it in your browser — it shows what was found, ranks every lens against your content, and lets you preview each lens before you pick one.</p>
-        </div>
-      </div>
-      <div class="setup-step">
-        <div class="num">06</div>
-        <div>
-          <h3>Produce a frame.</h3>
-          <p>Say "produce that first frame," or copy any prompt from the audit — they all use the format <code>Cut me a frame using the [lens] lens.</code> You get a self-contained HTML in <code>03_cuts/frames/</code>, and the AI tells you the exact path.</p>
-        </div>
       </div>
     </div>
   </div>
@@ -868,7 +1262,7 @@ document.querySelectorAll('a[data-tab]').forEach(a => {
   }
 
   // Tell the futures pill to wait until the last letter settles before wiping in.
-  // This is the "payoff on arrival" — the highlight lands as the typing finishes.
+  // This is the "payoff on arrival" : the highlight lands as the typing finishes.
   slots.forEach(slot => {
     if (slot.classList.contains('is-futures')) {
       slot.style.setProperty('--pill-delay', enterDuration(slot) + 'ms');
@@ -914,33 +1308,986 @@ document.querySelectorAll('a[data-tab]').forEach(a => {
 
   loop();
 })();
-</script>
 
 
-<script>
-function copyPrompt() {
-  const text = document.getElementById('prompt-text').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('copy-prompt');
-    btn.textContent = 'Copied';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = 'Copy prompt';
-      btn.classList.remove('copied');
-    }, 2000);
-  });
-}
-</script>
-
-<script>
-// Listen for scrollTo messages from the outer shell (Get Started CTA in the header)
 window.addEventListener('message', (e) => {
   if (e.data && e.data.type === 'scrollTo' && e.data.anchor) {
     const target = document.getElementById(e.data.anchor);
     if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 });
-</script>
 
+// ── Field atmosphere: scoped to #get-started ──
+(() => {
+  const section = document.getElementById('get-started');
+  const canvas = document.getElementById('get-started-field');
+  if (!section || !canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const CONFIG = {
+    backgroundColor: '#1f1d1a',
+    lineColor: '#f5d88e',
+    speed: 0.85,
+    phaseDuration: 14000,
+    transitionDuration: 12000,
+    maxSpeed: 1.8,
+    damping: 0.972,
+    cursorInner: 40,
+    cursorRadius: 120,
+    cursorStrength: 0.5,
+    mainCount: 130,
+    mainHistory: 100,
+    mainWidth: 0.35,
+    mainAlpha: 0.5,
+    mainDotSize: 4.5,
+    mainDotAlpha: 0.7,
+    whisperCount: 70,
+    whisperHistory: 80,
+    whisperWidth: 0.18,
+    whisperMaxAlpha: 0.28,
+    whisperDotSize: 2.0,
+    whisperDotMaxAlpha: 0.3,
+    whisperCyclePeriod: 16000,
+  };
+
+  let W, H, dpr, CX, CY;
+  let cursorX = 0, cursorY = 0, cursorActive = false;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function hexToRgb(hex) {
+    const n = parseInt(hex.replace('#', ''), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+  const LC = hexToRgb(CONFIG.lineColor);
+
+  function createGlowSprite() {
+    const size = 40;
+    const cv = document.createElement('canvas');
+    cv.width = cv.height = size;
+    const g = cv.getContext('2d');
+    const grad = g.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+    grad.addColorStop(0, 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',0.7)');
+    grad.addColorStop(0.25, 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',0.38)');
+    grad.addColorStop(0.6, 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',0.1)');
+    grad.addColorStop(1, 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',0)');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, size, size);
+    return cv;
+  }
+  const glowSprite = createGlowSprite();
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = section.clientWidth;
+    H = section.clientHeight;
+    if (W < 10 || H < 10) return;
+    CX = W / 2; CY = H / 2;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = CONFIG.backgroundColor;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function makePerm(seed) {
+    const p = 256;
+    const perm = new Uint8Array(p * 2);
+    for (let i = 0; i < p; i++) perm[i] = i;
+    let s = seed;
+    const rand = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    for (let i = p - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      [perm[i], perm[j]] = [perm[j], perm[i]];
+    }
+    for (let i = 0; i < p; i++) perm[p + i] = perm[i];
+    return perm;
+  }
+  const perm = makePerm(2026);
+  const fadeN = t => t * t * t * (t * (t * 6 - 15) + 10);
+  const lerp = (a, b, t) => a + t * (b - a);
+  const gradVec = (hash, x, y) => {
+    const h = hash & 3;
+    const u = h < 2 ? x : y;
+    const v = h < 2 ? y : x;
+    return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
+  };
+  function noise2D(x, y) {
+    const X = Math.floor(x) & 255;
+    const Y = Math.floor(y) & 255;
+    x -= Math.floor(x); y -= Math.floor(y);
+    const u = fadeN(x), v = fadeN(y);
+    const aa = perm[perm[X] + Y];
+    const ab = perm[perm[X] + Y + 1];
+    const ba = perm[perm[X + 1] + Y];
+    const bb = perm[perm[X + 1] + Y + 1];
+    return lerp(
+      lerp(gradVec(aa, x, y), gradVec(ba, x - 1, y), u),
+      lerp(gradVec(ab, x, y - 1), gradVec(bb, x - 1, y - 1), u),
+      v
+    );
+  }
+  function curl(x, y, t) {
+    const eps = 0.01;
+    const a = (noise2D(x, y + eps + t) - noise2D(x, y - eps + t)) / (2 * eps);
+    const b = (noise2D(x + eps, y + t) - noise2D(x - eps, y + t)) / (2 * eps);
+    return { x: a, y: -b };
+  }
+
+  const particles = [];
+  function seedParticles() {
+    particles.length = 0;
+    for (let i = 0; i < CONFIG.mainCount; i++) {
+      particles.push({
+        kind: 'main',
+        x: Math.random() * W, y: Math.random() * H,
+        vx: 0, vy: 0, seed: Math.random() * 1000,
+        zap: 0, zapDir: 0, depth: Math.random(),
+        history: [], historyLimit: CONFIG.mainHistory * 2, phase: 0,
+      });
+    }
+    for (let i = 0; i < CONFIG.whisperCount; i++) {
+      particles.push({
+        kind: 'whisper',
+        x: Math.random() * W, y: Math.random() * H,
+        vx: 0, vy: 0, seed: Math.random() * 1000,
+        zap: 0, zapDir: 0, depth: Math.random(),
+        history: [], historyLimit: CONFIG.whisperHistory * 2,
+        phase: Math.random() * Math.PI * 2,
+      });
+    }
+  }
+
+  const cellSize = 70;
+  let cols, rows, grid;
+  function initGrid() {
+    cols = Math.ceil(W / cellSize) + 1;
+    rows = Math.ceil(H / cellSize) + 1;
+  }
+  function rebuildGrid() {
+    grid = new Array(cols * rows);
+    for (let i = 0; i < grid.length; i++) grid[i] = null;
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      const cx = Math.floor(p.x / cellSize);
+      const cy = Math.floor(p.y / cellSize);
+      if (cx < 0 || cx >= cols || cy < 0 || cy >= rows) continue;
+      const idx = cy * cols + cx;
+      if (!grid[idx]) grid[idx] = [];
+      grid[idx].push(i);
+    }
+  }
+  function forEachNeighbor(p, radius, cb) {
+    const cx = Math.floor(p.x / cellSize);
+    const cy = Math.floor(p.y / cellSize);
+    const r = Math.ceil(radius / cellSize);
+    const r2 = radius * radius;
+    for (let dy = -r; dy <= r; dy++) {
+      for (let dx = -r; dx <= r; dx++) {
+        const nx = cx + dx, ny = cy + dy;
+        if (nx < 0 || nx >= cols || ny < 0 || ny >= rows) continue;
+        const cell = grid[ny * cols + nx];
+        if (!cell) continue;
+        for (const idx of cell) {
+          const n = particles[idx];
+          if (n === p) continue;
+          const ddx = n.x - p.x, ddy = n.y - p.y;
+          const d2 = ddx * ddx + ddy * ddy;
+          if (d2 < r2) cb(n, d2, ddx, ddy);
+        }
+      }
+    }
+  }
+
+  function fishForce(p, t) {
+    let ax = 0, ay = 0, count = 0, avgVx = 0, avgVy = 0, avgX = 0, avgY = 0, sepX = 0, sepY = 0;
+    forEachNeighbor(p, 75, (n, d2, ddx, ddy) => {
+      count++; avgVx += n.vx; avgVy += n.vy; avgX += n.x; avgY += n.y;
+      if (d2 < 900 && d2 > 0) { const inv = 1 / d2; sepX -= ddx * inv; sepY -= ddy * inv; }
+    });
+    if (count > 0) {
+      avgVx /= count; avgVy /= count; avgX /= count; avgY /= count;
+      ax += (avgVx - p.vx) * 0.05; ay += (avgVy - p.vy) * 0.05;
+      ax += (avgX - p.x) * 0.0004; ay += (avgY - p.y) * 0.0004;
+      ax += sepX * 55; ay += sepY * 55;
+    }
+    const nt = t * 0.00008;
+    const c = curl(p.x * 0.0012, p.y * 0.0012, nt);
+    ax += c.x * 0.45; ay += c.y * 0.45;
+    const dx = CX - p.x, dy = CY - p.y;
+    const d = Math.hypot(dx, dy);
+    const boundary = Math.min(W, H) * 0.38;
+    if (d > boundary) {
+      const pull = (d - boundary) * 0.0015;
+      ax += (dx / d) * pull; ay += (dy / d) * pull;
+    }
+    return { x: ax, y: ay };
+  }
+
+  function snowForce(p, t) {
+    const dx = p.x - CX, dy = p.y - CY;
+    const d = Math.hypot(dx, dy) + 0.01;
+    const speed = 0.16 + p.depth * 0.3;
+    let ax = (dx / d) * speed;
+    let ay = (dy / d) * speed + 0.025;
+    const nt = t * 0.00018;
+    const c = curl(p.x * 0.0025, p.y * 0.0025, nt);
+    ax += c.x * 0.13; ay += c.y * 0.13;
+    return { x: ax, y: ay };
+  }
+
+  function waterForce(p, t) {
+    const bottomZone = H * 0.68;
+    let ax = 0, ay = 0;
+    if (p.y < bottomZone) {
+      ay = 0.26;
+      const nt = t * 0.00025;
+      const c = curl(p.x * 0.003, p.y * 0.0025, nt);
+      ax = c.x * 0.4; ay += c.y * 0.08;
+    } else {
+      const waveT = t * 0.0012;
+      ax = Math.sin(p.y * 0.035 + waveT + p.seed * 0.01) * 0.6;
+      ay = Math.cos(p.x * 0.012 + waveT) * 0.22;
+      if (p.y > H - 40) ay -= 0.3;
+    }
+    return { x: ax, y: ay };
+  }
+
+  function electricForce(p, t) {
+    const s = p.seed;
+    let ax = Math.sin(t * 0.002 + s * 17) * 0.22 + Math.sin(t * 0.004 + s * 29) * 0.1;
+    let ay = Math.cos(t * 0.0019 + s * 23) * 0.22 + Math.sin(t * 0.0036 + s * 31) * 0.1;
+    if (p.zap > 0) {
+      p.zap--;
+      ax += Math.cos(p.zapDir) * 0.85;
+      ay += Math.sin(p.zapDir) * 0.85;
+    } else if (Math.random() < 0.0014) {
+      p.zap = 7;
+      p.zapDir = Math.random() * Math.PI * 2;
+    }
+    return { x: ax, y: ay };
+  }
+
+  function cursorForce(p) {
+    if (!cursorActive) return { x: 0, y: 0 };
+    const dx = p.x - cursorX, dy = p.y - cursorY;
+    const d = Math.hypot(dx, dy);
+    const inner = CONFIG.cursorInner, outer = CONFIG.cursorRadius;
+    if (d >= outer) return { x: 0, y: 0 };
+    if (d < 0.01) return { x: 1.5, y: 0 };
+    const nx = dx / d, ny = dy / d, tx = -ny, ty = nx;
+    const vRadial = p.vx * nx + p.vy * ny;
+    const vTangent = p.vx * tx + p.vy * ty;
+    let fx = 0, fy = 0;
+    if (d < inner) {
+      const overshoot = (inner - d) / inner;
+      const hardPush = 1.2 + overshoot * 2.0;
+      fx += nx * hardPush; fy += ny * hardPush;
+      if (vRadial < 0) { fx -= vRadial * nx * 1.5; fy -= vRadial * ny * 1.5; }
+      return { x: fx, y: fy };
+    }
+    const tN = 1 - (d - inner) / (outer - inner);
+    const strength = tN * tN;
+    if (vRadial < 0) {
+      const tangSign = vTangent >= 0 ? 1 : -1;
+      const redirectForce = -vRadial * strength * 1.1;
+      fx += nx * redirectForce; fy += ny * redirectForce;
+      fx += tx * redirectForce * tangSign; fy += ty * redirectForce * tangSign;
+    }
+    const outPush = strength * CONFIG.cursorStrength * 0.3;
+    fx += nx * outPush; fy += ny * outPush;
+    return { x: fx, y: fy };
+  }
+
+  const forces = [fishForce, snowForce, waterForce, electricForce];
+  const phaseKey = ['fish', 'snow', 'water', 'electric'];
+
+  function phaseInfo(t) {
+    const total = CONFIG.phaseDuration + CONFIG.transitionDuration;
+    const cycle = total * 4;
+    const ct = ((t % cycle) + cycle) % cycle;
+    const idx = Math.floor(ct / total);
+    const within = ct % total;
+    if (within < CONFIG.phaseDuration) return { current: idx, next: idx, transition: 0 };
+    const tr = (within - CONFIG.phaseDuration) / CONFIG.transitionDuration;
+    return { current: idx, next: (idx + 1) % 4, transition: tr };
+  }
+
+  function easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+  function respawnForPhase(p, key) {
+    if (key === 'snow') {
+      p.x = CX + (Math.random() - 0.5) * 30;
+      p.y = CY + (Math.random() - 0.5) * 30;
+      p.vx = 0; p.vy = 0; p.depth = Math.random();
+    } else if (key === 'water') {
+      p.x = Math.random() * W; p.y = -10 - Math.random() * 40;
+      p.vx = 0; p.vy = 0;
+    } else {
+      p.x = Math.random() * W; p.y = Math.random() * H;
+      p.vx = 0; p.vy = 0;
+    }
+  }
+
+  function drawGlow(x, y, size, alpha) {
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(glowSprite, x - size, y - size, size * 2, size * 2);
+  }
+
+  function draw(t) {
+    const speedFactor = CONFIG.speed;
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = CONFIG.backgroundColor;
+    ctx.fillRect(0, 0, W, H);
+    rebuildGrid();
+    const info = phaseInfo(t);
+    const curKey = phaseKey[info.current];
+    const nextKey = phaseKey[info.next];
+    const ease = easeInOut(info.transition);
+    const blending = info.transition > 0;
+    const f1 = forces[info.current];
+    const f2 = forces[info.next];
+    for (const p of particles) {
+      let fx, fy;
+      if (blending) {
+        const a = f1(p, t), b = f2(p, t);
+        fx = a.x * (1 - ease) + b.x * ease;
+        fy = a.y * (1 - ease) + b.y * ease;
+      } else {
+        const a = f1(p, t); fx = a.x; fy = a.y;
+      }
+      const cf = cursorForce(p);
+      fx += cf.x; fy += cf.y;
+      p.vx = p.vx * CONFIG.damping + fx;
+      p.vy = p.vy * CONFIG.damping + fy;
+      const sp = Math.hypot(p.vx, p.vy);
+      if (sp > CONFIG.maxSpeed) {
+        p.vx = (p.vx / sp) * CONFIG.maxSpeed;
+        p.vy = (p.vy / sp) * CONFIG.maxSpeed;
+      }
+      p.x += p.vx * speedFactor;
+      p.y += p.vy * speedFactor;
+      const activeKey = ease < 0.5 ? curKey : nextKey;
+      let cleared = false;
+      if (activeKey === 'water') {
+        if (p.y > H + 12) { respawnForPhase(p, activeKey); cleared = true; }
+      } else if (activeKey === 'snow') {
+        if (p.x < -20 || p.x > W + 20 || p.y < -20 || p.y > H + 20) {
+          respawnForPhase(p, activeKey); cleared = true;
+        }
+      } else {
+        if (p.x < -20) { p.x = W + 20; cleared = true; }
+        else if (p.x > W + 20) { p.x = -20; cleared = true; }
+        if (p.y < -20) { p.y = H + 20; cleared = true; }
+        else if (p.y > H + 20) { p.y = -20; cleared = true; }
+      }
+      if (cleared) p.history.length = 0;
+      p.history.push(p.x, p.y);
+      if (p.history.length > p.historyLimit) p.history.splice(0, 2);
+    }
+    const freq = (Math.PI * 2) / CONFIG.whisperCyclePeriod;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.lineWidth = CONFIG.whisperWidth;
+    for (const p of particles) {
+      if (p.kind !== 'whisper') continue;
+      const envRaw = Math.sin(t * freq + p.phase);
+      const env = envRaw > 0 ? Math.pow(envRaw, 1.6) : 0;
+      if (env < 0.02) continue;
+      let lineA = CONFIG.whisperMaxAlpha * env;
+      if (curKey === 'snow' || nextKey === 'snow') {
+        const dd = Math.hypot(p.x - CX, p.y - CY);
+        const maxD = Math.hypot(CX, CY);
+        const td = Math.min(1, dd / maxD);
+        const snowAmt = curKey === 'snow' ? (nextKey === 'snow' ? 1 : 1 - ease) : ease;
+        lineA *= (1 - snowAmt) + (0.3 + td) * snowAmt;
+      }
+      if (p.history.length >= 4) {
+        ctx.strokeStyle = 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',' + lineA + ')';
+        ctx.beginPath();
+        ctx.moveTo(p.history[0], p.history[1]);
+        for (let i = 2; i < p.history.length; i += 2) ctx.lineTo(p.history[i], p.history[i + 1]);
+        ctx.stroke();
+      }
+    }
+    ctx.lineWidth = CONFIG.mainWidth;
+    for (const p of particles) {
+      if (p.kind !== 'main') continue;
+      let lineA = CONFIG.mainAlpha;
+      if (curKey === 'snow' || nextKey === 'snow') {
+        const dd = Math.hypot(p.x - CX, p.y - CY);
+        const maxD = Math.hypot(CX, CY);
+        const td = Math.min(1, dd / maxD);
+        const snowAmt = curKey === 'snow' ? (nextKey === 'snow' ? 1 : 1 - ease) : ease;
+        lineA = lineA * (1 - snowAmt) + (0.15 + td * 0.75) * 0.55 * snowAmt;
+      }
+      if (p.history.length >= 4) {
+        ctx.strokeStyle = 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',' + lineA + ')';
+        ctx.beginPath();
+        ctx.moveTo(p.history[0], p.history[1]);
+        for (let i = 2; i < p.history.length; i += 2) ctx.lineTo(p.history[i], p.history[i + 1]);
+        ctx.stroke();
+      }
+    }
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of particles) {
+      if (p.kind !== 'whisper') continue;
+      const envRaw = Math.sin(t * freq + p.phase);
+      const env = envRaw > 0 ? Math.pow(envRaw, 1.6) : 0;
+      if (env < 0.04) continue;
+      drawGlow(p.x, p.y, CONFIG.whisperDotSize, CONFIG.whisperDotMaxAlpha * env);
+    }
+    for (const p of particles) {
+      if (p.kind !== 'main') continue;
+      let dotA = CONFIG.mainDotAlpha, dotS = CONFIG.mainDotSize;
+      if (curKey === 'snow' || nextKey === 'snow') {
+        const dd = Math.hypot(p.x - CX, p.y - CY);
+        const maxD = Math.hypot(CX, CY);
+        const td = Math.min(1, dd / maxD);
+        const snowAmt = curKey === 'snow' ? (nextKey === 'snow' ? 1 : 1 - ease) : ease;
+        dotA = dotA * (1 - snowAmt) + (0.2 + td * 0.8) * snowAmt;
+        dotS = dotS * (1 - snowAmt) + (1.5 + td * 4.5) * snowAmt;
+      }
+      drawGlow(p.x, p.y, dotS, dotA);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+  }
+
+  function startLoop() {
+    if (prefersReducedMotion) {
+      ctx.fillStyle = CONFIG.backgroundColor;
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'lighter';
+      for (const p of particles) {
+        if (p.kind !== 'main') continue;
+        drawGlow(p.x, p.y, CONFIG.mainDotSize, CONFIG.mainDotAlpha);
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      return;
+    }
+    let simTime = 0, lastReal = 0;
+    let isVisible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { isVisible = e.isIntersecting; }, { rootMargin: '50px' }).observe(ctx.canvas);
+    }
+    function frame(now) {
+      if (lastReal === 0) lastReal = now;
+      const realDelta = Math.min(50, now - lastReal);
+      lastReal = now;
+      simTime += realDelta * CONFIG.speed;
+      if (isVisible) draw(simTime);
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function boot() {
+    resize();
+    if (W < 10 || H < 10) {
+      setTimeout(boot, 100);
+      return;
+    }
+    initGrid();
+    seedParticles();
+    startLoop();
+  }
+  boot();
+
+  let resizeTimer;
+  function scheduleResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { resize(); initGrid(); }, 80);
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(scheduleResize).observe(section);
+  }
+  window.addEventListener('resize', scheduleResize);
+
+  section.addEventListener('mousemove', (e) => {
+    const rect = section.getBoundingClientRect();
+    cursorX = e.clientX - rect.left;
+    cursorY = e.clientY - rect.top;
+    cursorActive = true;
+  });
+  section.addEventListener('mouseleave', () => { cursorActive = false; });
+})();
+// ── Field atmosphere: scoped to .setup-section (white surface, multiply blend) ──
+(() => {
+  const section = document.querySelector('.setup-section');
+  const canvas = document.getElementById('setup-section-field');
+  if (!section || !canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const CONFIG = {
+    backgroundColor: '#ffffff',
+    lineColor: '#1f5028',
+    speed: 0.85,
+    phaseDuration: 22000,
+    transitionDuration: 7000,
+    maxSpeed: 1.8,
+    damping: 0.972,
+    cursorInner: 40,
+    cursorRadius: 120,
+    cursorStrength: 0.5,
+    mainCount: 100,
+    mainHistory: 90,
+    mainWidth: 0.4,
+    mainAlpha: 0.18,
+    mainDotSize: 4.0,
+    mainDotAlpha: 0.22,
+    whisperCount: 55,
+    whisperHistory: 70,
+    whisperWidth: 0.22,
+    whisperMaxAlpha: 0.10,
+    whisperDotSize: 2.0,
+    whisperDotMaxAlpha: 0.12,
+    whisperCyclePeriod: 16000,
+  };
+
+  let W, H, dpr, CX, CY;
+  let cursorX = 0, cursorY = 0, cursorActive = false;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function hexToRgb(hex) {
+    const n = parseInt(hex.replace('#', ''), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+  const LC = hexToRgb(CONFIG.lineColor);
+
+  function createGlowSprite() {
+    const size = 40;
+    const cv = document.createElement('canvas');
+    cv.width = cv.height = size;
+    const g = cv.getContext('2d');
+    const grad = g.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+    grad.addColorStop(0, 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',0.55)');
+    grad.addColorStop(0.25, 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',0.32)');
+    grad.addColorStop(0.6, 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',0.08)');
+    grad.addColorStop(1, 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',0)');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, size, size);
+    return cv;
+  }
+  const glowSprite = createGlowSprite();
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = section.clientWidth;
+    H = section.clientHeight;
+    if (W < 10 || H < 10) return;
+    CX = W / 2; CY = H / 2;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = CONFIG.backgroundColor;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function makePerm(seed) {
+    const p = 256;
+    const perm = new Uint8Array(p * 2);
+    for (let i = 0; i < p; i++) perm[i] = i;
+    let s = seed;
+    const rand = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    for (let i = p - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      [perm[i], perm[j]] = [perm[j], perm[i]];
+    }
+    for (let i = 0; i < p; i++) perm[p + i] = perm[i];
+    return perm;
+  }
+  const perm = makePerm(4242);
+  const fadeN = t => t * t * t * (t * (t * 6 - 15) + 10);
+  const lerp = (a, b, t) => a + t * (b - a);
+  const gradVec = (hash, x, y) => {
+    const h = hash & 3;
+    const u = h < 2 ? x : y;
+    const v = h < 2 ? y : x;
+    return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
+  };
+  function noise2D(x, y) {
+    const X = Math.floor(x) & 255;
+    const Y = Math.floor(y) & 255;
+    x -= Math.floor(x); y -= Math.floor(y);
+    const u = fadeN(x), v = fadeN(y);
+    const aa = perm[perm[X] + Y];
+    const ab = perm[perm[X] + Y + 1];
+    const ba = perm[perm[X + 1] + Y];
+    const bb = perm[perm[X + 1] + Y + 1];
+    return lerp(
+      lerp(gradVec(aa, x, y), gradVec(ba, x - 1, y), u),
+      lerp(gradVec(ab, x, y - 1), gradVec(bb, x - 1, y - 1), u),
+      v
+    );
+  }
+  function curl(x, y, t) {
+    const eps = 0.01;
+    const a = (noise2D(x, y + eps + t) - noise2D(x, y - eps + t)) / (2 * eps);
+    const b = (noise2D(x + eps, y + t) - noise2D(x - eps, y + t)) / (2 * eps);
+    return { x: a, y: -b };
+  }
+
+  const particles = [];
+  function seedParticles() {
+    particles.length = 0;
+    for (let i = 0; i < CONFIG.mainCount; i++) {
+      particles.push({
+        kind: 'main',
+        x: Math.random() * W, y: Math.random() * H,
+        vx: 0, vy: 0, seed: Math.random() * 1000,
+        zap: 0, zapDir: 0, depth: Math.random(),
+        history: [], historyLimit: CONFIG.mainHistory * 2, phase: 0,
+      });
+    }
+    for (let i = 0; i < CONFIG.whisperCount; i++) {
+      particles.push({
+        kind: 'whisper',
+        x: Math.random() * W, y: Math.random() * H,
+        vx: 0, vy: 0, seed: Math.random() * 1000,
+        zap: 0, zapDir: 0, depth: Math.random(),
+        history: [], historyLimit: CONFIG.whisperHistory * 2,
+        phase: Math.random() * Math.PI * 2,
+      });
+    }
+  }
+
+  const cellSize = 70;
+  let cols, rows, grid;
+  function initGrid() {
+    cols = Math.ceil(W / cellSize) + 1;
+    rows = Math.ceil(H / cellSize) + 1;
+  }
+  function rebuildGrid() {
+    grid = new Array(cols * rows);
+    for (let i = 0; i < grid.length; i++) grid[i] = null;
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      const cx = Math.floor(p.x / cellSize);
+      const cy = Math.floor(p.y / cellSize);
+      if (cx < 0 || cx >= cols || cy < 0 || cy >= rows) continue;
+      const idx = cy * cols + cx;
+      if (!grid[idx]) grid[idx] = [];
+      grid[idx].push(i);
+    }
+  }
+  function forEachNeighbor(p, radius, cb) {
+    const cx = Math.floor(p.x / cellSize);
+    const cy = Math.floor(p.y / cellSize);
+    const r = Math.ceil(radius / cellSize);
+    const r2 = radius * radius;
+    for (let dy = -r; dy <= r; dy++) {
+      for (let dx = -r; dx <= r; dx++) {
+        const nx = cx + dx, ny = cy + dy;
+        if (nx < 0 || nx >= cols || ny < 0 || ny >= rows) continue;
+        const cell = grid[ny * cols + nx];
+        if (!cell) continue;
+        for (const idx of cell) {
+          const n = particles[idx];
+          if (n === p) continue;
+          const ddx = n.x - p.x, ddy = n.y - p.y;
+          const d2 = ddx * ddx + ddy * ddy;
+          if (d2 < r2) cb(n, d2, ddx, ddy);
+        }
+      }
+    }
+  }
+
+  function fishForce(p, t) {
+    let ax = 0, ay = 0, count = 0, avgVx = 0, avgVy = 0, avgX = 0, avgY = 0, sepX = 0, sepY = 0;
+    forEachNeighbor(p, 75, (n, d2, ddx, ddy) => {
+      count++; avgVx += n.vx; avgVy += n.vy; avgX += n.x; avgY += n.y;
+      if (d2 < 900 && d2 > 0) { const inv = 1 / d2; sepX -= ddx * inv; sepY -= ddy * inv; }
+    });
+    if (count > 0) {
+      avgVx /= count; avgVy /= count; avgX /= count; avgY /= count;
+      ax += (avgVx - p.vx) * 0.05; ay += (avgVy - p.vy) * 0.05;
+      ax += (avgX - p.x) * 0.0004; ay += (avgY - p.y) * 0.0004;
+      ax += sepX * 55; ay += sepY * 55;
+    }
+    const nt = t * 0.00008;
+    const c = curl(p.x * 0.0012, p.y * 0.0012, nt);
+    ax += c.x * 0.45; ay += c.y * 0.45;
+    const dx = CX - p.x, dy = CY - p.y;
+    const d = Math.hypot(dx, dy);
+    const boundary = Math.min(W, H) * 0.38;
+    if (d > boundary) {
+      const pull = (d - boundary) * 0.0015;
+      ax += (dx / d) * pull; ay += (dy / d) * pull;
+    }
+    return { x: ax, y: ay };
+  }
+
+  function snowForce(p, t) {
+    const dx = p.x - CX, dy = p.y - CY;
+    const d = Math.hypot(dx, dy) + 0.01;
+    const speed = 0.16 + p.depth * 0.3;
+    let ax = (dx / d) * speed;
+    let ay = (dy / d) * speed + 0.025;
+    const nt = t * 0.00018;
+    const c = curl(p.x * 0.0025, p.y * 0.0025, nt);
+    ax += c.x * 0.13; ay += c.y * 0.13;
+    return { x: ax, y: ay };
+  }
+
+  function waterForce(p, t) {
+    const bottomZone = H * 0.68;
+    let ax = 0, ay = 0;
+    if (p.y < bottomZone) {
+      ay = 0.26;
+      const nt = t * 0.00025;
+      const c = curl(p.x * 0.003, p.y * 0.0025, nt);
+      ax = c.x * 0.4; ay += c.y * 0.08;
+    } else {
+      const waveT = t * 0.0012;
+      ax = Math.sin(p.y * 0.035 + waveT + p.seed * 0.01) * 0.6;
+      ay = Math.cos(p.x * 0.012 + waveT) * 0.22;
+      if (p.y > H - 40) ay -= 0.3;
+    }
+    return { x: ax, y: ay };
+  }
+
+  function electricForce(p, t) {
+    const s = p.seed;
+    let ax = Math.sin(t * 0.002 + s * 17) * 0.22 + Math.sin(t * 0.004 + s * 29) * 0.1;
+    let ay = Math.cos(t * 0.0019 + s * 23) * 0.22 + Math.sin(t * 0.0036 + s * 31) * 0.1;
+    if (p.zap > 0) {
+      p.zap--;
+      ax += Math.cos(p.zapDir) * 0.85;
+      ay += Math.sin(p.zapDir) * 0.85;
+    } else if (Math.random() < 0.0014) {
+      p.zap = 7;
+      p.zapDir = Math.random() * Math.PI * 2;
+    }
+    return { x: ax, y: ay };
+  }
+
+  function cursorForce(p) {
+    if (!cursorActive) return { x: 0, y: 0 };
+    const dx = p.x - cursorX, dy = p.y - cursorY;
+    const d = Math.hypot(dx, dy);
+    const inner = CONFIG.cursorInner, outer = CONFIG.cursorRadius;
+    if (d >= outer) return { x: 0, y: 0 };
+    if (d < 0.01) return { x: 1.5, y: 0 };
+    const nx = dx / d, ny = dy / d, tx = -ny, ty = nx;
+    const vRadial = p.vx * nx + p.vy * ny;
+    const vTangent = p.vx * tx + p.vy * ty;
+    let fx = 0, fy = 0;
+    if (d < inner) {
+      const overshoot = (inner - d) / inner;
+      const hardPush = 1.2 + overshoot * 2.0;
+      fx += nx * hardPush; fy += ny * hardPush;
+      if (vRadial < 0) { fx -= vRadial * nx * 1.5; fy -= vRadial * ny * 1.5; }
+      return { x: fx, y: fy };
+    }
+    const tN = 1 - (d - inner) / (outer - inner);
+    const strength = tN * tN;
+    if (vRadial < 0) {
+      const tangSign = vTangent >= 0 ? 1 : -1;
+      const redirectForce = -vRadial * strength * 1.1;
+      fx += nx * redirectForce; fy += ny * redirectForce;
+      fx += tx * redirectForce * tangSign; fy += ty * redirectForce * tangSign;
+    }
+    const outPush = strength * CONFIG.cursorStrength * 0.3;
+    fx += nx * outPush; fy += ny * outPush;
+    return { x: fx, y: fy };
+  }
+
+  const forces = [fishForce, snowForce, waterForce, electricForce];
+  const phaseKey = ['fish', 'snow', 'water', 'electric'];
+
+  function phaseInfo(t) {
+    const total = CONFIG.phaseDuration + CONFIG.transitionDuration;
+    const cycle = total * 4;
+    const ct = ((t % cycle) + cycle) % cycle;
+    const idx = Math.floor(ct / total);
+    const within = ct % total;
+    if (within < CONFIG.phaseDuration) return { current: idx, next: idx, transition: 0 };
+    const tr = (within - CONFIG.phaseDuration) / CONFIG.transitionDuration;
+    return { current: idx, next: (idx + 1) % 4, transition: tr };
+  }
+
+  function easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+  function respawnForPhase(p, key) {
+    if (key === 'snow') {
+      p.x = CX + (Math.random() - 0.5) * 30;
+      p.y = CY + (Math.random() - 0.5) * 30;
+      p.vx = 0; p.vy = 0; p.depth = Math.random();
+    } else if (key === 'water') {
+      p.x = Math.random() * W; p.y = -10 - Math.random() * 40;
+      p.vx = 0; p.vy = 0;
+    } else {
+      p.x = Math.random() * W; p.y = Math.random() * H;
+      p.vx = 0; p.vy = 0;
+    }
+  }
+
+  function drawGlow(x, y, size, alpha) {
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(glowSprite, x - size, y - size, size * 2, size * 2);
+  }
+
+  function draw(t) {
+    const speedFactor = CONFIG.speed;
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = CONFIG.backgroundColor;
+    ctx.fillRect(0, 0, W, H);
+    rebuildGrid();
+    const info = phaseInfo(t);
+    const curKey = phaseKey[info.current];
+    const nextKey = phaseKey[info.next];
+    const ease = easeInOut(info.transition);
+    const blending = info.transition > 0;
+    const f1 = forces[info.current];
+    const f2 = forces[info.next];
+    for (const p of particles) {
+      let fx, fy;
+      if (blending) {
+        const a = f1(p, t), b = f2(p, t);
+        fx = a.x * (1 - ease) + b.x * ease;
+        fy = a.y * (1 - ease) + b.y * ease;
+      } else {
+        const a = f1(p, t); fx = a.x; fy = a.y;
+      }
+      const cf = cursorForce(p);
+      fx += cf.x; fy += cf.y;
+      p.vx = p.vx * CONFIG.damping + fx;
+      p.vy = p.vy * CONFIG.damping + fy;
+      const sp = Math.hypot(p.vx, p.vy);
+      if (sp > CONFIG.maxSpeed) {
+        p.vx = (p.vx / sp) * CONFIG.maxSpeed;
+        p.vy = (p.vy / sp) * CONFIG.maxSpeed;
+      }
+      p.x += p.vx * speedFactor;
+      p.y += p.vy * speedFactor;
+      const activeKey = ease < 0.5 ? curKey : nextKey;
+      let cleared = false;
+      if (activeKey === 'water') {
+        if (p.y > H + 12) { respawnForPhase(p, activeKey); cleared = true; }
+      } else if (activeKey === 'snow') {
+        if (p.x < -20 || p.x > W + 20 || p.y < -20 || p.y > H + 20) {
+          respawnForPhase(p, activeKey); cleared = true;
+        }
+      } else {
+        if (p.x < -20) { p.x = W + 20; cleared = true; }
+        else if (p.x > W + 20) { p.x = -20; cleared = true; }
+        if (p.y < -20) { p.y = H + 20; cleared = true; }
+        else if (p.y > H + 20) { p.y = -20; cleared = true; }
+      }
+      if (cleared) p.history.length = 0;
+      p.history.push(p.x, p.y);
+      if (p.history.length > p.historyLimit) p.history.splice(0, 2);
+    }
+    const freq = (Math.PI * 2) / CONFIG.whisperCyclePeriod;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.lineWidth = CONFIG.whisperWidth;
+    for (const p of particles) {
+      if (p.kind !== 'whisper') continue;
+      const envRaw = Math.sin(t * freq + p.phase);
+      const env = envRaw > 0 ? Math.pow(envRaw, 1.6) : 0;
+      if (env < 0.02) continue;
+      let lineA = CONFIG.whisperMaxAlpha * env;
+      if (p.history.length >= 4) {
+        ctx.strokeStyle = 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',' + lineA + ')';
+        ctx.beginPath();
+        ctx.moveTo(p.history[0], p.history[1]);
+        for (let i = 2; i < p.history.length; i += 2) ctx.lineTo(p.history[i], p.history[i + 1]);
+        ctx.stroke();
+      }
+    }
+    ctx.lineWidth = CONFIG.mainWidth;
+    for (const p of particles) {
+      if (p.kind !== 'main') continue;
+      let lineA = CONFIG.mainAlpha;
+      if (p.history.length >= 4) {
+        ctx.strokeStyle = 'rgba(' + LC[0] + ',' + LC[1] + ',' + LC[2] + ',' + lineA + ')';
+        ctx.beginPath();
+        ctx.moveTo(p.history[0], p.history[1]);
+        for (let i = 2; i < p.history.length; i += 2) ctx.lineTo(p.history[i], p.history[i + 1]);
+        ctx.stroke();
+      }
+    }
+    // KEY DIFFERENCE: multiply blend so dark dots register against the white surface
+    ctx.globalCompositeOperation = 'multiply';
+    for (const p of particles) {
+      if (p.kind !== 'whisper') continue;
+      const envRaw = Math.sin(t * freq + p.phase);
+      const env = envRaw > 0 ? Math.pow(envRaw, 1.6) : 0;
+      if (env < 0.04) continue;
+      drawGlow(p.x, p.y, CONFIG.whisperDotSize, CONFIG.whisperDotMaxAlpha * env);
+    }
+    for (const p of particles) {
+      if (p.kind !== 'main') continue;
+      drawGlow(p.x, p.y, CONFIG.mainDotSize, CONFIG.mainDotAlpha);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+  }
+
+  function startLoop() {
+    if (prefersReducedMotion) {
+      ctx.fillStyle = CONFIG.backgroundColor;
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'multiply';
+      for (const p of particles) {
+        if (p.kind !== 'main') continue;
+        drawGlow(p.x, p.y, CONFIG.mainDotSize, CONFIG.mainDotAlpha);
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      return;
+    }
+    let simTime = 0, lastReal = 0;
+    let isVisible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { isVisible = e.isIntersecting; }, { rootMargin: '50px' }).observe(ctx.canvas);
+    }
+    function frame(now) {
+      if (lastReal === 0) lastReal = now;
+      const realDelta = Math.min(50, now - lastReal);
+      lastReal = now;
+      simTime += realDelta * CONFIG.speed;
+      if (isVisible) draw(simTime);
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function boot() {
+    resize();
+    if (W < 10 || H < 10) {
+      setTimeout(boot, 100);
+      return;
+    }
+    initGrid();
+    seedParticles();
+    startLoop();
+  }
+  boot();
+
+  let resizeTimer;
+  function scheduleResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { resize(); initGrid(); }, 80);
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(scheduleResize).observe(section);
+  }
+  window.addEventListener('resize', scheduleResize);
+
+  section.addEventListener('mousemove', (e) => {
+    const rect = section.getBoundingClientRect();
+    cursorX = e.clientX - rect.left;
+    cursorY = e.clientY - rect.top;
+    cursorActive = true;
+  });
+  section.addEventListener('mouseleave', () => { cursorActive = false; });
+})();
+
+</script>
 </body>
 </html>

@@ -81,11 +81,11 @@ One sentence on the roadmap moment. One sentence on cost trajectory or headline 
 
 **The load-bearing section.** Active experiments with:
 
-- **Hypothesis** — one line. What are we testing?
-- **Why it matters** — one line. What does success unlock? (REQUIRED)
-- **Status** — running / blocked / done / planned
-- **Evidence** — what have we seen so far? Real data only.
-- **Result / next read** — when do we expect to know?
+- **Hypothesis** : one line. What are we testing?
+- **Why it matters** : one line. What does success unlock? (REQUIRED)
+- **Status** : running / blocked / done / planned
+- **Evidence** : what have we seen so far? Real data only.
+- **Result / next read** : when do we expect to know?
 
 Card layout, one card per experiment. Status color-coded: green (done), butter (running), rust (blocked), sky (planned).
 
@@ -112,13 +112,13 @@ Recent sessions from the activity log. Columns: date, duration, tokens, outcome.
 Not a backlog dump. The 2-3 things that would move the needle next. For each:
 
 - **Phase name** (short)
-- **Why it matters** (one line, plain terms) — REQUIRED
+- **Why it matters** (one line, plain terms) : REQUIRED
 - **Done when** (one concrete test)
 - **Blocked on / ready when** (one phrase)
 
 ### 7. Technical specs that matter
 
-Hardware, endpoints, integration surfaces. Things the reader can verify. Only list what exists — don't list aspirational hardware as active.
+Hardware, endpoints, integration surfaces. Things the reader can verify. Only list what exists : don't list aspirational hardware as active.
 
 ### 8. Open threads
 
@@ -144,10 +144,10 @@ Provenance summary + cut config path + render date + style-source + atmosphere u
 
 `mode: internal` enables two additional sections for engineering audits:
 
-- **Delta table** — before/after counts for file-level metrics
-- **Event grid** — typed change events (rename/consolidate/promote/retire/establish)
+- **Delta table** : before/after counts for file-level metrics
+- **Event grid** : typed change events (rename/consolidate/promote/retire/establish)
 
-Suppressed by default. [a named contact] + most external readers never see them.
+Suppressed by default. External readers never see them.
 
 ## Visual Direction (defaults)
 
@@ -197,7 +197,7 @@ content-tag: [tag selecting source files]
 lens: status-report
 style-source: default-tokens
 atmosphere: field              # optional
-output: 03_cuts/frames/YYYYMMDD_concept-descriptor.html
+output: 03_outbox/frames/YYYYMMDD_concept-descriptor.html
 date: YYYY-MM-DD
 title: "Status Report · [Scope] · YYYY-MM-DD"
 
@@ -223,4 +223,4 @@ When a source is missing, say so in Provenance. Never fill the gap with a guess.
 
 Standard: cut body > contact overlay > lens defaults > style-source tokens. Atmosphere optional, at z-index 0.
 
-For [a named contact] specifically: the contact overlay enforces density, BLUF-first, file paths as first-class (from his profile). Those don't conflict with this lens's roadmap framing; they compound.
+For dense-reader contacts specifically: the contact overlay enforces density, BLUF-first, file paths as first-class (from their profile). Those don't conflict with this lens's roadmap framing; they compound.

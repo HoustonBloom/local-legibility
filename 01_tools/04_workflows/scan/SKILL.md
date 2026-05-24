@@ -1,4 +1,4 @@
-# /scan — Process Vault Flags
+# /scan : Process Vault Flags
 
 Scan the vault for all pending instructions from the user. This is the session start checklist automated as a single command.
 

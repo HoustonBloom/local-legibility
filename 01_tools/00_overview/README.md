@@ -74,7 +74,7 @@ The fast path (Obsidian + Claude Code):
 3. Drop this packet folder alongside your vault.
 4. Open `Getting Started.html`. Read Welcome and Setup.
 5. Copy the adapter prompt from the Get Started tab. Paste into Claude with: *"the packet lives at [path], my vault lives at [path]."*
-6. Open the First Look audit Claude drops at `03_cuts/first-look.html`.
+6. Open the First Look audit Claude drops at `03_outbox/first-look.html`.
 7. Produce your first frame. Say *"produce that first frame"* or copy a prompt from the audit.
 
 For other stacks (Cursor, Claude Desktop, ChatGPT, Aider), the adapter prompt is agnostic.

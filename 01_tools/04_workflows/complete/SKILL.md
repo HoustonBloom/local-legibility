@@ -3,7 +3,7 @@ name: complete
 description: Save session state, write carryover, run session end review. Use at end of any working session.
 ---
 
-# /complete — Save Session
+# /complete : Save Session
 
 Save session state before ending a work session. This creates continuity for the next `/memory` load.
 

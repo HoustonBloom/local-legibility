@@ -9,10 +9,10 @@ Generate a self-contained HTML intelligence packet from a cut configuration file
 
 ## What This Does
 
-A **cut** is a curated selection of vault content, defined by a config file in `03_cuts/`. Each cut config specifies:
+A **cut** is a curated selection of vault content, defined by a config file in `03_outbox/`. Each cut config specifies:
 
 - **content-tag**: A visibility value. Vault files with this value in their `visibility` array are included in the cut.
-- **lens**: How to render the content (e.g., `reel`, `explainer`, `product-website`, `company-website`, `pitch`, `share`, `reddit`, `first-look`). Several other lenses (`observatory`, `recap`, `status-report`, `storyboard-editorial`, `activity-timeline`) are spec'd but examples are coming soon.
+- **lens**: How to render the content (e.g., `reel`, `explainer`, `product-website`, `company-website`, `pitch`, `share`, `first-look`). Several other lenses (`observatory`, `recap`, `status-report`, `storyboard-editorial`, `activity-timeline`) are spec'd but examples are coming soon.
 - **audience**: The contact (or role) the cut targets. When the audience is a specific contact with a profile in `01_tools/05_contacts/<Name>.md`, read their `Rendering Preferences` section and apply it as a contact overlay on top of the lens defaults.
 - **style-source**: Which design tokens to bake in (e.g., `default-tokens`).
 - **art-direction**: Tone, audience, emphasis, visual notes written in the body of the config.
@@ -24,10 +24,10 @@ The output is a **self-contained HTML file** (an intelligence packet) that opens
 
 ### 1. Find the Cut Config
 
-The user will either name the cut directly or you can scan `03_cuts/frames/` for `_config.md` files with `type: cut` in their frontmatter. Window manifests (`_window-*.md`) stay at the `03_cuts/` level. Everything else lives in `frames/`.
+The user will either name the cut directly or you can scan `03_outbox/frames/` for `_config.md` files with `type: cut` in their frontmatter. Window manifests (`_window-*.md`) stay at the `03_outbox/` level. Everything else lives in `frames/`.
 
 ```
-03_cuts/
+03_outbox/
   README.md                                              ← system docs
   _window-SystemExplorer.md                              ← window manifest (stays at top level)
   frames/                                                ← all configs and rendered frames
@@ -96,27 +96,27 @@ Read each matched file. Extract:
 
 ### 5. Select and Apply the Lens
 
-Each lens is a layout pattern. The kit ships specs for the lenses below in `01_lenses/{Lens Name}.md` — read the matching spec for full structural detail. Sample renderings live in `01_lenses/_examples/` and are surfaced through the lens catalog (`00_overview/lens-catalog.html`).
+Each lens is a layout pattern. The kit ships specs for the lenses below in `01_lenses/{Lens Name}.md` : read the matching spec for full structural detail. Sample renderings live in `01_lenses/_examples/` and are surfaced through the lens catalog (`00_overview/lens-catalog.html`).
 
 **Currently shipped lens types:**
 
 #### `reel`
 A full-viewport set of 5 to 9 scrollable slides with persistent bottom-bar navigation. Audience-facing, social-shareable, non-technical. Each slide stands on its own. Full spec: `01_lenses/Reel.md`.
 
-**Per-slide attributes:** each `<article>` slide has `data-slide="N"`, `data-title="..."` (for the bottom-bar note), and `class="slide sN"`. Layout is dynamic — each slide composes itself; no single template.
+**Per-slide attributes:** each `<article>` slide has `data-slide="N"`, `data-title="..."` (for the bottom-bar note), and `class="slide sN"`. Layout is dynamic : each slide composes itself; no single template.
 
-**Slide contract:** title (1–6 words), body (~60 words preferred, up to 120 if scroll-justified), optional visual, optional accent. The cut config body's `## Slides` section provides the structural spine.
+**Slide contract:** title (1-6 words), body (~60 words preferred, up to 120 if scroll-justified), optional visual, optional accent. The cut config body's `## Slides` section provides the structural spine.
 
 **Chrome:** a persistent bottom bar holds the prev arrow, a center note (zero-padded counter `03 / 08` + slide title from `data-title`), and the next arrow.
 
 **Navigation:** bottom-bar arrow buttons, keyboard arrows (← → plus Home/End), and swipe on touch (40px threshold). Scroll resets on navigation.
 
-**Use when:** publishing a story your audience can scroll through on a phone — essay drop, product launch, digest of curated links, campaign explainer.
+**Use when:** publishing a story your audience can scroll through on a phone : essay drop, product launch, digest of curated links, campaign explainer.
 
 #### `explainer`
 Numbered "beats" walking through a concept, with file previews and hand-written margin notes. Each beat shows the actual artifact (a file, a code block, a diagram), then annotates what matters and why. Teaches by demonstration. Full spec: `01_lenses/Explainer.md`.
 
-**Use when:** explaining how something works to someone who'll learn faster from seeing the real thing — onboarding docs, system explanations, peer-to-peer guides.
+**Use when:** explaining how something works to someone who'll learn faster from seeing the real thing : onboarding docs, system explanations, peer-to-peer guides.
 
 #### `product-website`
 A single-page marketing site for one product, service, or pitch. Conversion-shaped. 9 sections: hero, the trap, what we install, what members get, what your space becomes, how it works, what's included, who you're working with, closing CTA. Full spec: `01_lenses/Product Website.md`.
@@ -128,8 +128,8 @@ A multi-page marketing site for a company with multiple offerings. Bundled as on
 
 **Use when:** you have multiple product lines or services and want a structured exploration. Each offering gets its own page with depth. Send the whole site as one file.
 
-#### `observatory` *(spec only — example coming soon)*
-A live-status constellation view of a project, with timeline scrubber + active-project planets. Spec ships in `01_lenses/Observatory.md`; rendered example is being rebuilt — don't invoke this lens yet.
+#### `observatory` *(spec only : example coming soon)*
+A live-status constellation view of a project, with timeline scrubber + active-project planets. Spec ships in `01_lenses/Observatory.md`; rendered example is being rebuilt : don't invoke this lens yet.
 
 **Use when (once shipped):** you want a "where things are right now" snapshot that's denser than a Recap but lighter than a full project hub.
 
@@ -159,7 +159,7 @@ Story-driven slideshow for live narrated pitch delivery. 11 slides across five m
 #### `share`
 A preview-forward, one-item-at-a-time stumble through a set of captured items (markdown, HTML, PDFs, external URLs), closed by a synthesis recap that weaves threads across the items. Full spec: `01_lenses/Share.md`.
 
-**Per-item display modes:** each content slide renders the item in one of three modes — `inline` (markdown rendered natively inside the slide frame), `iframe` (HTML / PDF / URL embedded with sandbox and lazy-load), or `summary` (title + source + "why this matters" hero + "holding the thread" scrawl + button to the source). The system auto-picks the mode by content type and auto-falls back from iframe to summary when an X-Frame-Options / CSP block is detected. Manual override is available per-item via `display-mode:` in the cut config's item list.
+**Per-item display modes:** each content slide renders the item in one of three modes : `inline` (markdown rendered natively inside the slide frame), `iframe` (HTML / PDF / URL embedded with sandbox and lazy-load), or `summary` (title + source + "why this matters" hero + "holding the thread" scrawl + button to the source). The system auto-picks the mode by content type and auto-falls back from iframe to summary when an X-Frame-Options / CSP block is detected. Manual override is available per-item via `display-mode:` in the cut config's item list.
 
 **Opener modes:** either `bluff` (a single framing statement) or `categories` (a chip row with counts and a `category-map` that accents each category with a token). Required field in the cut config: `opener-mode: bluff | categories`.
 
@@ -169,33 +169,22 @@ A preview-forward, one-item-at-a-time stumble through a set of captured items (m
 
 **Per-item fields** (in the cut config's `items:` list): `path` (source file), `display-mode` (optional override), `category` (maps to `category-map` entry), `title` (optional override), `why` (the "why this matters" hero copy), `thread` (the handwritten "holding the thread" note, summary mode only), `action` (one of `needs review`, `in progress`, `parked`, `shipped`), `source-note` (small mono-font source attribution).
 
-**Use when:** closing out a session and sharing the work product with a collaborator, handing a reviewer a batch of items in one URL without asking them to chase wikilinks, threading a week of captures into one artifact that shows the actual content of each item, or sharing a Slow Water queue externally. Distinct from Reel · Digest Mode — Reel · Digest Mode is big-link-button to an external source; Share is preview-in-place of your own or your circle's captured material.
+**Use when:** closing out a session and sharing the work product with a collaborator, handing a reviewer a batch of items in one URL without asking them to chase wikilinks, threading a week of captures into one artifact that shows the actual content of each item, or sharing a Slow Water queue externally. Distinct from Reel · Digest Mode : Reel · Digest Mode is big-link-button to an external source; Share is preview-in-place of your own or your circle's captured material.
 
-**Do not use when:** every item is an external link meant to be opened away (use Reel · Digest Mode), you are building a single-argument narrative across slides (use Reel), the content is one cohesive essay (use Explainer), you want a conversion-shaped landing page (use Product Website or Pitch), or there are fewer than 3 items (the stumble doesn't earn its chrome — just send the content).
+**Do not use when:** every item is an external link meant to be opened away (use Reel · Digest Mode), you are building a single-argument narrative across slides (use Reel), the content is one cohesive essay (use Explainer), you want a conversion-shaped landing page (use Product Website or Pitch), or there are fewer than 3 items (the stumble doesn't earn its chrome : just send the content).
 
-#### `reddit`
-Vault content rendered as an authentic-feeling Reddit home feed. A feed of post cards using real Reddit chrome (orange snoo, `#DAE0E6` grey background, subreddit icons, native typography) that each open to an individual post page with threaded comments between configured personas. Every butter-highlighted claim in post bodies and comments is a hyperlink that opens the source markdown in an iframe modal, scrolled to the referenced section. Usernames encode provenance — before clicking, the handle tells the reader what kind of source. Full spec: `01_lenses/Reddit.md`.
-
-**Voice:** authentic Reddit, not essay voice. Flair prefixes (`[Field Report]` `[Showcase]` `[Discussion]` `[Rant]`), lowercase openings, specific numbers, self-deprecation. Comments poke holes, never amplify. Each persona has a stake. No fabricated collective voice.
-
-**Required:** cut config must specify `audience:` (one reader, named) and provide a persona roster (or accept the default four: primary author / secondary author / AI persona with `[BOT]` flair / two background voices who only comment). Hand-authored post titles and comment threads (6–11 comments per post).
-
-**Use when:** the target reader prefers discussion-forum reading over essay reading, content benefits from multi-perspective surfacing, or a specific contact has "Reddit" in their Preferred Lens slot (check `05_contacts/<Name>.md`). First field-tested with [a named contact], who believed the frame was Reddit on sight and read all titles on the landing page.
-
-**Do not use when:** the deliverable is formal (board packets, grant reports, compliance), the reader distrusts Reddit-coded UI aesthetically, content requires linear reading, or fewer than 5 vault files are being surfaced (feed feels empty below that).
-
-#### `storyboard-editorial` *(spec only — example coming soon)*
+#### `storyboard-editorial` *(spec only : example coming soon)*
 Editorial storyboard frames for narrative use cases. Each frame carries one scene, one narrative, and one set of design principles, composed in a warm cream editorial aesthetic with hand-crafted SVG illustration. Frames render alone or stack inside a storybook-carousel window. Structure per frame: eyebrow label, serif italic title, italic dek, full-width SVG scene, sans-serif caption, prose body, principle chip row, rule with "how the data moves" eyebrow, flow strip SVG, right-aligned footer attribution. Four bracket corners mark the frame's edges. Full spec: `01_lenses/Storyboard Editorial.md`.
 
-**Use when:** walking a reader through a scene before explaining the system behind it — narrative use case storyboarding, presentations, pitches, any content where illustration must carry emotional register, not decorate. Do NOT use for technical docs where illustration would mislead, or data-heavy content where charts would carry the meaning.
+**Use when:** walking a reader through a scene before explaining the system behind it : narrative use case storyboarding, presentations, pitches, any content where illustration must carry emotional register, not decorate. Do NOT use for technical docs where illustration would mislead, or data-heavy content where charts would carry the meaning.
 
 **Status:** Reference implementation (`20260419_relational-space-storyboards-v2`) is not yet rendered. The spec is complete and the lens can be invoked, but there's no canonical example yet. Flag this if the cut-packet skill is asked to render with this lens and no sample exists to reference.
 
 #### Future lenses (not yet implemented)
-- `trust-dashboard` — Provenance audit view across multiple cuts
-- `project-overview` — Single project deep dive (different from observatory: archival vs live)
-- `diff-lens` — What changed between two dates
-- `research-brief` — Academic-style summary
+- `trust-dashboard` : Provenance audit view across multiple cuts
+- `project-overview` : Single project deep dive (different from observatory: archival vs live)
+- `diff-lens` : What changed between two dates
+- `research-brief` : Academic-style summary
 
 
 ### 6. Apply Style Tokens
@@ -233,6 +222,20 @@ Build a single self-contained HTML file with:
 
 Write the file to the `output` path specified in the cut config.
 
+### 7.5. Pre-flight the rendered file (encoding + character checks)
+
+Before presenting, scan the generated HTML for character-encoding bugs that produce visible garbage in browsers. These checks are non-negotiable; ship a clean file or do not ship.
+
+**Check 1: Mojibake byte sequences.** Em-dashes and en-dashes that travelled through a non-UTF-8 environment leave double-encoded byte sequences that render as `â€"` or `â€"`. Scan the output file for the literal three-character string `â€` (one occurrence is enough to flag). If found, do NOT present. Re-generate from cleaner source, or replace the offending characters with the vault-compliant substitutes:
+- em-dash mojibake → ` : ` (space-colon-space) or `.`
+- en-dash mojibake → `-` (regular hyphen)
+
+**Check 2: Real em-dashes (U+2014) and en-dashes (U+2013).** Per the vault rule in `CLAUDE.md`, these are forbidden in any agent output. Scan for them and replace before presenting. Em-dashes become ` : ` or `.`; en-dashes (used for numeric ranges like "5-8") become regular hyphens.
+
+**Check 3: UTF-8 charset declaration.** The HTML `<head>` must include `<meta charset="UTF-8">` as the first meta tag. If absent, the browser may interpret bytes as Latin-1 and turn legitimate UTF-8 sequences into mojibake.
+
+These checks exist because a downstream reader (Real Cost AI on 2026-05-22) caught visible mojibake in a packet adapter prompt that had shipped weeks earlier. The build pipeline now has a `scanForMojibake()` preflight in `build-window-frames.mjs` that aborts the build if any source file contains these byte signatures. The cut-packet workflow has the same responsibility for its outputs.
+
 ### 8. Present the Packet
 
 After generating, do BOTH of these:
@@ -240,9 +243,9 @@ After generating, do BOTH of these:
 1. Use `present_files` to show the HTML to the user so they can open it in their browser.
 2. End your chat reply with the EXACT absolute path to the generated HTML file, on its own line, labeled:
 
-   > Your frame is at: `<absolute-path>/03_cuts/frames/<filename>.html`
+   > Your frame is at: `<absolute-path>/03_outbox/frames/<filename>.html`
 
-   The path must be literal (not a bracketed placeholder) so the user can navigate to the file directly. This applies to every frame you produce — including First Look, reels, explainers, and all other lenses.
+   The path must be literal (not a bracketed placeholder) so the user can navigate to the file directly. This applies to every frame you produce : including First Look, reels, explainers, and all other lenses.
 
 ## Regeneration
 
