@@ -54,7 +54,7 @@ A bespoke "activity" lens is not in the packet today. Wait until the log is long
 
 - **Daily project work.** Use your project changelog or daily notes.
 - **Meeting notes.** Those go in `daily/meetings/` or the relevant project folder.
-- **Cut configs or rendered frames.** Those belong in `03_cuts/frames/`.
+- **Cut configs or rendered frames.** Those belong in `03_outbox/frames/`.
 - **Contact profile updates.** Edit the profile directly at `01_tools/05_contacts/<Name>.md`.
 - **In-progress scratch work.** Use `00_inbox/sandbox/` for that.
 

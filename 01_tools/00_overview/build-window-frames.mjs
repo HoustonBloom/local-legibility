@@ -1,4 +1,4 @@
-// Build the Local Intelligence Packet's own window — a bundled HTML file demonstrating
+// Build the Local Intelligence Packet's own window : a bundled HTML file demonstrating
 // the packet using its own machinery (Company Website lens pattern).
 //
 // Run from anywhere: node 01_tools/00_overview/build-window-frames.mjs
@@ -26,7 +26,7 @@ const FORCE = process.argv.includes('--force');
 // times, clobbering the user's inline edits (2026-04-21: +25KB in welcome,
 // -15KB in workflow, +6KB in about had accumulated in the output but never
 // made it back to source). This preflight aborts if the output was touched
-// more recently than the manifest's last-built timestamp — a signal that
+// more recently than the manifest's last-built timestamp : a signal that
 // someone edited Getting Started.html directly and the source files may
 // not yet reflect those changes. Run with --force to override.
 function sha1(s) { return crypto.createHash('sha1').update(s).digest('hex'); }
@@ -78,7 +78,7 @@ function preflight() {
 }
 // ────────────────────────────────────────────────────────────────────────────
 
-// CANONICAL FRAME SHAPE — 4 tabs. Do NOT add Setup or Get Started back unless
+// CANONICAL FRAME SHAPE : 4 tabs. Do NOT add Setup or Get Started back unless
 // the user explicitly asks. The welcome frame IS the getting-started content.
 // Changed 2026-04-21 after discovering rebuilds were repeatedly restoring a
 // stale 6-tab shape that had been pruned in the canonical Getting Started.html.
@@ -103,7 +103,7 @@ const EXAMPLE_FRAMES = {
 // (each recursive child base64-encoded) BEFORE the payload itself is encoded.
 function resolveFile(filePath, stack = new Set()) {
   if (stack.has(filePath)) {
-    console.warn(`  WARN: circular include for ${filePath} — returning empty`);
+    console.warn(`  WARN: circular include for ${filePath} : returning empty`);
     return '';
   }
   if (!fs.existsSync(filePath)) {
@@ -129,7 +129,7 @@ function injectExamples(html) {
     const placeholder = `{{${token}}}`;
     if (!out.includes(placeholder)) continue;
     if (!fs.existsSync(filePath)) {
-      console.warn(`  WARN: example missing for ${token} — leaving placeholder`);
+      console.warn(`  WARN: example missing for ${token} : leaving placeholder`);
       continue;
     }
     const resolved = resolveFile(filePath);
@@ -139,7 +139,66 @@ function injectExamples(html) {
   return out;
 }
 
-// Run preflight BEFORE loading any source — if we're about to clobber user
+// ─── Mojibake preflight ────────────────────────────────────────────────────
+// Catches double-encoded em/en-dashes and arrow characters that have leaked into
+// source files via copy-paste from non-UTF-8 environments. If any of these byte
+// sequences are present in shipped sources, the build fails loud with a path
+// list so the maintainer can scrub before regenerating.
+function scanForMojibake() {
+  // The mojibake patterns are: an em-dash, en-dash, or arrow character that was
+  // first decoded as Latin-1 (producing 3 visible chars: â, €, then a punctuation
+  // mark) and then re-encoded as UTF-8. Bytes below:
+  //   em-dash (—, U+2014):  C3 A2 E2 82 AC E2 80 9D  (visible: â€”)
+  //   en-dash (–, U+2013):  C3 A2 E2 82 AC E2 80 9C  (visible: â€“)
+  //   arrow ↔ (U+2194):     C3 A2 E2 80 A0 E2 80 9D  (visible: â†”)
+  const SIGNATURES = [
+    { name: 'em-dash mojibake (â€\u201D)', bytes: Buffer.from([0xC3, 0xA2, 0xE2, 0x82, 0xAC, 0xE2, 0x80, 0x9D]) },
+    { name: 'en-dash mojibake (â€\u201C)', bytes: Buffer.from([0xC3, 0xA2, 0xE2, 0x82, 0xAC, 0xE2, 0x80, 0x9C]) },
+    { name: 'arrow mojibake (â\u2020\u201D)', bytes: Buffer.from([0xC3, 0xA2, 0xE2, 0x80, 0xA0, 0xE2, 0x80, 0x9D]) },
+  ];
+
+  const sourceFiles = [
+    ...FRAMES.map(f => f.file),
+    ...Object.values(EXAMPLE_FRAMES),
+  ];
+
+  const offenders = [];
+  for (const file of sourceFiles) {
+    if (!fs.existsSync(file)) continue;
+    const buf = fs.readFileSync(file);
+    for (const sig of SIGNATURES) {
+      if (buf.includes(sig.bytes)) {
+        offenders.push({ file, pattern: sig.name });
+      }
+    }
+  }
+
+  if (offenders.length === 0) return;
+
+  console.error('');
+  console.error('✗ MOJIBAKE DETECTED in source files. Build aborted.');
+  console.error('');
+  console.error('The following files contain double-encoded character sequences that will');
+  console.error('render as garbled text (e.g., "frame â€” produces" instead of "frame : produces"):');
+  console.error('');
+  for (const o of offenders) {
+    console.error(`  ${o.file}`);
+    console.error(`    contains: ${o.pattern}`);
+  }
+  console.error('');
+  console.error('Fix with:');
+  console.error('  perl -i -pe \'s/\\xc3\\xa2\\xe2\\x82\\xac\\xe2\\x80\\x9d/ : /g\' <file>   # em-dash');
+  console.error('  perl -i -pe \'s/\\xc3\\xa2\\xe2\\x82\\xac\\xe2\\x80\\x9c/-/g\' <file>     # en-dash');
+  console.error('');
+  console.error('Per CLAUDE.md vault convention: em-dashes are forbidden in ANY source file.');
+  console.error('Use " : " (space-colon-space) or "." instead. En-dashes get replaced with "-".');
+  console.error('');
+  process.exit(1);
+}
+
+scanForMojibake();
+
+// Run preflight BEFORE loading any source : if we're about to clobber user
 // edits, abort early rather than waste cycles building.
 preflight();
 
@@ -185,11 +244,12 @@ body { font-family: var(--font-display); background: var(--paper); color: var(--
 .nav-bar {
   display: flex; align-items: stretch; justify-content: space-between;
   height: 60px; min-height: 60px;
-  background: rgba(250, 246, 238, 0.96); backdrop-filter: blur(10px);
+  background: var(--paper);
   border-bottom: 1px solid var(--rule);
   padding: 0 20px;
   position: relative; z-index: 100;
   gap: 12px;
+  contain: layout style;
 }
 .brand-block { display: flex; align-items: center; }
 .brand { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
@@ -257,7 +317,7 @@ body { font-family: var(--font-display); background: var(--paper); color: var(--
 
 <header class="nav-bar">
   <div class="brand-block">
-    <a href="#" class="brand" id="brand-link" aria-label="Local Intelligence Packet — home">Local Intelligence<span class="accent"> Packet</span></a>
+    <a href="#" class="brand" id="brand-link" aria-label="Local Intelligence Packet : home">Local Intelligence<span class="accent"> Packet</span></a>
   </div>
 
   <div class="nav-right">
@@ -349,7 +409,7 @@ FRAMES.forEach(f => console.log(`  - ${f.label}: ${path.relative(__dirname, f.fi
 const now = new Date().toISOString();
 const outHashFinal = sha1(shareableHtml);
 const manifestLines = [
-  '# BUILD-MANIFEST.yaml — DO NOT EDIT BY HAND',
+  '# BUILD-MANIFEST.yaml : DO NOT EDIT BY HAND',
   '# Written by build-window-frames.mjs. If Getting Started.html has been',
   '# edited directly (mtime newer than last-built), the next build will abort.',
   '# See 01_tools/00_overview/BUILD-MANIFEST.md for reconciliation steps.',

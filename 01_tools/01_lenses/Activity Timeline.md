@@ -17,8 +17,8 @@ A vault full of files has no inherent sense of time. Files have creation dates a
 
 Two components working together:
 
-1. **Changelog** (`Daily/Changelog.md`) — A running log of session activity, written at the end of each work session. Each entry is dated, project-tagged, and lists what was done and what files changed.
-2. **Timeline** — A binary day-by-day array generated from the changelog. For each day, it records which projects were actively worked on. No weights, no decay. Either you worked on it that day or you did not.
+1. **Changelog** (`Daily/Changelog.md`) : A running log of session activity, written at the end of each work session. Each entry is dated, project-tagged, and lists what was done and what files changed.
+2. **Timeline** : A binary day-by-day array generated from the changelog. For each day, it records which projects were actively worked on. No weights, no decay. Either you worked on it that day or you did not.
 
 ### Changelog format and tag vocabulary
 

@@ -4,7 +4,7 @@ subject: window
 for: [human, ai]
 visibility: local
 ---
-# Cuts System — Window Config
+# Cuts System : Window Config
 
 This is the manifest for the System Explainer window. It defines which frames appear as tabs and in what order.
 
@@ -23,7 +23,7 @@ This is the manifest for the System Explainer window. It defines which frames ap
 
 ## How It Works
 
-1. Each frame is an HTML file in `03_cuts/frames/`.
+1. Each frame is an HTML file in `03_outbox/frames/`.
 2. The window (`_System Explainer.html`) loads all frames as tab panes.
 3. Tab navigation switches which frame is visible. JavaScript toggles display.
 4. Each frame owns its own sidebar nav and content sections.
@@ -60,4 +60,4 @@ Examples:
 - Frame order in the table = tab order in the window.
 - "Active" frames are built and rendering. "Planned" frames appear as dimmed tabs.
 - A frame can be sourced from a cut config (content + voice direction) or built inline (no cut config, just authored HTML).
-- All frames and configs live in `03_cuts/frames/`.
+- All frames and configs live in `03_outbox/frames/`.

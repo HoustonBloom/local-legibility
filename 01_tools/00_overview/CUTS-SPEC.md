@@ -53,7 +53,7 @@ Examples:
 - `20260331_system-design-cuts-explainer_config.md`
 - `20260331_worklog-daily_config.md`
 
-All configs and frames live in `03_cuts/frames/`.
+All configs and frames live in `03_outbox/frames/`.
 
 ## Cut Config Structure
 
@@ -69,7 +69,7 @@ audience: [who this is for]
 tone: [voice descriptors]
 content-tag: [tag that selects vault files]
 lens: [rendering system to use]
-output: 03_cuts/frames/YYYYMMDD_concept-descriptor.html
+output: 03_outbox/frames/YYYYMMDD_concept-descriptor.html
 window: [window-slug]               # which windows include this frame (array)
 tags: [cut, project-tag, topic-tags]
 visibility: local
@@ -129,7 +129,7 @@ visibility: [local, audience-data-boundaries, channel-separation-pi]
 ## Folder Structure
 
 ```
-03_cuts/
+03_outbox/
   README.md                                                  ← this file
   _window-SystemExplorer.md                                  ← Window manifest (frame list, tab order)
   frames/                                                    ← all configs and rendered frames
@@ -175,13 +175,13 @@ audience: the user
 tone: clear, annotated, show-don't-tell
 content-tag: how-cuts-work
 lens: explainer
-output: 03_cuts/frames/20260331_system-design-cuts-explainer.html
+output: 03_outbox/frames/20260331_system-design-cuts-explainer.html
 window: [system-explainer]
 tags: [cut, local-intelligence, meta, system-explainer]
 visibility: local
 last-updated: 2026-03-31
 ---
-# How Cuts Work — A Walk-Through
+# How Cuts Work : A Walk-Through
 
 ## Inputs
 This cut sources from the cuts system itself. It shows actual file
@@ -210,4 +210,4 @@ No abstraction without a concrete example first.
 
 The skill reads this config, finds every vault file with `how-cuts-work` in its `visibility:` array, applies the `explainer` lens, and renders a self-contained HTML frame at the `output` path. The `window:` field links it into a tabbed window if one exists.
 
-Want to see what this produced? Open the packet's window (`Getting Started.html`) — the Lenses tab catal
+Want to see what this produced? Open the packet's window (`Getting Started.html`) : the Lenses tab catal

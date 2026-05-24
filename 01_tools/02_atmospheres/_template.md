@@ -24,8 +24,8 @@ visibility: local
 | **Dependencies** | <vanilla JS / specific libraries / none> |
 | **File size** | <approximate kB uncompressed> |
 
-Use when: <1–2 sentences on appropriate contexts>
-Do not use when: <1–2 sentences on contexts where this competes with content>
+Use when: <1-2 sentences on appropriate contexts>
+Do not use when: <1-2 sentences on contexts where this competes with content>
 
 ## Visual character
 
@@ -35,13 +35,13 @@ Describe what the atmosphere looks like to a human seeing it for the first time.
 
 Group configurable parameters by how often they'd be adjusted.
 
-### <Group 1: e.g. Colors — change freely>
+### <Group 1: e.g. Colors : change freely>
 
 | Key | Default | Notes |
 |---|---|---|
 | `<param>` | `<value>` | <what it controls> |
 
-### <Group 2: e.g. Motion — tune for context>
+### <Group 2: e.g. Motion : tune for context>
 
 | Key | Default | Range | Notes |
 |---|---|---|---|

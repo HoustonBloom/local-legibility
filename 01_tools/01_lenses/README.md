@@ -25,7 +25,6 @@ Every lens has a spec doc and a live example under [[_examples]]. Click a View e
 | Company Website | Multi-page bundled company site with tabbed nav | [[Company Website]] |
 | First Look | Kit onboarding audit of a folder | [[First Look]] |
 | Share | One-item-at-a-time stumble with per-item display modes + recap | [[Share]] |
-| Reddit | Authentic Reddit home feed with threaded comments + traceable claims | [[Reddit]] |
 | Observatory | Live-status constellation view of a project (spec only; example pending) | [[Observatory]] |
 | Storyboard Editorial | Editorial storyboard frames with SVG scenes (spec only; example pending) | [[Storyboard Editorial]] |
 | Activity Timeline | Timeline of activity across the vault | [[Activity Timeline]] |
@@ -48,8 +47,7 @@ How you (or the cut-packet workflow) pick a lens.
 | Show "this is a real company" | multiple personas | email attachment | Company Website |
 | Let the reader feel the system before explaining it | general | desktop | Storyboard Editorial |
 | Show what shipped, over time | small team | desktop | Activity Timeline |
-| Hand a batch of captured items with synthesis recap | 1–small group | phone or browser | Share |
-| Reach a reader who prefers Reddit-style browsing | 1 specific contact | phone, scrolling | Reddit |
+| Hand a batch of captured items with synthesis recap | 1-small group | phone or browser | Share |
 
 ---
 

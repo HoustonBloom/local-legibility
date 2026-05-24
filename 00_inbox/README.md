@@ -29,7 +29,7 @@ Whatever lets you find it again in ten minutes is enough.
 ## What does NOT belong in the inbox
 
 - **Files with a clear home.** File those directly.
-- **Cut configs.** Those go in `03_cuts/frames/`.
+- **Cut configs.** Those go in `03_outbox/frames/`.
 - **Contact profiles.** Those go in `01_tools/05_contacts/`.
 - **Long-running notes that will evolve.** Those belong in the relevant project folder.
 

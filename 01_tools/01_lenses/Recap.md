@@ -41,14 +41,14 @@ Same rule. Title must tell you what the recap is about. After authoring, read ev
 
 **The load-bearing rule specific to Recap.**
 
-- **Insights** — pull out the non-obvious takeaway. Not "X happened," but "what I noticed from X that wasn't obvious going in." If the recap just lists events, rewrite it.
-- **Connections** — name how one thing relates to another. "This is interesting because of that" is the form. Connections are the spine of a recap; without them it's a log.
-- **Followable** — show the reasoning path. The reader should trace how you got from observation to insight without a decoder ring. If you jump from data to conclusion without the middle step, someone out of context is lost.
+- **Insights** : pull out the non-obvious takeaway. Not "X happened," but "what I noticed from X that wasn't obvious going in." If the recap just lists events, rewrite it.
+- **Connections** : name how one thing relates to another. "This is interesting because of that" is the form. Connections are the spine of a recap; without them it's a log.
+- **Followable** : show the reasoning path. The reader should trace how you got from observation to insight without a decoder ring. If you jump from data to conclusion without the middle step, someone out of context is lost.
 
 Mechanics that help:
 - Lead with the punchiest insight. Hook first.
 - Present evidence close to the claim it supports, not in a separate section.
-- Use comparison when it clarifies ("X got us 74%, Y got 68.5% — the simpler approach won").
+- Use comparison when it clarifies ("X got us 74%, Y got 68.5% : the simpler approach won").
 - Where you know there's a genuine question still open, name it. Don't round off uncertainty to false confidence.
 
 ### 5. The closing invites response
@@ -97,14 +97,14 @@ format: reddit-post        # or: tweet-thread, email, chat-recap, journal
 subreddit: [e.g. LocalLLaMA]   # format-specific
 op-persona: [username or "self"]   # format-specific
 style-source: default-tokens
-output: 03_cuts/frames/YYYYMMDD_concept-descriptor.html
+output: 03_outbox/frames/YYYYMMDD_concept-descriptor.html
 date: YYYY-MM-DD
 title: "Recap · [Topic] · YYYY-MM-DD"
 ```
 
 ## Voice (defaults)
 
-Conversational but dense. The way you'd write if you were actually posting to the subreddit you named — not the user-at-her-most-formal, not the user-at-her-most-marketing, but the user-as-technical-peer. Direct claims. Numbers when you have them. Questions when you don't.
+Conversational but dense. The way you'd write if you were actually posting to the subreddit you named : not the user-at-her-most-formal, not the user-at-her-most-marketing, but the user-as-technical-peer. Direct claims. Numbers when you have them. Questions when you don't.
 
 No em dashes. Colons and periods.
 
@@ -112,10 +112,10 @@ No em dashes. Colons and periods.
 
 Standard: cut body > contact overlay > lens defaults > style-source tokens.
 
-Contact overlay matters more in Recap than Status Report because the recap targets a specific reader. When `audience: [a named contact]`, the rendering absorbs his preferences (BLUF-first, density, file paths as first-class). The Reddit-post chrome stays; the voice inside the post and the nature of the comments shift to match who [a named contact] would engage with in that community.
+Contact overlay matters more in Recap than Status Report because the recap targets a specific reader. When `audience: <colleague-slug>`, the rendering absorbs their preferences (BLUF-first, density, file paths as first-class). The Reddit-post chrome stays; the voice inside the post and the nature of the comments shift to match who that reader would engage with in that community.
 
 ## Measure of success
 
-Recap succeeds when the intended reader actually reads it and engages. For a Reddit-post render to [a named contact]: he scans it, he clicks in, he reads. If he asks a question or pushes back, the recap did its job.
+Recap succeeds when the intended reader actually reads it and engages. For a Reddit-post render to a dense reader: they scan it, they click in, they read. If they ask a question or push back, the recap did its job.
 
 This is harder to measure than "a metric hit" but easier to check: did they reply? Did they forward it? Did they quote back something specific? Those are the signals.

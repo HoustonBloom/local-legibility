@@ -8,12 +8,12 @@ visibility: local
 
 Your shippable outputs live here. When the cut-packet workflow produces a frame, its `output:` field points inside this folder. Bundled windows and finished publishable work also land here.
 
-**`first-look.html` lands here first.** The adapter prompt's Step 2 generates this audit on the very first run — open it in your browser to see what was found, how every lens ranks for your content, and copy-paste prompts for each. If it isn't here yet, re-run the adapter prompt or tell your AI: "produce the first-look audit before anything else."
+**`first-look.html` lands here first.** The adapter prompt's Step 2 generates this audit on the very first run : open it in your browser to see what was found, how every lens ranks for your content, and copy-paste prompts for each. If it isn't here yet, re-run the adapter prompt or tell your AI: "produce the first-look audit before anything else."
 
 ## Suggested layout
 
 ```
-03_cuts/
+03_outbox/
 ├── first-look.html                           ← onboarding audit (generated on first adapter run)
 ├── frames/                                   ← rendered frames + their cut configs (peers)
 │   ├── 20260419_my-first-cut_config.md

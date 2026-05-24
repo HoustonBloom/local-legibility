@@ -19,7 +19,7 @@ Given a cut config and its tagged content files, this lens produces a self-conta
 3. Italic dek (tagline)
 4. Full-width SVG scene illustration
 5. Sans-serif caption with time/place specifics
-6. Prose body (2–3 short paragraphs)
+6. Prose body (2-3 short paragraphs)
 7. Principle chip row
 8. Horizontal rule with eyebrow label "how the data moves"
 9. Flow strip SVG (create → capture → store)
@@ -62,7 +62,7 @@ case-number: "01"                    # required; drives eyebrow and dropdown lab
 scene-accent: rose                   # required; see scene-accent palette below
 principles: [Make harm legible, Start local]  # required; drives chip row
 scene-hint: [brief composition cue]  # optional; guides illustration
-output: 03_cuts/frames/YYYYMMDD_concept-descriptor.html
+output: 03_outbox/frames/YYYYMMDD_concept-descriptor.html
 window: [window-slug]
 tags: [cut, storyboard, ...]
 visibility: local
@@ -72,11 +72,11 @@ last-updated: YYYY-MM-DD
 
 Required body sections:
 
-- **Title** (h1) — short phrase, sentence case
-- **Dek** — one italic sentence expanding the title
-- **Scene** — concrete moment: time, place, specific named people, one visible object or action. This drives the illustration and the caption.
-- **Pain** — 2–3 sentences establishing the real-world problem with evidence (numbers, studies, data points preferred)
-- **Footer note** — attribution line (e.g., "Relational Space · use case storyboards · v2")
+- **Title** (h1) : short phrase, sentence case
+- **Dek** : one italic sentence expanding the title
+- **Scene** : concrete moment: time, place, specific named people, one visible object or action. This drives the illustration and the caption.
+- **Pain** : 2-3 sentences establishing the real-world problem with evidence (numbers, studies, data points preferred)
+- **Footer note** : attribution line (e.g., "Relational Space · use case storyboards · v2")
 
 ### Per window (optional carousel grouping)
 
@@ -130,7 +130,7 @@ All colors are hardcoded. This is a physical-color editorial scene; do not use C
 
 ### Scene-accent palette
 
-Each case can carry a scene-specific accent drawn from this set. Use sparingly — one accent per scene, layered over the base palette.
+Each case can carry a scene-specific accent drawn from this set. Use sparingly : one accent per scene, layered over the base palette.
 
 | Name | Hex | Typical use |
 |---|---|---|
@@ -147,31 +147,31 @@ Each case can carry a scene-specific accent drawn from this set. Use sparingly �
 
 Two families. No webfonts.
 
-- **Serif**: `Georgia, 'Times New Roman', serif` — used for title, dek, specific italicized data points inside scene SVGs (the 72% statistic in HOA case)
-- **Sans**: `-apple-system, system-ui, 'Inter', sans-serif` — used for eyebrow, caption, body, chip, flow label, footer, and all SVG labels
+- **Serif**: `Georgia, 'Times New Roman', serif` : used for title, dek, specific italicized data points inside scene SVGs (the 72% statistic in HOA case)
+- **Sans**: `-apple-system, system-ui, 'Inter', sans-serif` : used for eyebrow, caption, body, chip, flow label, footer, and all SVG labels
 
 Font-size scale (desktop → tablet → mobile):
 
 | Element | Desktop | Tablet (≤720px) | Mobile (≤520px) | Narrow (≤380px) |
 |---|---|---|---|---|
-| Meta header | 12px | 11.5px | 11.5px | — |
+| Meta header | 12px | 11.5px | 11.5px | : |
 | Eyebrow | 12px | 12px | 11.5px | 11.5px |
 | Title | 32px | 28px | 24px | 22px |
-| Dek | 16px | 15px | 14.5px | — |
-| Body | 16.5px | 16px | 15.5px | — |
-| Caption | 13.5px | 13.5px | 13px | — |
-| Chip | 12.5px | 12.5px | 12px | — |
-| Flow label | 12px | 12px | 11.5px | — |
-| Footer | 11.5px | 11.5px | 11px | — |
+| Dek | 16px | 15px | 14.5px | : |
+| Body | 16.5px | 16px | 15.5px | : |
+| Caption | 13.5px | 13.5px | 13px | : |
+| Chip | 12.5px | 12.5px | 12px | : |
+| Flow label | 12px | 12px | 11.5px | : |
+| Footer | 11.5px | 11.5px | 11px | : |
 | Dropdown | 15px | 15px | 14.5px | 13.5px |
-| SVG scene chip text | 12px | — | — | — |
-| SVG flow strip labels | 13px | — | — | — |
+| SVG scene chip text | 12px | : | : | : |
+| SVG flow strip labels | 13px | : | : | : |
 
 Line-height: 1.65 for body, 1.5 for caption, 1.4 for dek, 1.15 for title, 1.5 default.
 
 Weights: 400 regular, 500 for eyebrow/flow-label/meta. No 600 or 700.
 
-Letter spacing: eyebrows and flow labels use 0.22em; meta uses 0.22em; chips use 0.06–0.08em; dek/body use default.
+Letter spacing: eyebrows and flow labels use 0.22em; meta uses 0.22em; chips use 0.06-0.08em; dek/body use default.
 
 ### Spacing and radii
 
@@ -191,7 +191,7 @@ Letter spacing: eyebrows and flow labels use 0.22em; meta uses 0.22em; chips use
 - Chip border: `1px solid #B94A3D`
 - Arrow button border: `1px solid #B94A3D`
 - Dropdown border: `1px solid #B94A3D`
-- SVG stroke weights: 1.3px for bracket motif, 1px for ledger arcs, 0.5–0.7px for hairline details, 2–3px for architectural elements (window frames, house outlines)
+- SVG stroke weights: 1.3px for bracket motif, 1px for ledger arcs, 0.5-0.7px for hairline details, 2-3px for architectural elements (window frames, house outlines)
 
 ## Components
 
@@ -229,7 +229,7 @@ Eyebrow is brick-colored, 0.22em letter-spacing, sentence case. Title is Georgia
 </svg>
 ```
 
-viewBox is always `0 0 680 380`. This matches the content width and gives 1.79:1 aspect ratio. Do not change the viewBox width — it allows text inside the SVG to render at the intended pixel size on desktop.
+viewBox is always `0 0 680 380`. This matches the content width and gives 1.79:1 aspect ratio. Do not change the viewBox width : it allows text inside the SVG to render at the intended pixel size on desktop.
 
 Place the principle chips as the last element in the SVG so they layer on top of the scene. See Scene composition section below for illustration guidance.
 
@@ -250,7 +250,7 @@ Sans-serif italic 13.5px, ink-soft color. The caption carries specifics the illu
 </div>
 ```
 
-2–3 short paragraphs. First paragraph: establishes the pain with evidence. Final sentence: often a short declarative that names the failure mode in one beat. Body maxes at 560px width for reading rhythm.
+2-3 short paragraphs. First paragraph: establishes the pain with evidence. Final sentence: often a short declarative that names the failure mode in one beat. Body maxes at 560px width for reading rhythm.
 
 ### Principle chips
 
@@ -261,7 +261,7 @@ Sans-serif italic 13.5px, ink-soft color. The caption carries specifics the illu
 </div>
 ```
 
-Sans-serif 12.5px, brick border, brick-deep text, cream fill, pill shape. Sentence case, one chip per principle. These appear BOTH in the scene SVG (as overlay tags) and below the body text — the duplication is intentional; HTML chips are accessible at all sizes, SVG chips shrink on mobile.
+Sans-serif 12.5px, brick border, brick-deep text, cream fill, pill shape. Sentence case, one chip per principle. These appear BOTH in the scene SVG (as overlay tags) and below the body text : the duplication is intentional; HTML chips are accessible at all sizes, SVG chips shrink on mobile.
 
 ### Flow strip
 
@@ -300,7 +300,7 @@ This is the creative-bearing element. The lens does not mechanize scene composit
 - **Silhouette-first.** Major masses in ink. Detail comes from color accents (lit windows, objects, subtle dashed lines) layered on top.
 - **One scene-accent color per frame.** Pull from scene-accent palette. All other elements use the base palette.
 - **Specific over generic.** A specific porch, a specific Pyrex, a specific cul-de-sac. Never a placeholder figure or anonymous space.
-- **Time of day matters.** Dusk, morning, stormy afternoon — each has a palette signature (dusk: ambers glowing in dark; morning: pale warm sky; storm: storm-gray overwhelming cream).
+- **Time of day matters.** Dusk, morning, stormy afternoon : each has a palette signature (dusk: ambers glowing in dark; morning: pale warm sky; storm: storm-gray overwhelming cream).
 
 ### Composition types
 
@@ -323,7 +323,7 @@ Principle chips inside the SVG should:
 - Use `rect` with `rx=13` (pill shape) filled cream with brick stroke
 - Center the `text` with `text-anchor="middle"`, `fill="#8C362C"`, sans font
 - Rise in priority order: top chip = most load-bearing principle
-- Stack vertically with 4–6px gap if more than one
+- Stack vertically with 4-6px gap if more than one
 
 ### Ledger arc (optional)
 
@@ -426,7 +426,7 @@ Three breakpoints; everything scales.
 - Frame padding `38px 22px 30px`
 - Bracket corner arm 18px
 - Title 24px, body 15.5px
-- All SVG text becomes effectively smaller due to viewBox scaling — this is accepted, with HTML elements below carrying full accessible info
+- All SVG text becomes effectively smaller due to viewBox scaling : this is accepted, with HTML elements below carrying full accessible info
 - Touch targets remain ≥ 44×44
 
 ### Narrow mobile (≤ 380px)
@@ -465,9 +465,9 @@ Printed output:
 
 When rendering, resolve each section per the Cuts README hierarchy:
 
-1. **Cut config body** (highest) — if the cut has a Voice, Structure, Emphasis, etc. section, use it
-2. **Narrative file** (middle) — inherited defaults if `narrative:` referenced and cut lacks the section
-3. **Lens defaults** (lowest) — fall back to this lens's defaults as specified below
+1. **Cut config body** (highest) : if the cut has a Voice, Structure, Emphasis, etc. section, use it
+2. **Narrative file** (middle) : inherited defaults if `narrative:` referenced and cut lacks the section
+3. **Lens defaults** (lowest) : fall back to this lens's defaults as specified below
 
 ### Lens-level defaults
 
@@ -496,7 +496,7 @@ A frame rendered with this lens passes if:
 
 ## Template / starting point
 
-When a reference implementation exists in your `03_cuts/`, To add a new frame to an existing window:
+When a reference implementation exists in your `03_outbox/`, To add a new frame to an existing window:
 
 1. Copy one existing `<article class="pnl">...</article>` block
 2. Replace the content: eyebrow number, title, dek, scene SVG, caption, body, chips, footer
@@ -526,16 +526,16 @@ To start a new window:
 - **Should this be two lenses or one?** The per-frame rendering (storyboard-editorial) and the window chrome (storybook-carousel) are designed together but can be used independently. Worth splitting into two related specs once a second window uses the carousel chrome with different frame content.
 - **Narrative preset.** Consider pulling the voice/structure defaults into a dedicated narrative file (`00_cultivate-local-intelligence/Local Brain/01_tools/04_workflows/_narratives/editorial-storyboard-narrative.md`) so cuts can inherit without the lens spec having to carry the voice guidance.
 - **Scene composition skill.** The scene illustration section describes patterns but doesn't mechanize them. A follow-up "scene-composer" skill could take a scene description and emit SVG directly, which would let cuts specify only narrative content and leave illustration to the skill.
-- **Per-case accent consistency.** Currently each case picks its own scene-accent; across a window, this works because seven different moods are appropriate. In a window with a tighter theme, consistency might matter more — worth defining a window-level palette override.
+- **Per-case accent consistency.** Currently each case picks its own scene-accent; across a window, this works because seven different moods are appropriate. In a window with a tighter theme, consistency might matter more : worth defining a window-level palette override.
 
 ## Session tools and skills used
 
 | Tool / skill | Used for | Verdict |
 |---|---|---|
-| `visualize:read_me` (art, mockup modules) | Loaded design constraints before building the v2 widget and standalone artifact | Useful — gave hardcoded-color permission for physical-color scenes |
-| `visualize:show_widget` | Prototyped the carousel in chat before committing to standalone HTML | Useful — let the user react to the visual direction before file creation |
+| `visualize:read_me` (art, mockup modules) | Loaded design constraints before building the v2 widget and standalone artifact | Useful : gave hardcoded-color permission for physical-color scenes |
+| `visualize:show_widget` | Prototyped the carousel in chat before committing to standalone HTML | Useful : let the user react to the visual direction before file creation |
 | `create_file` + `present_files` | Producing v1, v2, and this lens spec | Useful |
-| `obsidian-markdown` skill | Available but not loaded in this session | Not loaded — frontmatter and wikilink conventions carried from context. Lens spec is vault-destined; worth verifying conventions against the skill on next session. |
-| `frontend-design` skill | Available but not loaded | Not loaded — applied design instinct plus visualize constraints. May have missed some conventions that the skill encodes. |
-| `brainstorming` skill | Available but not loaded | Not loaded — iteration was user-driven ("love it", "at the bottom", "make this .md"). Skill not needed. |
+| `obsidian-markdown` skill | Available but not loaded in this session | Not loaded : frontmatter and wikilink conventions carried from context. Lens spec is vault-destined; worth verifying conventions against the skill on next session. |
+| `frontend-design` skill | Available but not loaded | Not loaded : applied design instinct plus visualize constraints. May have missed some conventions that the skill encodes. |
+| `brainstorming` skill | Available but not loaded | Not loaded : iteration was user-driven ("love it", "at the bottom", "make this .md"). Skill not needed. |
 | `memory_user_edits` | Not used this session | N/A |

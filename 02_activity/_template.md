@@ -7,7 +7,7 @@ principles: []  # optional: [make-harm-legible, provide-an-exit, design-for-suff
 for: [human, ai]
 visibility: local
 ---
-# YYYY-MM-DD — <Short title for this change>
+# YYYY-MM-DD : <Short title for this change>
 
 ## What changed
 
@@ -21,7 +21,7 @@ The reasoning or feedback that prompted this change. If a specific conversation 
 
 ## Cascade
 
-Follow-on changes needed. May be open at write time — that's fine. This is where "still to do after this landed" goes.
+Follow-on changes needed. May be open at write time : that's fine. This is where "still to do after this landed" goes.
 
 - Open item one
 - Open item two

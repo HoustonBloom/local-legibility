@@ -1,4 +1,4 @@
-# /changelog — Log Session Activity
+# /changelog : Log Session Activity
 
 Append a timestamped, project-tagged entry to the running changelog. This creates a browsable record of all work done across sessions, visible inside Obsidian and feeding the website timeline.
 

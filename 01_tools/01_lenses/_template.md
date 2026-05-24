@@ -32,7 +32,7 @@ Enumerate every frontmatter field this lens requires beyond the base cut config 
 
 ### From the tagged content
 
-What shape must the tagged vault files be in? Do they need specific headings, a certain length, a particular frontmatter key? Be explicit — silence here produces mystery failures later.
+What shape must the tagged vault files be in? Do they need specific headings, a certain length, a particular frontmatter key? Be explicit : silence here produces mystery failures later.
 
 ## Output contract
 

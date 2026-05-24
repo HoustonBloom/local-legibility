@@ -6,7 +6,7 @@ visibility: local
 ---
 # Public assets
 
-Drop images, illustrations, downloadable PDFs, or other binary assets here when they need to be referenced by published frames in `03_cuts/00_public/`.
+Drop images, illustrations, downloadable PDFs, or other binary assets here when they need to be referenced by published frames in `03_outbox/00_public/`.
 
 The packet ships this folder empty. Add what your project needs.
 
@@ -16,7 +16,7 @@ Reference assets from a frame using a relative path:
 <img src="../00_assets/your-image.png" alt="...">
 ```
 
-For frames inside a sibling subfolder of `00_public/` (e.g. `03_cuts/00_public/your-deliverable/index.html`):
+For frames inside a sibling subfolder of `00_public/` (e.g. `03_outbox/00_public/your-deliverable/index.html`):
 
 ```html
 <img src="../00_assets/your-image.png" alt="...">

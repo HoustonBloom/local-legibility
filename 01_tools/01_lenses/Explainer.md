@@ -38,7 +38,7 @@ date: YYYY-MM-DD
 project: Project Name
 status: active
 visibility: local
-output: 03_cuts/frames/YYYYMMDD_slug.html
+output: 03_outbox/frames/YYYYMMDD_slug.html
 tags: [cut, project-tag, explainer]
 last-updated: YYYY-MM-DD
 ---
@@ -309,7 +309,7 @@ The structure never changes. The content adapts.
 
 Before rendering a new Explainer frame:
 
-1. **Review all prior Explainer frames.** Open each `.html` file in `03_cuts/frames/` that was rendered with `lens: explainer`. Study the narrative structures, pull point deployments, visual breaks, and progress navigation implementations. Note what worked (readers stay engaged, concepts land) and what didn't (prose walls, pull points that don't earn their click, progress bars that don't reflect actual progression).
+1. **Review all prior Explainer frames.** Open each `.html` file in `03_outbox/frames/` that was rendered with `lens: explainer`. Study the narrative structures, pull point deployments, visual breaks, and progress navigation implementations. Note what worked (readers stay engaged, concepts land) and what didn't (prose walls, pull points that don't earn their click, progress bars that don't reflect actual progression).
 
 2. **Mix interaction patterns.** The Explainer lens defines structure (narrative spine, pull points, progressive depth, progress nav). It does not dictate how those elements are rendered. A narrative section might use scrollytelling with pinned graphics. Pull points might use reactive documents where parameters are scrubable. A comparison section might use a spatial canvas instead of side-by-side cards. Draw from the Pattern Vocabulary (your project's pattern library, if you maintain one). Combine patterns within a single frame. The interaction mechanic should match the content's argument at each point in the narrative.
 

@@ -7,7 +7,7 @@ A vault-agnostic publishing system. Turn any folder of markdown into shareable H
 1. Drop this folder somewhere alongside your existing notes folder (or anywhere you like).
 2. Open `Getting Started.html` in any browser. It reads the packet through itself: Welcome, browseable Lenses with live previews, Workflows, and About.
 3. From the Welcome tab, copy the adapter prompt and paste it into your AI assistant (Claude Desktop, Claude Code, Cursor, ChatGPT with file access, or anything that can read local files). Tell the assistant where the packet lives and where your content lives.
-4. The assistant produces a First Look audit at `03_cuts/first-look.html` in your folder, ranks every lens against your content, and offers to generate your first frame.
+4. The assistant produces a First Look audit at `03_outbox/first-look.html` in your folder, ranks every lens against your content, and offers to generate your first frame.
 
 That's the whole onboarding. The packet does the rest as you ask for things.
 
@@ -20,7 +20,7 @@ The numbering encodes a workflow: capture, work, log, ship.
 | **00** | `00_inbox/` | Drop anything here mid-work. Process it later through a scan workflow. |
 | **01** | `01_tools/` | The machinery. Lenses, atmospheres, design tokens, workflows, contacts. You rarely open this unless you're authoring. |
 | **02** | `02_activity/` | System-shape changelog. When a lens gets added, a convention changes, or the packet itself is rebuilt, it's logged here. |
-| **03** | `03_cuts/` | Everything you produce. Rendered frames, bundled windows, public deliverables. |
+| **03** | `03_outbox/` | Everything you produce. Rendered frames, bundled windows, public deliverables. |
 
 `Getting Started.html` is the self-contained entry point: a tabbed window with everything a first-time user needs.
 
@@ -37,14 +37,14 @@ Also numbered, by authoring sequence: pick a lens, optionally choose an atmosphe
 | **04** | `04_workflows/` | The `cut-packet` engine plus siblings (`yaml-audit`, `changelog`, `figma-mcp`, `complete`, `scan`). |
 | **05** | `05_contacts/` | One profile per collaborator. When a cut is aimed at someone specific, their profile overlays rendering preferences on top of the lens defaults. |
 
-Your produced frames live in `03_cuts/`. Open them directly from the file system, or build your own bundled index when you have enough frames to want one.
+Your produced frames live in `03_outbox/`. Open them directly from the file system, or build your own bundled index when you have enough frames to want one.
 
 ## The publishing pipeline
 
 Local Brain renders curated HTML frames from selected vault files, shaped by audience.
 
 - **Cut configs** select content (by visibility tag) and audience.
-- **Lenses** shape layout (seven ship with examples: pitch, explainer, first-look, product-website, reddit, reel, share; plus six more spec-only: company-website, observatory, recap, status-report, storyboard-editorial, activity-timeline).
+- **Lenses** shape layout. Sixteen specs ship; two carry working examples (first-look, pitch). The other fourteen are spec-only for now: activity-timeline, anatomy, atlas, company-website, explainer, observatory, product-website, recap, reel, session-report, share, status-report, storyboard-editorial, substack. Examples land per lens as the catalog fills.
 - **Contact profiles** tune voice and visual register per recipient.
 - **Atmospheres** set ambient register.
 - **Style-sources** supply visual tokens.
@@ -67,7 +67,7 @@ Long-form version with examples in `01_tools/00_overview/Design Principles.md`.
 - **First-time setup:** open `Getting Started.html`, copy the adapter prompt from the Welcome tab.
 - **Browsing what Local Brain can render:** `Getting Started.html` → Lenses tab.
 - **Understanding the pipeline:** `Getting Started.html` → Workflows tab, then `01_tools/00_overview/CUTS-SPEC.md`.
-- **Reviewing what you've made:** open the rendered HTML in `03_cuts/` directly.
+- **Reviewing what you've made:** open the rendered HTML in `03_outbox/` directly.
 - **Tracking system changes:** write entries in `02_activity/` using `_template.md`.
 
 ## Contributing
